@@ -1,0 +1,29 @@
+#.top matrix
+.model matrix
+.inputs Is1 Is2 
+.inputs w11 w12 w21 w22
+.outputs Istim1 Istim2
+
+.subckt and in0=Is1 in1=w11 out=Is1w11
+.subckt and in0=Is2 in1=w12 out=Is2w12
+.subckt xor in0=Is1w11 in1=Is2w12 out=Istim1
+
+.subckt and in0=Is1 in1=w21 out=Is1w21
+.subckt and in0=Is2 in1=w22 out=Is2w22
+.subckt xor in0=Is1w21 in1=Is2w22 out=Istim2
+.end
+
+.model and
+.inputs in0 in1
+.outputs out
+.names in0 in1 out
+11 1
+.end
+
+.model xor
+.inputs in0 in1
+.outputs out
+.names in0 in1 out
+10 1
+01 1
+.end
