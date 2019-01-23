@@ -112,14 +112,10 @@
 #.candidates reg_010 reg_011 reg_012 x_operand_012
 
 .subckt lut3 in0=operand_000 in1=operand_001 in2=operand_002 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_000
-.subckt lut3 in0=operand_000 in1=operand_001 in2=operand_002 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_001
 .subckt lut3 in0=operand_010 in1=operand_011 in2=operand_012 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_010
-.subckt lut3 in0=operand_010 in1=operand_011 in2=operand_012 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_011
-# .subckt lut3 in0=operand_000 in1=operand_001 in2=operand_002 f0=one f1=zero f2=one f3=zero f4=one f5=zero f6=zero f7=one out=ope_001
-# .subckt lut3 in0=operand_010 in1=operand_011 in2=operand_012 f0=one f1=zero f2=one f3=zero f4=one f5=zero f6=zero f7=one out=ope_011
 
-#.candidates ope_000 ope_001 x_operesult_00
-#.candidates ope_010 ope_011 x_operesult_01
+#.candidates ope_000 x_operesult_00
+#.candidates ope_010 x_operesult_01
 
 #.candidates reg_000 operesult_00 x_tmpreg_000
 #.candidates reg_001 operesult_00 x_tmpreg_001
@@ -148,14 +144,10 @@
 #.candidates reg_110 reg_111 reg_112 x_operand_112
 
 .subckt lut3 in0=operand_100 in1=operand_101 in2=operand_102 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_100
-.subckt lut3 in0=operand_100 in1=operand_101 in2=operand_102 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_101
 .subckt lut3 in0=operand_110 in1=operand_111 in2=operand_112 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_110
-.subckt lut3 in0=operand_110 in1=operand_111 in2=operand_112 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_111
-# .subckt lut3 in0=operand_100 in1=operand_101 in2=operand_102 f0=one f1=zero f2=one f3=zero f4=one f5=zero f6=zero f7=one out=ope_101
-# .subckt lut3 in0=operand_110 in1=operand_111 in2=operand_112 f0=one f1=zero f2=one f3=zero f4=one f5=zero f6=zero f7=one out=ope_111
 
-#.candidates ope_100 ope_101 x_operesult_10
-#.candidates ope_110 ope_111 x_operesult_11
+#.candidates ope_100 x_operesult_10
+#.candidates ope_110 x_operesult_11
 
 #.candidates reg_100 operesult_10 x_reg_200
 #.candidates reg_101 operesult_10 x_reg_201

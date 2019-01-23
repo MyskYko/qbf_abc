@@ -1,0 +1,25 @@
+ABC command line: "read __tmp_top.blif; strash; qbf -v -P 130;".
+
+Warning: Constant-0 drivers added to 1 non-driven nets in network "matrix":
+zero
+Warning: The design has 2 root-level modules. The first one (__top) will be used.
+Hierarchy reader flattened 216 instances of logic boxes and left 0 black boxes.
+Iter  0 : AIG =    907  001010101010
+Iter  1 : AIG =   1356  001100000000  Syn =     0.01 sec
+Iter  2 : AIG =   1817  000100001000  Syn =     0.00 sec
+Iter  3 : AIG =   2088  000101000000  Syn =     0.00 sec
+Iter  4 : AIG =   2655  000111000001  Syn =     0.01 sec
+Iter  5 : AIG =   3104  000101000011  Syn =     0.01 sec
+Iter  6 : AIG =   3459  001111000000  Syn =     0.01 sec
+Iter  7 : AIG =   3920  001100001010  Syn =     0.01 sec
+Iter  8 : AIG =   4475  000100100001  Syn =     0.02 sec
+Iter  9 : AIG =   4752  010100000100  Syn =     0.01 sec
+Iter 10 : AIG =   5213  001111001000  Syn =     0.04 sec
+Iter 11 : AIG =   5472  010100000001  Syn =     0.02 sec
+Iter 12 : AIG =   6003  110101000100  Syn =     0.09 sec
+Iter 13 : AIG =   6464  000110100101  Syn =     0.23 sec
+Iter 14 : AIG =   7013  110000011101  Syn =     0.20 sec
+Iter 15 : AIG =   7462  001101100000  Syn =     0.68 sec
+Iter 16 : AIG =   7911  110010000000  Syn =     0.09 sec
+Parameters: 0010000001001000101111001001010001000010010110010100110000100100001101001000010000101000000100000010101011000010000001010000100000  Statistics: 0=91 1=51
+Solved after 16 interations.  Total runtime =     1.68 sec

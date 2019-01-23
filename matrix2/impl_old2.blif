@@ -1,0 +1,169 @@
+#.top __impl
+.model __impl
+.inputs Is1 w11 w12 Is2 w21 w22
+.outputs Istim1 Istim2
+.names __zero
+.names __one
+1
+.names __x_reg_t0c0r0 __reg_t0c0r0
+1 1
+.names __x_reg_t0c0r1 __reg_t0c0r1
+1 1
+.names __x_reg_t0c0r2 __reg_t0c0r2
+1 1
+.names __x_reg_t0c1r0 __reg_t0c1r0
+1 1
+.names __x_reg_t0c1r1 __reg_t0c1r1
+1 1
+.names __x_reg_t0c1r2 __reg_t0c1r2
+1 1
+.names __x_reg_t1c0r0 __reg_t1c0r0
+1 1
+.names __x_reg_t1c0r1 __reg_t1c0r1
+1 1
+.names __x_reg_t1c0r2 __reg_t1c0r2
+1 1
+.names __x_reg_t1c1r0 __reg_t1c1r0
+1 1
+.names __x_reg_t1c1r1 __reg_t1c1r1
+1 1
+.names __x_reg_t1c1r2 __reg_t1c1r2
+1 1
+.names __x_con_t0fm0to1k0 __con_t0fm0to1k0
+1 1
+.names __x_con_t0fm1to0k0 __con_t0fm1to0k0
+1 1
+.names __x_Istim1 Istim1
+1 1
+.names __x_Istim2 Istim2
+1 1
+.names __x_lut_l0f0 __lut_l0f0
+1 1
+.names __x_lut_l0f1 __lut_l0f1
+1 1
+.names __x_lut_l0f2 __lut_l0f2
+1 1
+.names __x_lut_l0f3 __lut_l0f3
+1 1
+.names __x_lut_l0f4 __lut_l0f4
+1 1
+.names __x_lut_l0f5 __lut_l0f5
+1 1
+.names __x_lut_l0f6 __lut_l0f6
+1 1
+.names __x_lut_l0f7 __lut_l0f7
+1 1
+.names __x_lut_l1f0 __lut_l1f0
+1 1
+.names __x_lut_l1f1 __lut_l1f1
+1 1
+.names __x_lut_l1f2 __lut_l1f2
+1 1
+.names __x_lut_l1f3 __lut_l1f3
+1 1
+.names __x_lut_l1f4 __lut_l1f4
+1 1
+.names __x_lut_l1f5 __lut_l1f5
+1 1
+.names __x_lut_l1f6 __lut_l1f6
+1 1
+.names __x_lut_l1f7 __lut_l1f7
+1 1
+.names __x_lut_l2f0 __lut_l2f0
+1 1
+.names __x_lut_l2f1 __lut_l2f1
+1 1
+.names __x_lut_l2f2 __lut_l2f2
+1 1
+.names __x_lut_l2f3 __lut_l2f3
+1 1
+.names __x_lut_l2f4 __lut_l2f4
+1 1
+.names __x_lut_l2f5 __lut_l2f5
+1 1
+.names __x_lut_l2f6 __lut_l2f6
+1 1
+.names __x_lut_l2f7 __lut_l2f7
+1 1
+.names __x_lut_l3f0 __lut_l3f0
+1 1
+.names __x_lut_l3f1 __lut_l3f1
+1 1
+.names __x_lut_l3f2 __lut_l3f2
+1 1
+.names __x_lut_l3f3 __lut_l3f3
+1 1
+.names __x_lut_l3f4 __lut_l3f4
+1 1
+.names __x_lut_l3f5 __lut_l3f5
+1 1
+.names __x_lut_l3f6 __lut_l3f6
+1 1
+.names __x_lut_l3f7 __lut_l3f7
+1 1
+#.candidates __one __x_lut_l0f0
+#.candidates __one __x_lut_l0f1
+#.candidates __one __x_lut_l0f2
+#.candidates __one __x_lut_l0f3
+#.candidates __one __x_lut_l0f4
+#.candidates __one __x_lut_l0f5
+#.candidates __one __x_lut_l0f6
+#.candidates __one __x_lut_l0f7
+#.candidates __one __x_lut_l1f0
+#.candidates __one __x_lut_l1f1
+#.candidates __one __x_lut_l1f2
+#.candidates __one __x_lut_l1f3
+#.candidates __one __x_lut_l1f4
+#.candidates __one __x_lut_l1f5
+#.candidates __one __x_lut_l1f6
+#.candidates __one __x_lut_l1f7
+#.candidates __one __x_lut_l2f0
+#.candidates __one __x_lut_l2f1
+#.candidates __one __x_lut_l2f2
+#.candidates __one __x_lut_l2f3
+#.candidates __one __x_lut_l2f4
+#.candidates __one __x_lut_l2f5
+#.candidates __one __x_lut_l2f6
+#.candidates __one __x_lut_l2f7
+#.candidates __one __x_lut_l3f0
+#.candidates __one __x_lut_l3f1
+#.candidates __one __x_lut_l3f2
+#.candidates __one __x_lut_l3f3
+#.candidates __one __x_lut_l3f4
+#.candidates __one __x_lut_l3f5
+#.candidates __one __x_lut_l3f6
+#.candidates __one __x_lut_l3f7
+.subckt __lut3 in0=__reg_t0c0r0 in1=__reg_t0c0r1 in2=__reg_t0c0r2 f0=__lut_l0f0 f1=__lut_l0f1 f2=__lut_l0f2 f3=__lut_l0f3 f4=__lut_l0f4 f5=__lut_l0f5 f6=__lut_l0f6 f7=__lut_l0f7 out=__lut_out_t0c0n0
+.subckt __lut3 in0=__reg_t0c1r0 in1=__reg_t0c1r1 in2=__reg_t0c1r2 f0=__lut_l1f0 f1=__lut_l1f1 f2=__lut_l1f2 f3=__lut_l1f3 f4=__lut_l1f4 f5=__lut_l1f5 f6=__lut_l1f6 f7=__lut_l1f7 out=__lut_out_t0c1n0
+.subckt __lut3 in0=__reg_t1c0r0 in1=__reg_t1c0r1 in2=__reg_t1c0r2 f0=__lut_l2f0 f1=__lut_l2f1 f2=__lut_l2f2 f3=__lut_l2f3 f4=__lut_l2f4 f5=__lut_l2f5 f6=__lut_l2f6 f7=__lut_l2f7 out=__lut_out_t1c0n0
+.subckt __lut3 in0=__reg_t1c1r0 in1=__reg_t1c1r1 in2=__reg_t1c1r2 f0=__lut_l3f0 f1=__lut_l3f1 f2=__lut_l3f2 f3=__lut_l3f3 f4=__lut_l3f4 f5=__lut_l3f5 f6=__lut_l3f6 f7=__lut_l3f7 out=__lut_out_t1c1n0
+#.candidates Is1 w11 w12 Is2 w21 w22 __x_reg_t0c0r0
+#.candidates Is1 w11 w12 Is2 w21 w22 __x_reg_t0c0r1
+#.candidates Is1 w11 w12 Is2 w21 w22 __x_reg_t0c0r2
+#.candidates Is1 w11 w12 Is2 w21 w22 __x_reg_t0c1r0
+#.candidates Is1 w11 w12 Is2 w21 w22 __x_reg_t0c1r1
+#.candidates Is1 w11 w12 Is2 w21 w22 __x_reg_t0c1r2
+#.candidates __reg_t0c0r0 __x_con_t0fm0to1k0
+#.candidates __reg_t0c1r0 __x_con_t0fm1to0k0
+#.candidates __reg_t0c0r0 __reg_t0c0r1 __reg_t0c0r2 __lut_out_t0c0n0 __con_t0fm1to0k0 __x_reg_t1c0r0
+#.candidates __reg_t0c0r0 __reg_t0c0r1 __reg_t0c0r2 __lut_out_t0c0n0 __con_t0fm1to0k0 __x_reg_t1c0r1
+#.candidates __reg_t0c0r0 __reg_t0c0r1 __reg_t0c0r2 __lut_out_t0c0n0 __con_t0fm1to0k0 __x_reg_t1c0r2
+#.candidates __reg_t0c1r0 __reg_t0c1r1 __reg_t0c1r2 __lut_out_t0c1n0 __con_t0fm0to1k0 __x_reg_t1c1r0
+#.candidates __reg_t0c1r0 __reg_t0c1r1 __reg_t0c1r2 __lut_out_t0c1n0 __con_t0fm0to1k0 __x_reg_t1c1r1
+#.candidates __reg_t0c1r0 __reg_t0c1r1 __reg_t0c1r2 __lut_out_t0c1n0 __con_t0fm0to1k0 __x_reg_t1c1r2
+#.candidates __reg_t1c0r0 __lut_out_t1c0n0 __reg_t1c1r0 __lut_out_t1c1n0 __x_Istim1
+#.candidates __reg_t1c0r0 __reg_t1c0r1 __lut_out_t1c0n0 __reg_t1c1r0 __reg_t1c1r1 __lut_out_t1c1n0 __x_Istim2
+.end
+.model __lut3
+.inputs in0 in1 in2 f0 f1 f2 f3 f4 f5 f6 f7
+.outputs out
+.names in0 in1 in2 f0 f1 f2 f3 f4 f5 f6 f7 out
+0001------- 1
+100-1------ 1
+010--1----- 1
+110---1---- 1
+001----1--- 1
+101-----1-- 1
+011------1- 1
+111-------1 1
+.end

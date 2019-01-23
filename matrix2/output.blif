@@ -6,95 +6,95 @@
 .names one
 1
 
-.names x_reg_000 reg_000
+.names w22 reg_000
 1 1
-.names x_reg_001 reg_001
+.names w21 reg_001
 1 1
-.names x_reg_002 reg_002
+.names Is1 reg_002
 1 1
-.names x_reg_010 reg_010
+.names w11 reg_010
 1 1
-.names x_reg_011 reg_011
+.names w12 reg_011
 1 1
-.names x_reg_012 reg_012
+.names Is2 reg_012
 1 1
-.names x_operand_000 operand_000
+.names zero operand_000
 1 1
-.names x_operand_001 operand_001
+.names reg_002 operand_001
 1 1
-.names x_operand_002 operand_002
+.names reg_001 operand_002
 1 1
-.names x_operand_010 operand_010
+.names zero operand_010
 1 1
-.names x_operand_011 operand_011
+.names reg_012 operand_011
 1 1
-.names x_operand_012 operand_012
+.names reg_011 operand_012
 1 1
-.names x_operesult_00 operesult_00
+.names ope_000 operesult_00
 1 1
-.names x_operesult_01 operesult_01
+.names ope_010 operesult_01
 1 1
-.names x_tmpreg_000 tmpreg_000
+.names reg_000 tmpreg_000
 1 1
-.names x_tmpreg_001 tmpreg_001
+.names reg_001 tmpreg_001
 1 1
-.names x_tmpreg_002 tmpreg_002
+.names operesult_00 tmpreg_002
 1 1
-.names x_tmpreg_010 tmpreg_010
+.names reg_010 tmpreg_010
 1 1
-.names x_tmpreg_011 tmpreg_011
+.names operesult_01 tmpreg_011
 1 1
-.names x_tmpreg_012 tmpreg_012
+.names zero tmpreg_012
 1 1
-.names x_con_0010 con_0010
+.names reg_002 con_0010
 1 1
-.names x_con_0100 con_0100
-1 1
-
-.names x_reg_100 reg_100
-1 1
-.names x_reg_101 reg_101
-1 1
-.names x_reg_102 reg_102
-1 1
-.names x_reg_110 reg_110
-1 1
-.names x_reg_111 reg_111
-1 1
-.names x_reg_112 reg_112
-1 1
-.names x_operand_100 operand_100
-1 1
-.names x_operand_101 operand_101
-1 1
-.names x_operand_102 operand_102
-1 1
-.names x_operand_110 operand_110
-1 1
-.names x_operand_111 operand_111
-1 1
-.names x_operand_112 operand_112
-1 1
-.names x_operesult_10 operesult_10
-1 1
-.names x_operesult_11 operesult_11
+.names reg_012 con_0100
 1 1
 
-.names x_reg_200 reg_200
+.names tmpreg_000 reg_100
 1 1
-.names x_reg_201 reg_201
+.names con_0100 reg_101
 1 1
-.names x_reg_202 reg_202
+.names tmpreg_002 reg_102
 1 1
-.names x_reg_210 reg_210
+.names tmpreg_010 reg_110
 1 1
-.names x_reg_211 reg_211
+.names tmpreg_011 reg_111
 1 1
-.names x_reg_212 reg_212
+.names con_0010 reg_112
 1 1
-.names x_Istim1 Istim1
+.names reg_102 operand_100
 1 1
-.names x_Istim2 Istim2
+.names reg_100 operand_101
+1 1
+.names reg_101 operand_102
+1 1
+.names reg_111 operand_110
+1 1
+.names reg_110 operand_111
+1 1
+.names reg_112 operand_112
+1 1
+.names ope_100 operesult_10
+1 1
+.names ope_110 operesult_11
+1 1
+
+.names operesult_10 reg_200
+1 1
+.names zero reg_201
+1 1
+.names zero reg_202
+1 1
+.names zero reg_210
+1 1
+.names zero reg_211
+1 1
+.names operesult_11 reg_212
+1 1
+.names reg_212 Istim1
+1 1
+.names reg_200 Istim2
 1 1
 
 #.candidates Is1 Is2 w11 w12 w21 w22 x_reg_000
@@ -112,14 +112,10 @@
 #.candidates reg_010 reg_011 reg_012 x_operand_012
 
 .subckt lut3 in0=operand_000 in1=operand_001 in2=operand_002 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_000
-.subckt lut3 in0=operand_000 in1=operand_001 in2=operand_002 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_001
 .subckt lut3 in0=operand_010 in1=operand_011 in2=operand_012 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_010
-.subckt lut3 in0=operand_010 in1=operand_011 in2=operand_012 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_011
-# .subckt lut3 in0=operand_000 in1=operand_001 in2=operand_002 f0=one f1=zero f2=one f3=zero f4=one f5=zero f6=zero f7=one out=ope_001
-# .subckt lut3 in0=operand_010 in1=operand_011 in2=operand_012 f0=one f1=zero f2=one f3=zero f4=one f5=zero f6=zero f7=one out=ope_011
 
-#.candidates ope_000 ope_001 x_operesult_00
-#.candidates ope_010 ope_011 x_operesult_01
+#.candidates ope_000 x_operesult_00
+#.candidates ope_010 x_operesult_01
 
 #.candidates reg_000 operesult_00 x_tmpreg_000
 #.candidates reg_001 operesult_00 x_tmpreg_001
@@ -148,14 +144,10 @@
 #.candidates reg_110 reg_111 reg_112 x_operand_112
 
 .subckt lut3 in0=operand_100 in1=operand_101 in2=operand_102 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_100
-.subckt lut3 in0=operand_100 in1=operand_101 in2=operand_102 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_101
 .subckt lut3 in0=operand_110 in1=operand_111 in2=operand_112 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_110
-.subckt lut3 in0=operand_110 in1=operand_111 in2=operand_112 f0=zero f1=one f2=zero f3=one f4=zero f5=one f6=one f7=zero out=ope_111
-# .subckt lut3 in0=operand_100 in1=operand_101 in2=operand_102 f0=one f1=zero f2=one f3=zero f4=one f5=zero f6=zero f7=one out=ope_101
-# .subckt lut3 in0=operand_110 in1=operand_111 in2=operand_112 f0=one f1=zero f2=one f3=zero f4=one f5=zero f6=zero f7=one out=ope_111
 
-#.candidates ope_100 ope_101 x_operesult_10
-#.candidates ope_110 ope_111 x_operesult_11
+#.candidates ope_100 x_operesult_10
+#.candidates ope_110 x_operesult_11
 
 #.candidates reg_100 operesult_10 x_reg_200
 #.candidates reg_101 operesult_10 x_reg_201

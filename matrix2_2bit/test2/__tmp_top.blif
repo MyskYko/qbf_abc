@@ -1,0 +1,350 @@
+.model __top
+.inputs __from_Is1_to_x_reg_000 __from_Is1_to_x_reg_001 __from_Is1_to_x_reg_002 __from_Is1_to_x_reg_010 __from_Is1_to_x_reg_011 __from_Is1_to_x_reg_012 __from_Is2_to_x_reg_000 __from_Is2_to_x_reg_001 __from_Is2_to_x_reg_002 __from_Is2_to_x_reg_010 __from_Is2_to_x_reg_011 __from_Is2_to_x_reg_012 __from_b_out_00_to_x_Istim1 __from_b_out_00_to_x_Istim2 __from_b_out_10_to_x_Istim1 __from_b_out_10_to_x_Istim2 __from_con_0010_to_x_reg_110 __from_con_0010_to_x_reg_111 __from_con_0010_to_x_reg_112 __from_con_0100_to_x_reg_100 __from_con_0100_to_x_reg_101 __from_con_0100_to_x_reg_102 __from_lut_out_000_to_x_con_0010 __from_lut_out_000_to_x_reg_100 __from_lut_out_000_to_x_reg_101 __from_lut_out_000_to_x_reg_102 __from_lut_out_010_to_x_con_0100 __from_lut_out_010_to_x_reg_110 __from_lut_out_010_to_x_reg_111 __from_lut_out_010_to_x_reg_112 __from_lut_out_100_to_x_b_out_00 __from_lut_out_110_to_x_b_out_10 __from_one_to_x_lut_00 __from_one_to_x_lut_01 __from_one_to_x_lut_02 __from_one_to_x_lut_03 __from_one_to_x_lut_04 __from_one_to_x_lut_05 __from_one_to_x_lut_06 __from_one_to_x_lut_07 __from_one_to_x_lut_10 __from_one_to_x_lut_11 __from_one_to_x_lut_12 __from_one_to_x_lut_13 __from_one_to_x_lut_14 __from_one_to_x_lut_15 __from_one_to_x_lut_16 __from_one_to_x_lut_17 __from_one_to_x_lut_20 __from_one_to_x_lut_21 __from_one_to_x_lut_22 __from_one_to_x_lut_23 __from_one_to_x_lut_24 __from_one_to_x_lut_25 __from_one_to_x_lut_26 __from_one_to_x_lut_27 __from_one_to_x_lut_30 __from_one_to_x_lut_31 __from_one_to_x_lut_32 __from_one_to_x_lut_33 __from_one_to_x_lut_34 __from_one_to_x_lut_35 __from_one_to_x_lut_36 __from_one_to_x_lut_37 __from_reg_000_to_x_con_0010 __from_reg_000_to_x_reg_100 __from_reg_000_to_x_reg_101 __from_reg_000_to_x_reg_102 __from_reg_001_to_x_reg_100 __from_reg_001_to_x_reg_101 __from_reg_001_to_x_reg_102 __from_reg_002_to_x_reg_100 __from_reg_002_to_x_reg_101 __from_reg_002_to_x_reg_102 __from_reg_010_to_x_con_0100 __from_reg_010_to_x_reg_110 __from_reg_010_to_x_reg_111 __from_reg_010_to_x_reg_112 __from_reg_011_to_x_reg_110 __from_reg_011_to_x_reg_111 __from_reg_011_to_x_reg_112 __from_reg_012_to_x_reg_110 __from_reg_012_to_x_reg_111 __from_reg_012_to_x_reg_112 __from_reg_100_to_x_b_out_00 __from_reg_110_to_x_b_out_10 __from_w11_to_x_reg_000 __from_w11_to_x_reg_001 __from_w11_to_x_reg_002 __from_w11_to_x_reg_010 __from_w11_to_x_reg_011 __from_w11_to_x_reg_012 __from_w12_to_x_reg_000 __from_w12_to_x_reg_001 __from_w12_to_x_reg_002 __from_w12_to_x_reg_010 __from_w12_to_x_reg_011 __from_w12_to_x_reg_012 __from_w21_to_x_reg_000 __from_w21_to_x_reg_001 __from_w21_to_x_reg_002 __from_w21_to_x_reg_010 __from_w21_to_x_reg_011 __from_w21_to_x_reg_012 __from_w22_to_x_reg_000 __from_w22_to_x_reg_001 __from_w22_to_x_reg_002 __from_w22_to_x_reg_010 __from_w22_to_x_reg_011 __from_w22_to_x_reg_012
+.inputs Is1 Is2 w11 w12 w21 w22
+.outputs __constraint
+.subckt matrix Is1=Is1 Is2=Is2 w11=w11 w12=w12 w21=w21 w22=w22 Istim1=__spec_Istim1 Istim2=__spec_Istim2
+.subckt impl __from_Is1_to_x_reg_000=__from_Is1_to_x_reg_000 __from_Is1_to_x_reg_001=__from_Is1_to_x_reg_001 __from_Is1_to_x_reg_002=__from_Is1_to_x_reg_002 __from_Is1_to_x_reg_010=__from_Is1_to_x_reg_010 __from_Is1_to_x_reg_011=__from_Is1_to_x_reg_011 __from_Is1_to_x_reg_012=__from_Is1_to_x_reg_012 __from_Is2_to_x_reg_000=__from_Is2_to_x_reg_000 __from_Is2_to_x_reg_001=__from_Is2_to_x_reg_001 __from_Is2_to_x_reg_002=__from_Is2_to_x_reg_002 __from_Is2_to_x_reg_010=__from_Is2_to_x_reg_010 __from_Is2_to_x_reg_011=__from_Is2_to_x_reg_011 __from_Is2_to_x_reg_012=__from_Is2_to_x_reg_012 __from_b_out_00_to_x_Istim1=__from_b_out_00_to_x_Istim1 __from_b_out_00_to_x_Istim2=__from_b_out_00_to_x_Istim2 __from_b_out_10_to_x_Istim1=__from_b_out_10_to_x_Istim1 __from_b_out_10_to_x_Istim2=__from_b_out_10_to_x_Istim2 __from_con_0010_to_x_reg_110=__from_con_0010_to_x_reg_110 __from_con_0010_to_x_reg_111=__from_con_0010_to_x_reg_111 __from_con_0010_to_x_reg_112=__from_con_0010_to_x_reg_112 __from_con_0100_to_x_reg_100=__from_con_0100_to_x_reg_100 __from_con_0100_to_x_reg_101=__from_con_0100_to_x_reg_101 __from_con_0100_to_x_reg_102=__from_con_0100_to_x_reg_102 __from_lut_out_000_to_x_con_0010=__from_lut_out_000_to_x_con_0010 __from_lut_out_000_to_x_reg_100=__from_lut_out_000_to_x_reg_100 __from_lut_out_000_to_x_reg_101=__from_lut_out_000_to_x_reg_101 __from_lut_out_000_to_x_reg_102=__from_lut_out_000_to_x_reg_102 __from_lut_out_010_to_x_con_0100=__from_lut_out_010_to_x_con_0100 __from_lut_out_010_to_x_reg_110=__from_lut_out_010_to_x_reg_110 __from_lut_out_010_to_x_reg_111=__from_lut_out_010_to_x_reg_111 __from_lut_out_010_to_x_reg_112=__from_lut_out_010_to_x_reg_112 __from_lut_out_100_to_x_b_out_00=__from_lut_out_100_to_x_b_out_00 __from_lut_out_110_to_x_b_out_10=__from_lut_out_110_to_x_b_out_10 __from_one_to_x_lut_00=__from_one_to_x_lut_00 __from_one_to_x_lut_01=__from_one_to_x_lut_01 __from_one_to_x_lut_02=__from_one_to_x_lut_02 __from_one_to_x_lut_03=__from_one_to_x_lut_03 __from_one_to_x_lut_04=__from_one_to_x_lut_04 __from_one_to_x_lut_05=__from_one_to_x_lut_05 __from_one_to_x_lut_06=__from_one_to_x_lut_06 __from_one_to_x_lut_07=__from_one_to_x_lut_07 __from_one_to_x_lut_10=__from_one_to_x_lut_10 __from_one_to_x_lut_11=__from_one_to_x_lut_11 __from_one_to_x_lut_12=__from_one_to_x_lut_12 __from_one_to_x_lut_13=__from_one_to_x_lut_13 __from_one_to_x_lut_14=__from_one_to_x_lut_14 __from_one_to_x_lut_15=__from_one_to_x_lut_15 __from_one_to_x_lut_16=__from_one_to_x_lut_16 __from_one_to_x_lut_17=__from_one_to_x_lut_17 __from_one_to_x_lut_20=__from_one_to_x_lut_20 __from_one_to_x_lut_21=__from_one_to_x_lut_21 __from_one_to_x_lut_22=__from_one_to_x_lut_22 __from_one_to_x_lut_23=__from_one_to_x_lut_23 __from_one_to_x_lut_24=__from_one_to_x_lut_24 __from_one_to_x_lut_25=__from_one_to_x_lut_25 __from_one_to_x_lut_26=__from_one_to_x_lut_26 __from_one_to_x_lut_27=__from_one_to_x_lut_27 __from_one_to_x_lut_30=__from_one_to_x_lut_30 __from_one_to_x_lut_31=__from_one_to_x_lut_31 __from_one_to_x_lut_32=__from_one_to_x_lut_32 __from_one_to_x_lut_33=__from_one_to_x_lut_33 __from_one_to_x_lut_34=__from_one_to_x_lut_34 __from_one_to_x_lut_35=__from_one_to_x_lut_35 __from_one_to_x_lut_36=__from_one_to_x_lut_36 __from_one_to_x_lut_37=__from_one_to_x_lut_37 __from_reg_000_to_x_con_0010=__from_reg_000_to_x_con_0010 __from_reg_000_to_x_reg_100=__from_reg_000_to_x_reg_100 __from_reg_000_to_x_reg_101=__from_reg_000_to_x_reg_101 __from_reg_000_to_x_reg_102=__from_reg_000_to_x_reg_102 __from_reg_001_to_x_reg_100=__from_reg_001_to_x_reg_100 __from_reg_001_to_x_reg_101=__from_reg_001_to_x_reg_101 __from_reg_001_to_x_reg_102=__from_reg_001_to_x_reg_102 __from_reg_002_to_x_reg_100=__from_reg_002_to_x_reg_100 __from_reg_002_to_x_reg_101=__from_reg_002_to_x_reg_101 __from_reg_002_to_x_reg_102=__from_reg_002_to_x_reg_102 __from_reg_010_to_x_con_0100=__from_reg_010_to_x_con_0100 __from_reg_010_to_x_reg_110=__from_reg_010_to_x_reg_110 __from_reg_010_to_x_reg_111=__from_reg_010_to_x_reg_111 __from_reg_010_to_x_reg_112=__from_reg_010_to_x_reg_112 __from_reg_011_to_x_reg_110=__from_reg_011_to_x_reg_110 __from_reg_011_to_x_reg_111=__from_reg_011_to_x_reg_111 __from_reg_011_to_x_reg_112=__from_reg_011_to_x_reg_112 __from_reg_012_to_x_reg_110=__from_reg_012_to_x_reg_110 __from_reg_012_to_x_reg_111=__from_reg_012_to_x_reg_111 __from_reg_012_to_x_reg_112=__from_reg_012_to_x_reg_112 __from_reg_100_to_x_b_out_00=__from_reg_100_to_x_b_out_00 __from_reg_110_to_x_b_out_10=__from_reg_110_to_x_b_out_10 __from_w11_to_x_reg_000=__from_w11_to_x_reg_000 __from_w11_to_x_reg_001=__from_w11_to_x_reg_001 __from_w11_to_x_reg_002=__from_w11_to_x_reg_002 __from_w11_to_x_reg_010=__from_w11_to_x_reg_010 __from_w11_to_x_reg_011=__from_w11_to_x_reg_011 __from_w11_to_x_reg_012=__from_w11_to_x_reg_012 __from_w12_to_x_reg_000=__from_w12_to_x_reg_000 __from_w12_to_x_reg_001=__from_w12_to_x_reg_001 __from_w12_to_x_reg_002=__from_w12_to_x_reg_002 __from_w12_to_x_reg_010=__from_w12_to_x_reg_010 __from_w12_to_x_reg_011=__from_w12_to_x_reg_011 __from_w12_to_x_reg_012=__from_w12_to_x_reg_012 __from_w21_to_x_reg_000=__from_w21_to_x_reg_000 __from_w21_to_x_reg_001=__from_w21_to_x_reg_001 __from_w21_to_x_reg_002=__from_w21_to_x_reg_002 __from_w21_to_x_reg_010=__from_w21_to_x_reg_010 __from_w21_to_x_reg_011=__from_w21_to_x_reg_011 __from_w21_to_x_reg_012=__from_w21_to_x_reg_012 __from_w22_to_x_reg_000=__from_w22_to_x_reg_000 __from_w22_to_x_reg_001=__from_w22_to_x_reg_001 __from_w22_to_x_reg_002=__from_w22_to_x_reg_002 __from_w22_to_x_reg_010=__from_w22_to_x_reg_010 __from_w22_to_x_reg_011=__from_w22_to_x_reg_011 __from_w22_to_x_reg_012=__from_w22_to_x_reg_012 Is1=Is1 Is2=Is2 w11=w11 w12=w12 w21=w21 w22=w22 Istim1=__impl_Istim1 Istim2=__impl_Istim2
+.subckt __onehot in0=__from_one_to_x_lut_00 out=__constraint_onehot_x_lut_00
+.subckt __onehot in0=__from_one_to_x_lut_01 out=__constraint_onehot_x_lut_01
+.subckt __onehot in0=__from_one_to_x_lut_02 out=__constraint_onehot_x_lut_02
+.subckt __onehot in0=__from_one_to_x_lut_03 out=__constraint_onehot_x_lut_03
+.subckt __onehot in0=__from_one_to_x_lut_04 out=__constraint_onehot_x_lut_04
+.subckt __onehot in0=__from_one_to_x_lut_05 out=__constraint_onehot_x_lut_05
+.subckt __onehot in0=__from_one_to_x_lut_06 out=__constraint_onehot_x_lut_06
+.subckt __onehot in0=__from_one_to_x_lut_07 out=__constraint_onehot_x_lut_07
+.subckt __onehot in0=__from_one_to_x_lut_10 out=__constraint_onehot_x_lut_10
+.subckt __onehot in0=__from_one_to_x_lut_11 out=__constraint_onehot_x_lut_11
+.subckt __onehot in0=__from_one_to_x_lut_12 out=__constraint_onehot_x_lut_12
+.subckt __onehot in0=__from_one_to_x_lut_13 out=__constraint_onehot_x_lut_13
+.subckt __onehot in0=__from_one_to_x_lut_14 out=__constraint_onehot_x_lut_14
+.subckt __onehot in0=__from_one_to_x_lut_15 out=__constraint_onehot_x_lut_15
+.subckt __onehot in0=__from_one_to_x_lut_16 out=__constraint_onehot_x_lut_16
+.subckt __onehot in0=__from_one_to_x_lut_17 out=__constraint_onehot_x_lut_17
+.subckt __onehot in0=__from_one_to_x_lut_20 out=__constraint_onehot_x_lut_20
+.subckt __onehot in0=__from_one_to_x_lut_21 out=__constraint_onehot_x_lut_21
+.subckt __onehot in0=__from_one_to_x_lut_22 out=__constraint_onehot_x_lut_22
+.subckt __onehot in0=__from_one_to_x_lut_23 out=__constraint_onehot_x_lut_23
+.subckt __onehot in0=__from_one_to_x_lut_24 out=__constraint_onehot_x_lut_24
+.subckt __onehot in0=__from_one_to_x_lut_25 out=__constraint_onehot_x_lut_25
+.subckt __onehot in0=__from_one_to_x_lut_26 out=__constraint_onehot_x_lut_26
+.subckt __onehot in0=__from_one_to_x_lut_27 out=__constraint_onehot_x_lut_27
+.subckt __onehot in0=__from_one_to_x_lut_30 out=__constraint_onehot_x_lut_30
+.subckt __onehot in0=__from_one_to_x_lut_31 out=__constraint_onehot_x_lut_31
+.subckt __onehot in0=__from_one_to_x_lut_32 out=__constraint_onehot_x_lut_32
+.subckt __onehot in0=__from_one_to_x_lut_33 out=__constraint_onehot_x_lut_33
+.subckt __onehot in0=__from_one_to_x_lut_34 out=__constraint_onehot_x_lut_34
+.subckt __onehot in0=__from_one_to_x_lut_35 out=__constraint_onehot_x_lut_35
+.subckt __onehot in0=__from_one_to_x_lut_36 out=__constraint_onehot_x_lut_36
+.subckt __onehot in0=__from_one_to_x_lut_37 out=__constraint_onehot_x_lut_37
+.subckt __onehot in0=__from_Is1_to_x_reg_000 in1=__from_Is2_to_x_reg_000 in2=__from_w11_to_x_reg_000 in3=__from_w12_to_x_reg_000 in4=__from_w21_to_x_reg_000 in5=__from_w22_to_x_reg_000 out=__constraint_onehot_x_reg_000
+.subckt __onehot in0=__from_Is1_to_x_reg_001 in1=__from_Is2_to_x_reg_001 in2=__from_w11_to_x_reg_001 in3=__from_w12_to_x_reg_001 in4=__from_w21_to_x_reg_001 in5=__from_w22_to_x_reg_001 out=__constraint_onehot_x_reg_001
+.subckt __onehot in0=__from_Is1_to_x_reg_002 in1=__from_Is2_to_x_reg_002 in2=__from_w11_to_x_reg_002 in3=__from_w12_to_x_reg_002 in4=__from_w21_to_x_reg_002 in5=__from_w22_to_x_reg_002 out=__constraint_onehot_x_reg_002
+.subckt __onehot in0=__from_Is1_to_x_reg_010 in1=__from_Is2_to_x_reg_010 in2=__from_w11_to_x_reg_010 in3=__from_w12_to_x_reg_010 in4=__from_w21_to_x_reg_010 in5=__from_w22_to_x_reg_010 out=__constraint_onehot_x_reg_010
+.subckt __onehot in0=__from_Is1_to_x_reg_011 in1=__from_Is2_to_x_reg_011 in2=__from_w11_to_x_reg_011 in3=__from_w12_to_x_reg_011 in4=__from_w21_to_x_reg_011 in5=__from_w22_to_x_reg_011 out=__constraint_onehot_x_reg_011
+.subckt __onehot in0=__from_Is1_to_x_reg_012 in1=__from_Is2_to_x_reg_012 in2=__from_w11_to_x_reg_012 in3=__from_w12_to_x_reg_012 in4=__from_w21_to_x_reg_012 in5=__from_w22_to_x_reg_012 out=__constraint_onehot_x_reg_012
+.subckt __onehot in0=__from_reg_000_to_x_con_0010 in1=__from_lut_out_000_to_x_con_0010 out=__constraint_onehot_x_con_0010
+.subckt __onehot in0=__from_reg_010_to_x_con_0100 in1=__from_lut_out_010_to_x_con_0100 out=__constraint_onehot_x_con_0100
+.subckt __onehot in0=__from_reg_000_to_x_reg_100 in1=__from_reg_001_to_x_reg_100 in2=__from_reg_002_to_x_reg_100 in3=__from_lut_out_000_to_x_reg_100 in4=__from_con_0100_to_x_reg_100 out=__constraint_onehot_x_reg_100
+.subckt __onehot in0=__from_reg_000_to_x_reg_101 in1=__from_reg_001_to_x_reg_101 in2=__from_reg_002_to_x_reg_101 in3=__from_lut_out_000_to_x_reg_101 in4=__from_con_0100_to_x_reg_101 out=__constraint_onehot_x_reg_101
+.subckt __onehot in0=__from_reg_000_to_x_reg_102 in1=__from_reg_001_to_x_reg_102 in2=__from_reg_002_to_x_reg_102 in3=__from_lut_out_000_to_x_reg_102 in4=__from_con_0100_to_x_reg_102 out=__constraint_onehot_x_reg_102
+.subckt __onehot in0=__from_reg_010_to_x_reg_110 in1=__from_reg_011_to_x_reg_110 in2=__from_reg_012_to_x_reg_110 in3=__from_lut_out_010_to_x_reg_110 in4=__from_con_0010_to_x_reg_110 out=__constraint_onehot_x_reg_110
+.subckt __onehot in0=__from_reg_010_to_x_reg_111 in1=__from_reg_011_to_x_reg_111 in2=__from_reg_012_to_x_reg_111 in3=__from_lut_out_010_to_x_reg_111 in4=__from_con_0010_to_x_reg_111 out=__constraint_onehot_x_reg_111
+.subckt __onehot in0=__from_reg_010_to_x_reg_112 in1=__from_reg_011_to_x_reg_112 in2=__from_reg_012_to_x_reg_112 in3=__from_lut_out_010_to_x_reg_112 in4=__from_con_0010_to_x_reg_112 out=__constraint_onehot_x_reg_112
+.subckt __onehot in0=__from_reg_100_to_x_b_out_00 in1=__from_lut_out_100_to_x_b_out_00 out=__constraint_onehot_x_b_out_00
+.subckt __onehot in0=__from_reg_110_to_x_b_out_10 in1=__from_lut_out_110_to_x_b_out_10 out=__constraint_onehot_x_b_out_10
+.subckt __onehot in0=__from_b_out_00_to_x_Istim1 in1=__from_b_out_10_to_x_Istim1 out=__constraint_onehot_x_Istim1
+.subckt __onehot in0=__from_b_out_00_to_x_Istim2 in1=__from_b_out_10_to_x_Istim2 out=__constraint_onehot_x_Istim2
+.subckt __eq spec=__spec_Istim1 impl=__impl_Istim1 eq=__Istim1_eq
+.subckt __eq spec=__spec_Istim2 impl=__impl_Istim2 eq=__Istim2_eq
+.names __constraint_onehot_x_lut_00 __constraint_onehot_x_lut_01 __constraint_onehot_x_lut_02 __constraint_onehot_x_lut_03 __constraint_onehot_x_lut_04 __constraint_onehot_x_lut_05 __constraint_onehot_x_lut_06 __constraint_onehot_x_lut_07 __constraint_onehot_x_lut_10 __constraint_onehot_x_lut_11 __constraint_onehot_x_lut_12 __constraint_onehot_x_lut_13 __constraint_onehot_x_lut_14 __constraint_onehot_x_lut_15 __constraint_onehot_x_lut_16 __constraint_onehot_x_lut_17 __constraint_onehot_x_lut_20 __constraint_onehot_x_lut_21 __constraint_onehot_x_lut_22 __constraint_onehot_x_lut_23 __constraint_onehot_x_lut_24 __constraint_onehot_x_lut_25 __constraint_onehot_x_lut_26 __constraint_onehot_x_lut_27 __constraint_onehot_x_lut_30 __constraint_onehot_x_lut_31 __constraint_onehot_x_lut_32 __constraint_onehot_x_lut_33 __constraint_onehot_x_lut_34 __constraint_onehot_x_lut_35 __constraint_onehot_x_lut_36 __constraint_onehot_x_lut_37 __constraint_onehot_x_reg_000 __constraint_onehot_x_reg_001 __constraint_onehot_x_reg_002 __constraint_onehot_x_reg_010 __constraint_onehot_x_reg_011 __constraint_onehot_x_reg_012 __constraint_onehot_x_con_0010 __constraint_onehot_x_con_0100 __constraint_onehot_x_reg_100 __constraint_onehot_x_reg_101 __constraint_onehot_x_reg_102 __constraint_onehot_x_reg_110 __constraint_onehot_x_reg_111 __constraint_onehot_x_reg_112 __constraint_onehot_x_b_out_00 __constraint_onehot_x_b_out_10 __constraint_onehot_x_Istim1 __constraint_onehot_x_Istim2 __Istim1_eq __Istim2_eq __constraint
+1111111111111111111111111111111111111111111111111111 1
+.end
+
+.model __onehot
+.inputs in0 in1 in2 in3 in4 in5
+.outputs out
+.names in0 in1 in2 in3 in4 in5 out
+100000 1
+010000 1
+001000 1
+000100 1
+000010 1
+000001 1
+000000 1
+.end
+
+.model __eq
+.inputs spec impl
+.outputs eq
+.names spec impl eq
+11 1
+00 1
+.end
+
+#.top matrix
+.model matrix
+.inputs Is1 Is2 
+.inputs w11 w12 w21 w22
+.outputs Istim1 Istim2
+
+.subckt and in0=Is1 in1=w11 out=Is1w11
+.subckt and in0=Is2 in1=w12 out=Is2w12
+.subckt xor in0=Is1w11 in1=Is2w12 out=Istim1
+
+.subckt and in0=Is1 in1=w21 out=Is1w21
+.subckt and in0=Is2 in1=w22 out=Is2w22
+.subckt xor in0=Is1w21 in1=Is2w22 out=Istim2
+.end
+
+.model and
+.inputs in0 in1
+.outputs out
+.names in0 in1 out
+11 1
+.end
+
+.model xor
+.inputs in0 in1
+.outputs out
+.names in0 in1 out
+10 1
+01 1
+.end
+
+#.top impl
+.model impl
+.inputs __from_Is1_to_x_reg_000 __from_Is1_to_x_reg_001 __from_Is1_to_x_reg_002 __from_Is1_to_x_reg_010 __from_Is1_to_x_reg_011 __from_Is1_to_x_reg_012 __from_Is2_to_x_reg_000 __from_Is2_to_x_reg_001 __from_Is2_to_x_reg_002 __from_Is2_to_x_reg_010 __from_Is2_to_x_reg_011 __from_Is2_to_x_reg_012 __from_b_out_00_to_x_Istim1 __from_b_out_00_to_x_Istim2 __from_b_out_10_to_x_Istim1 __from_b_out_10_to_x_Istim2 __from_con_0010_to_x_reg_110 __from_con_0010_to_x_reg_111 __from_con_0010_to_x_reg_112 __from_con_0100_to_x_reg_100 __from_con_0100_to_x_reg_101 __from_con_0100_to_x_reg_102 __from_lut_out_000_to_x_con_0010 __from_lut_out_000_to_x_reg_100 __from_lut_out_000_to_x_reg_101 __from_lut_out_000_to_x_reg_102 __from_lut_out_010_to_x_con_0100 __from_lut_out_010_to_x_reg_110 __from_lut_out_010_to_x_reg_111 __from_lut_out_010_to_x_reg_112 __from_lut_out_100_to_x_b_out_00 __from_lut_out_110_to_x_b_out_10 __from_one_to_x_lut_00 __from_one_to_x_lut_01 __from_one_to_x_lut_02 __from_one_to_x_lut_03 __from_one_to_x_lut_04 __from_one_to_x_lut_05 __from_one_to_x_lut_06 __from_one_to_x_lut_07 __from_one_to_x_lut_10 __from_one_to_x_lut_11 __from_one_to_x_lut_12 __from_one_to_x_lut_13 __from_one_to_x_lut_14 __from_one_to_x_lut_15 __from_one_to_x_lut_16 __from_one_to_x_lut_17 __from_one_to_x_lut_20 __from_one_to_x_lut_21 __from_one_to_x_lut_22 __from_one_to_x_lut_23 __from_one_to_x_lut_24 __from_one_to_x_lut_25 __from_one_to_x_lut_26 __from_one_to_x_lut_27 __from_one_to_x_lut_30 __from_one_to_x_lut_31 __from_one_to_x_lut_32 __from_one_to_x_lut_33 __from_one_to_x_lut_34 __from_one_to_x_lut_35 __from_one_to_x_lut_36 __from_one_to_x_lut_37 __from_reg_000_to_x_con_0010 __from_reg_000_to_x_reg_100 __from_reg_000_to_x_reg_101 __from_reg_000_to_x_reg_102 __from_reg_001_to_x_reg_100 __from_reg_001_to_x_reg_101 __from_reg_001_to_x_reg_102 __from_reg_002_to_x_reg_100 __from_reg_002_to_x_reg_101 __from_reg_002_to_x_reg_102 __from_reg_010_to_x_con_0100 __from_reg_010_to_x_reg_110 __from_reg_010_to_x_reg_111 __from_reg_010_to_x_reg_112 __from_reg_011_to_x_reg_110 __from_reg_011_to_x_reg_111 __from_reg_011_to_x_reg_112 __from_reg_012_to_x_reg_110 __from_reg_012_to_x_reg_111 __from_reg_012_to_x_reg_112 __from_reg_100_to_x_b_out_00 __from_reg_110_to_x_b_out_10 __from_w11_to_x_reg_000 __from_w11_to_x_reg_001 __from_w11_to_x_reg_002 __from_w11_to_x_reg_010 __from_w11_to_x_reg_011 __from_w11_to_x_reg_012 __from_w12_to_x_reg_000 __from_w12_to_x_reg_001 __from_w12_to_x_reg_002 __from_w12_to_x_reg_010 __from_w12_to_x_reg_011 __from_w12_to_x_reg_012 __from_w21_to_x_reg_000 __from_w21_to_x_reg_001 __from_w21_to_x_reg_002 __from_w21_to_x_reg_010 __from_w21_to_x_reg_011 __from_w21_to_x_reg_012 __from_w22_to_x_reg_000 __from_w22_to_x_reg_001 __from_w22_to_x_reg_002 __from_w22_to_x_reg_010 __from_w22_to_x_reg_011 __from_w22_to_x_reg_012
+.subckt __selector in0=one sel0=__from_one_to_x_lut_00 out=x_lut_00
+.subckt __selector in0=one sel0=__from_one_to_x_lut_01 out=x_lut_01
+.subckt __selector in0=one sel0=__from_one_to_x_lut_02 out=x_lut_02
+.subckt __selector in0=one sel0=__from_one_to_x_lut_03 out=x_lut_03
+.subckt __selector in0=one sel0=__from_one_to_x_lut_04 out=x_lut_04
+.subckt __selector in0=one sel0=__from_one_to_x_lut_05 out=x_lut_05
+.subckt __selector in0=one sel0=__from_one_to_x_lut_06 out=x_lut_06
+.subckt __selector in0=one sel0=__from_one_to_x_lut_07 out=x_lut_07
+.subckt __selector in0=one sel0=__from_one_to_x_lut_10 out=x_lut_10
+.subckt __selector in0=one sel0=__from_one_to_x_lut_11 out=x_lut_11
+.subckt __selector in0=one sel0=__from_one_to_x_lut_12 out=x_lut_12
+.subckt __selector in0=one sel0=__from_one_to_x_lut_13 out=x_lut_13
+.subckt __selector in0=one sel0=__from_one_to_x_lut_14 out=x_lut_14
+.subckt __selector in0=one sel0=__from_one_to_x_lut_15 out=x_lut_15
+.subckt __selector in0=one sel0=__from_one_to_x_lut_16 out=x_lut_16
+.subckt __selector in0=one sel0=__from_one_to_x_lut_17 out=x_lut_17
+.subckt __selector in0=one sel0=__from_one_to_x_lut_20 out=x_lut_20
+.subckt __selector in0=one sel0=__from_one_to_x_lut_21 out=x_lut_21
+.subckt __selector in0=one sel0=__from_one_to_x_lut_22 out=x_lut_22
+.subckt __selector in0=one sel0=__from_one_to_x_lut_23 out=x_lut_23
+.subckt __selector in0=one sel0=__from_one_to_x_lut_24 out=x_lut_24
+.subckt __selector in0=one sel0=__from_one_to_x_lut_25 out=x_lut_25
+.subckt __selector in0=one sel0=__from_one_to_x_lut_26 out=x_lut_26
+.subckt __selector in0=one sel0=__from_one_to_x_lut_27 out=x_lut_27
+.subckt __selector in0=one sel0=__from_one_to_x_lut_30 out=x_lut_30
+.subckt __selector in0=one sel0=__from_one_to_x_lut_31 out=x_lut_31
+.subckt __selector in0=one sel0=__from_one_to_x_lut_32 out=x_lut_32
+.subckt __selector in0=one sel0=__from_one_to_x_lut_33 out=x_lut_33
+.subckt __selector in0=one sel0=__from_one_to_x_lut_34 out=x_lut_34
+.subckt __selector in0=one sel0=__from_one_to_x_lut_35 out=x_lut_35
+.subckt __selector in0=one sel0=__from_one_to_x_lut_36 out=x_lut_36
+.subckt __selector in0=one sel0=__from_one_to_x_lut_37 out=x_lut_37
+.subckt __selector in0=Is1 in1=Is2 in2=w11 in3=w12 in4=w21 in5=w22 sel0=__from_Is1_to_x_reg_000 sel1=__from_Is2_to_x_reg_000 sel2=__from_w11_to_x_reg_000 sel3=__from_w12_to_x_reg_000 sel4=__from_w21_to_x_reg_000 sel5=__from_w22_to_x_reg_000 out=x_reg_000
+.subckt __selector in0=Is1 in1=Is2 in2=w11 in3=w12 in4=w21 in5=w22 sel0=__from_Is1_to_x_reg_001 sel1=__from_Is2_to_x_reg_001 sel2=__from_w11_to_x_reg_001 sel3=__from_w12_to_x_reg_001 sel4=__from_w21_to_x_reg_001 sel5=__from_w22_to_x_reg_001 out=x_reg_001
+.subckt __selector in0=Is1 in1=Is2 in2=w11 in3=w12 in4=w21 in5=w22 sel0=__from_Is1_to_x_reg_002 sel1=__from_Is2_to_x_reg_002 sel2=__from_w11_to_x_reg_002 sel3=__from_w12_to_x_reg_002 sel4=__from_w21_to_x_reg_002 sel5=__from_w22_to_x_reg_002 out=x_reg_002
+.subckt __selector in0=Is1 in1=Is2 in2=w11 in3=w12 in4=w21 in5=w22 sel0=__from_Is1_to_x_reg_010 sel1=__from_Is2_to_x_reg_010 sel2=__from_w11_to_x_reg_010 sel3=__from_w12_to_x_reg_010 sel4=__from_w21_to_x_reg_010 sel5=__from_w22_to_x_reg_010 out=x_reg_010
+.subckt __selector in0=Is1 in1=Is2 in2=w11 in3=w12 in4=w21 in5=w22 sel0=__from_Is1_to_x_reg_011 sel1=__from_Is2_to_x_reg_011 sel2=__from_w11_to_x_reg_011 sel3=__from_w12_to_x_reg_011 sel4=__from_w21_to_x_reg_011 sel5=__from_w22_to_x_reg_011 out=x_reg_011
+.subckt __selector in0=Is1 in1=Is2 in2=w11 in3=w12 in4=w21 in5=w22 sel0=__from_Is1_to_x_reg_012 sel1=__from_Is2_to_x_reg_012 sel2=__from_w11_to_x_reg_012 sel3=__from_w12_to_x_reg_012 sel4=__from_w21_to_x_reg_012 sel5=__from_w22_to_x_reg_012 out=x_reg_012
+.subckt __selector in0=reg_000 in1=lut_out_000 sel0=__from_reg_000_to_x_con_0010 sel1=__from_lut_out_000_to_x_con_0010 out=x_con_0010
+.subckt __selector in0=reg_010 in1=lut_out_010 sel0=__from_reg_010_to_x_con_0100 sel1=__from_lut_out_010_to_x_con_0100 out=x_con_0100
+.subckt __selector in0=reg_000 in1=reg_001 in2=reg_002 in3=lut_out_000 in4=con_0100 sel0=__from_reg_000_to_x_reg_100 sel1=__from_reg_001_to_x_reg_100 sel2=__from_reg_002_to_x_reg_100 sel3=__from_lut_out_000_to_x_reg_100 sel4=__from_con_0100_to_x_reg_100 out=x_reg_100
+.subckt __selector in0=reg_000 in1=reg_001 in2=reg_002 in3=lut_out_000 in4=con_0100 sel0=__from_reg_000_to_x_reg_101 sel1=__from_reg_001_to_x_reg_101 sel2=__from_reg_002_to_x_reg_101 sel3=__from_lut_out_000_to_x_reg_101 sel4=__from_con_0100_to_x_reg_101 out=x_reg_101
+.subckt __selector in0=reg_000 in1=reg_001 in2=reg_002 in3=lut_out_000 in4=con_0100 sel0=__from_reg_000_to_x_reg_102 sel1=__from_reg_001_to_x_reg_102 sel2=__from_reg_002_to_x_reg_102 sel3=__from_lut_out_000_to_x_reg_102 sel4=__from_con_0100_to_x_reg_102 out=x_reg_102
+.subckt __selector in0=reg_010 in1=reg_011 in2=reg_012 in3=lut_out_010 in4=con_0010 sel0=__from_reg_010_to_x_reg_110 sel1=__from_reg_011_to_x_reg_110 sel2=__from_reg_012_to_x_reg_110 sel3=__from_lut_out_010_to_x_reg_110 sel4=__from_con_0010_to_x_reg_110 out=x_reg_110
+.subckt __selector in0=reg_010 in1=reg_011 in2=reg_012 in3=lut_out_010 in4=con_0010 sel0=__from_reg_010_to_x_reg_111 sel1=__from_reg_011_to_x_reg_111 sel2=__from_reg_012_to_x_reg_111 sel3=__from_lut_out_010_to_x_reg_111 sel4=__from_con_0010_to_x_reg_111 out=x_reg_111
+.subckt __selector in0=reg_010 in1=reg_011 in2=reg_012 in3=lut_out_010 in4=con_0010 sel0=__from_reg_010_to_x_reg_112 sel1=__from_reg_011_to_x_reg_112 sel2=__from_reg_012_to_x_reg_112 sel3=__from_lut_out_010_to_x_reg_112 sel4=__from_con_0010_to_x_reg_112 out=x_reg_112
+.subckt __selector in0=reg_100 in1=lut_out_100 sel0=__from_reg_100_to_x_b_out_00 sel1=__from_lut_out_100_to_x_b_out_00 out=x_b_out_00
+.subckt __selector in0=reg_110 in1=lut_out_110 sel0=__from_reg_110_to_x_b_out_10 sel1=__from_lut_out_110_to_x_b_out_10 out=x_b_out_10
+.subckt __selector in0=b_out_00 in1=b_out_10 sel0=__from_b_out_00_to_x_Istim1 sel1=__from_b_out_10_to_x_Istim1 out=x_Istim1
+.subckt __selector in0=b_out_00 in1=b_out_10 sel0=__from_b_out_00_to_x_Istim2 sel1=__from_b_out_10_to_x_Istim2 out=x_Istim2
+.inputs Is1 Is2 w11 w12 w21 w22
+.outputs Istim1 Istim2
+.names one
+1
+.names x_reg_000 reg_000
+1 1
+.names x_reg_001 reg_001
+1 1
+.names x_reg_002 reg_002
+1 1
+.names x_reg_010 reg_010
+1 1
+.names x_reg_011 reg_011
+1 1
+.names x_reg_012 reg_012
+1 1
+.names x_reg_100 reg_100
+1 1
+.names x_reg_101 reg_101
+1 1
+.names x_reg_102 reg_102
+1 1
+.names x_reg_110 reg_110
+1 1
+.names x_reg_111 reg_111
+1 1
+.names x_reg_112 reg_112
+1 1
+.names x_con_0010 con_0010
+1 1
+.names x_con_0100 con_0100
+1 1
+.names x_b_out_00 b_out_00
+1 1
+.names x_b_out_10 b_out_10
+1 1
+.names x_Istim1 Istim1
+1 1
+.names x_Istim2 Istim2
+1 1
+.names x_lut_00 lut_00
+1 1
+.names x_lut_01 lut_01
+1 1
+.names x_lut_02 lut_02
+1 1
+.names x_lut_03 lut_03
+1 1
+.names x_lut_04 lut_04
+1 1
+.names x_lut_05 lut_05
+1 1
+.names x_lut_06 lut_06
+1 1
+.names x_lut_07 lut_07
+1 1
+.names x_lut_10 lut_10
+1 1
+.names x_lut_11 lut_11
+1 1
+.names x_lut_12 lut_12
+1 1
+.names x_lut_13 lut_13
+1 1
+.names x_lut_14 lut_14
+1 1
+.names x_lut_15 lut_15
+1 1
+.names x_lut_16 lut_16
+1 1
+.names x_lut_17 lut_17
+1 1
+.names x_lut_20 lut_20
+1 1
+.names x_lut_21 lut_21
+1 1
+.names x_lut_22 lut_22
+1 1
+.names x_lut_23 lut_23
+1 1
+.names x_lut_24 lut_24
+1 1
+.names x_lut_25 lut_25
+1 1
+.names x_lut_26 lut_26
+1 1
+.names x_lut_27 lut_27
+1 1
+.names x_lut_30 lut_30
+1 1
+.names x_lut_31 lut_31
+1 1
+.names x_lut_32 lut_32
+1 1
+.names x_lut_33 lut_33
+1 1
+.names x_lut_34 lut_34
+1 1
+.names x_lut_35 lut_35
+1 1
+.names x_lut_36 lut_36
+1 1
+.names x_lut_37 lut_37
+1 1
+#.candidates one x_lut_00
+#.candidates one x_lut_01
+#.candidates one x_lut_02
+#.candidates one x_lut_03
+#.candidates one x_lut_04
+#.candidates one x_lut_05
+#.candidates one x_lut_06
+#.candidates one x_lut_07
+#.candidates one x_lut_10
+#.candidates one x_lut_11
+#.candidates one x_lut_12
+#.candidates one x_lut_13
+#.candidates one x_lut_14
+#.candidates one x_lut_15
+#.candidates one x_lut_16
+#.candidates one x_lut_17
+#.candidates one x_lut_20
+#.candidates one x_lut_21
+#.candidates one x_lut_22
+#.candidates one x_lut_23
+#.candidates one x_lut_24
+#.candidates one x_lut_25
+#.candidates one x_lut_26
+#.candidates one x_lut_27
+#.candidates one x_lut_30
+#.candidates one x_lut_31
+#.candidates one x_lut_32
+#.candidates one x_lut_33
+#.candidates one x_lut_34
+#.candidates one x_lut_35
+#.candidates one x_lut_36
+#.candidates one x_lut_37
+.subckt lut3 in0=reg_000 in1=reg_001 in2=reg_002 f0=lut_00 f1=lut_01 f2=lut_02 f3=lut_03 f4=lut_04 f5=lut_05 f6=lut_06 f7=lut_07 out=lut_out_000
+.subckt lut3 in0=reg_010 in1=reg_011 in2=reg_012 f0=lut_10 f1=lut_11 f2=lut_12 f3=lut_13 f4=lut_14 f5=lut_15 f6=lut_16 f7=lut_17 out=lut_out_010
+.subckt lut3 in0=reg_100 in1=reg_101 in2=reg_102 f0=lut_20 f1=lut_21 f2=lut_22 f3=lut_23 f4=lut_24 f5=lut_25 f6=lut_26 f7=lut_27 out=lut_out_100
+.subckt lut3 in0=reg_110 in1=reg_111 in2=reg_112 f0=lut_30 f1=lut_31 f2=lut_32 f3=lut_33 f4=lut_34 f5=lut_35 f6=lut_36 f7=lut_37 out=lut_out_110
+#.candidates Is1 Is2 w11 w12 w21 w22 x_reg_000
+#.candidates Is1 Is2 w11 w12 w21 w22 x_reg_001
+#.candidates Is1 Is2 w11 w12 w21 w22 x_reg_002
+#.candidates Is1 Is2 w11 w12 w21 w22 x_reg_010
+#.candidates Is1 Is2 w11 w12 w21 w22 x_reg_011
+#.candidates Is1 Is2 w11 w12 w21 w22 x_reg_012
+#.candidates reg_000 lut_out_000 x_con_0010
+#.candidates reg_010 lut_out_010 x_con_0100
+#.candidates reg_000 reg_001 reg_002 lut_out_000 con_0100 x_reg_100
+#.candidates reg_000 reg_001 reg_002 lut_out_000 con_0100 x_reg_101
+#.candidates reg_000 reg_001 reg_002 lut_out_000 con_0100 x_reg_102
+#.candidates reg_010 reg_011 reg_012 lut_out_010 con_0010 x_reg_110
+#.candidates reg_010 reg_011 reg_012 lut_out_010 con_0010 x_reg_111
+#.candidates reg_010 reg_011 reg_012 lut_out_010 con_0010 x_reg_112
+#.candidates reg_100 lut_out_100 x_b_out_00
+#.candidates reg_110 lut_out_110 x_b_out_10
+#.candidates b_out_00 b_out_10 x_Istim1
+#.candidates b_out_00 b_out_10 x_Istim2
+.end
+.model lut3
+.inputs in0 in1 in2 f0 f1 f2 f3 f4 f5 f6 f7
+.outputs out
+.names in0 in1 in2 f0 f1 f2 f3 f4 f5 f6 f7 out
+0001------- 1
+100-1------ 1
+010--1----- 1
+110---1---- 1
+001----1--- 1
+101-----1-- 1
+011------1- 1
+111-------1 1
+.end
+
+.model __selector
+.inputs in0 in1 in2 in3 in4 in5 sel0 sel1 sel2 sel3 sel4 sel5
+.outputs out
+.names in0 in1 in2 in3 in4 in5 sel0 sel1 sel2 sel3 sel4 sel5 out
+1-----100000 1
+-1----010000 1
+--1---001000 1
+---1--000100 1
+----1-000010 1
+-----1000001 1
+.end

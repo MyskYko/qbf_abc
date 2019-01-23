@@ -1,0 +1,67 @@
+#.top matrix
+.model matrix
+.inputs Is1_0 Is1_1 Is2_0 Is2_1 w11_0 w11_1 w12_0 w12_1 w21_0 w21_1 w22_0 w22_1
+.outputs Istim1_0 Istim1_1 Istim2_0 Istim2_1
+.names
+.subckt mac_spec in0_0=zero in0_1=zero in1_0=Is1_0 in1_1=Is1_1 in2_0=w11_0 in2_1=w11_1 out_0=Is1w11_0 out_1=Is1w11_1
+.subckt mac_spec in0_0=Is1w11_0 in0_1=Is1w11_1 in1_0=Is2_0 in1_1=Is2_1 in2_0=w12_0 in2_1=w12_1 out_0=Istim1_0 out_1=Istim1_1
+
+.subckt mac_spec in0_0=zero in0_1=zero in1_0=Is1_0 in1_1=Is1_1 in2_0=w21_0 in2_1=w21_1 out_0=Is1w21_0 out_1=Is1w21_1
+.subckt mac_spec in0_0=Is1w21_0 in0_1=Is1w21_1 in1_0=Is2_0 in1_1=Is2_1 in2_0=w22_0 in2_1=w22_1 out_0=Istim2_0 out_1=Istim2_1
+.end
+
+.model mac_spec
+.inputs in0_0 in0_1 in1_0 in1_1 in2_0 in2_1
+.outputs out_0 out_1
+.names in1_0 in2_0 m_0
+11 1
+.names in1_1 in2_1 m_1
+01 1
+10 1
+.subckt adder_2bit_spec a0=in0_0 a1=in0_1 b0=m_0 b1=m_1 s0=out_0 s1=out_1
+.end
+
+.model msc_spec
+.inputs in0_0 in0_1 in1_0 in1_1 in2_0 in2_1
+.outputs out_0 out_1
+.names in1_0 in2_0 m_0
+11 1
+.names in1_1 in2_1 m_1
+01 1
+10 1
+.names m_0 d_0
+0 1
+.names m_1 d_1
+0 1
+.names zero
+.names one
+1
+.subckt adder_2bit_spec a0=d_0 a1=d_1 b0=one b1=zero s0=c_0 s1=c_1
+.subckt adder_2bit_spec a0=c_0 a1=c_1 b0=m_0 b1=m_1 s0=out_0 s1=out_1
+.end
+
+.model adder_2bit_spec
+.inputs a0 a1 b0 b1 cin
+.outputs s0 s1 cout
+.names a0 b0 cin s0
+100 1
+010 1
+001 1
+111 1
+.names a0 b0 cin c_tmp
+110 1
+101 1
+011 1
+111 1
+.names a1 b1 c_tmp s1
+100 1
+010 1
+001 1
+111 1
+.names a1 b1 c_tmp cout
+110 1
+101 1
+011 1
+111 1
+.end
+
