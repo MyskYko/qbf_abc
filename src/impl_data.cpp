@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <cassert>
 
 void impl_data::read_file(char* file_name) {
   
@@ -320,13 +321,14 @@ void impl_data::read_result(std::string file_name) {
 
   x_result = std::map<std::string, std::string>();
   for(auto x_name: x_names) {
-    x_result[x_name] = "zero";
+    x_result[x_name] = "__error";
     for(unsigned int i = 0; i < x_selection_signals[x_name].size(); i++) {
       if(selection_signal_result[x_selection_signals[x_name][i]]) {
 	x_result[x_name] = x_candidate_names[x_name][i];
 	break;
       }
     }
+    assert(x_result[x_name] != "__error");
   }
 }
 

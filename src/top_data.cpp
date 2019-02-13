@@ -74,7 +74,7 @@ void top_data::create_onehot() {
   }
   onehot += " out\n";
 
-  for(unsigned int i = 0; i < max_signal_count_onehot + 1; i++) {
+  for(unsigned int i = 0; i < max_signal_count_onehot; i++) {
     for(unsigned int j = 0; j < max_signal_count_onehot; j++) {
       if(i == j) {
 	onehot += "1";
