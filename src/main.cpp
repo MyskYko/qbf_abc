@@ -79,8 +79,12 @@ int main(int argc, char **argv) {
 
   // create constraint signal(onehot, eq)
   top_data top;
+  top.set_candidate_selection_signals(impl.copy_of_candidate_selection_signals());
+  top.set_x_names(impl.copy_of_x_names());
+  top.set_x_selection_signals(impl.copy_of_x_selection_signals());
   try {
-    top.create_onehot_signal(impl.copy_of_onehot_candidate_names(), impl.copy_of_candidate_selection_signals(), impl.copy_of_x_names(), impl.copy_of_x_selection_signals());
+    top.create_onehot_signal(impl.copy_of_onehot_candidate_names());
+    top.create_zeroonehot_signal(impl.copy_of_zeroonehot_candidate_names());
   }
   catch(std::string error) {
     std::cout << error << std::endl;
@@ -93,6 +97,7 @@ int main(int argc, char **argv) {
   
   // create onehot
   top.create_onehot();
+  top.create_zeroonehot();
   if(flag_show_detail) { top.show_detail(); }
 
   // create subckt

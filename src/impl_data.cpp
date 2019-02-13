@@ -43,6 +43,7 @@ void impl_data::read_file(char* file_name) {
     bool flag_candidates = false;
     bool flag_group = false;
     bool flag_onehot = false;
+    bool flag_zeroonehot = false;
     
     while(std::getline(ss, str2, delim)) {
       if(flag_top) {
@@ -62,6 +63,9 @@ void impl_data::read_file(char* file_name) {
       }
       else if(flag_onehot) {
 	onehot_candidate_names.push_back(str2);
+      }
+      else if(flag_zeroonehot) {
+	zeroonehot_candidate_names.push_back(str2);
       }
       
       if(str2 == ".top") {
@@ -88,6 +92,9 @@ void impl_data::read_file(char* file_name) {
       }
       else if(str2 == ".onehot") {
 	flag_onehot = true;
+      }
+      else if(str2 == ".zeroonehot") {
+	flag_zeroonehot = true;
       }
     }
     
@@ -384,6 +391,7 @@ void impl_data::show_simple() {
   std::cout << "x_count:" << x_names.size() << std::endl;
   std::cout << "candidate_count:" << candidate_names.size() << std::endl;
   std::cout << "onehot_count:" << onehot_candidate_names.size() << std::endl;
+  std::cout << "zeroonehot_count:" << zeroonehot_candidate_names.size() << std::endl;
   std::cout << "max_candidate_count_for_each_x:" << std::to_string(max_candidate_count_x) << std::endl;
   std::cout << "group_count:" << group_count << std::endl;
   std::cout << "selection_signal_count:" << all_selection_signals.size() << std::endl;
@@ -394,6 +402,7 @@ void impl_data::show_detail() {
   std::cout << "x_count:" << x_names.size() << std::endl;
   std::cout << "candidate_count:" << candidate_names.size() << std::endl;
   std::cout << "onehot_count:" << onehot_candidate_names.size() << std::endl;
+  std::cout << "zeroonehot_count:" << zeroonehot_candidate_names.size() << std::endl;
   std::cout << "max_candidate_count_for_each_x:" << std::to_string(max_candidate_count_x) << std::endl;
   std::cout << "group_count:" << group_count << std::endl;
 
@@ -426,6 +435,15 @@ void impl_data::show_detail() {
     }
     std::cout << std::endl << std::endl;
   }
+
+  if(zeroonehot_candidate_names.size() != 0) {
+    std::cout << "---zeroonehot_candidates---" << std::endl;
+    for(auto candidate_name: zeroonehot_candidate_names) {
+      std::cout << candidate_name << " ";
+    }
+    std::cout << std::endl << std::endl;
+  }
+
 
   if(group_count != 0) {
     std::cout << "---groups---" << std::endl;
