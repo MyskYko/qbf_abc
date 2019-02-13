@@ -13,10 +13,11 @@ class spec_data {
   std::vector<std::string> outputs;
   
  public:
+  int setup(char* filename);
   std::string get_top_name() { return top_name; }
   std::vector<std::string> copy_of_inputs() { return inputs; }
   std::vector<std::string> copy_of_outputs() { return outputs; }
-  void read_file(char* file_name);
+  int read_file(char* file_name);
   void write_circuit(std::ofstream *write_file);
   void show_detail();
 };

@@ -17,6 +17,7 @@ class impl_data {
   std::map<std::string, std::vector<std::string> > x_candidate_names;
   unsigned int max_candidate_count_x;  
   std::vector<std::string> onehot_candidate_names;
+  std::vector<std::string> zeroonehot_candidate_names;
   unsigned int group_count;
   std::map<std::string, int> x_group;
   std::map<int, std::string> group_symbol;
@@ -32,22 +33,24 @@ class impl_data {
   std::map<std::string, std::string> x_result;
   
  public:
+  int setup(char* filename);
   std::string get_top_name() { return top_name; }
   std::vector<std::string> copy_of_inputs() { return inputs; }
   std::vector<std::string> copy_of_outputs() { return outputs; }
   std::vector<std::string> copy_of_x_names() { return x_names; }
   std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals() { return x_selection_signals; }
   std::vector<std::string> copy_of_onehot_candidate_names() { return onehot_candidate_names; }
+  std::vector<std::string> copy_of_zeroonehot_candidate_names() { return zeroonehot_candidate_names; }
   std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals() { return candidate_selection_signals; }
   std::vector<std::string> copy_of_all_selection_signals() { return all_selection_signals; }
   double get_runtime() { return runtime; }
-  void read_file(char* file_name);
+  int read_file(char* file_name);
   void create_selection_signal();
   void create_selector();
   void create_subckt();
   void write_circuit(std::ofstream *write_file);
-  void read_result(std::string file_name);
-  void write_out(char* file_name);
+  int read_result(std::string file_name);
+  int write_out(char* file_name);
   void show_simple();
   void show_detail();
 };

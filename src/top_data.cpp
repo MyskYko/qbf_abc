@@ -5,13 +5,12 @@
 #include <map>
 #include <fstream>
 
-void top_data::create_onehot_signal(std::vector<std::string> copy_of_onehot_candidate_names) {
-  onehot_candidate_names = copy_of_onehot_candidate_names;
-
+int top_data::create_onehot_signal() {
   max_signal_count_onehot = 0;
   for(auto candidate_name: onehot_candidate_names) {
     if(candidate_selection_signals[candidate_name].size() == 0) {
-      throw "There is no using \"" + candidate_name + "\" although it is in onehot";
+      std::cout << "There is no using \"" + candidate_name + "\" although it is in onehot" << std::endl;
+      return 1;
     }
     else {
       if(max_signal_count_onehot < candidate_selection_signals[candidate_name].size()) {
@@ -22,7 +21,8 @@ void top_data::create_onehot_signal(std::vector<std::string> copy_of_onehot_cand
 
   for(auto x_name: x_names) {
     if(x_selection_signals[x_name].size() == 0) {
-      throw x_name + " doesn't have candidates";
+      std::cout << x_name << " doesn't have candidates" << std::endl;
+      return 1;
     }
     else {
       if(max_signal_count_onehot < x_selection_signals[x_name].size()) {
@@ -44,15 +44,16 @@ void top_data::create_onehot_signal(std::vector<std::string> copy_of_onehot_cand
     constraint_signals.push_back(constraint_signal);
     onehot_x_name_to_constraint_signal[x_name] = constraint_signal;
   }
+  
+  return 0;
 }
 
-void top_data::create_zeroonehot_signal(std::vector<std::string> copy_of_zeroonehot_candidate_names) {
-  zeroonehot_candidate_names = copy_of_zeroonehot_candidate_names;
-
+int top_data::create_zeroonehot_signal() {
   max_signal_count_zeroonehot = 0;
   for(auto candidate_name: zeroonehot_candidate_names) {
     if(candidate_selection_signals[candidate_name].size() == 0) {
-      throw "There is no using \"" + candidate_name + "\" although it is in zeroonehot";
+      std::cout << "There is no using \"" + candidate_name + "\" although it is in zeroonehot" << std::endl;
+      return 1;
     }
     else {
       if(max_signal_count_zeroonehot < candidate_selection_signals[candidate_name].size()) {
@@ -67,11 +68,12 @@ void top_data::create_zeroonehot_signal(std::vector<std::string> copy_of_zeroone
     constraint_signals.push_back(constraint_signal);
     zeroonehot_candidate_to_constraint_signal[candidate_name] = constraint_signal;
   }
+  
+  return 0;
 }
 
 
-void top_data::create_output_constraint_signal(std::vector<std::string> copy_of_outputs) {
-  outputs_to_be_compared = copy_of_outputs;
+void top_data::create_output_constraint_signal() {
   for(auto output: outputs_to_be_compared) {
     std::string constraint_signal;
     constraint_signal = "__" + output + "_eq";
@@ -203,9 +205,7 @@ void top_data::create_constraint_subckt() {
   constraint_subckts.push_back(subckt);
 }
 
-void top_data::create_circuit_subckt(std::string spec_top, std::string impl_top, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals) {
-  circuit_inputs = copy_of_inputs;
-  selection_signals = copy_of_selection_signals;
+void top_data::create_circuit_subckt(std::string spec_top, std::string impl_top) {
   std::string spec_subckt;
   spec_subckt += ".subckt " + spec_top;
   for(auto input: circuit_inputs) {
@@ -295,4 +295,29 @@ void top_data::show_detail() {
     }
     std::cout << std::endl;
   }
+}
+
+int top_data::setup(std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals, std::vector<std::string> copy_of_onehot_candidate_names, std::vector<std::string> copy_of_zeroonehot_candidate_names, std::vector<std::string> copy_of_outputs, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals, std::string spec_top, std::string impl_top) {
+  candidate_selection_signals = copy_of_candidate_selection_signals;
+  x_names = copy_of_x_names;
+  x_selection_signals = copy_of_x_selection_signals;
+
+  onehot_candidate_names = copy_of_onehot_candidate_names;
+  zeroonehot_candidate_names = copy_of_zeroonehot_candidate_names;
+
+  if(create_onehot_signal() || create_zeroonehot_signal()) return 1;
+
+  outputs_to_be_compared = copy_of_outputs;
+  create_output_constraint_signal();
+    
+  create_onehot();
+  create_zeroonehot();
+  create_constraint_subckt();
+
+  circuit_inputs = copy_of_inputs;
+  selection_signals = copy_of_selection_signals;
+
+  create_circuit_subckt(spec_top, impl_top);
+
+  return 0;
 }

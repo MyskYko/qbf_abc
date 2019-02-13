@@ -7,11 +7,12 @@
 #include <algorithm>
 #include <cassert>
 
-void impl_data::read_file(char* file_name) {
+int impl_data::read_file(char* file_name) {
   
   file.open(file_name, std::ios::in);
   if(!file) {
-    throw "cannot open impl file";
+    std::cout <<  "cannot open impl file" << std::endl;
+    return 1;
   }
   
   std::string str;
@@ -107,7 +108,8 @@ void impl_data::read_file(char* file_name) {
   }
   
   if(top_name == "__hoge") {
-    throw ".top not found in impl";
+    std::cout << ".top not found in impl" << std::endl;
+    return 1;
   }
   
   max_candidate_count_x = 0;
@@ -138,6 +140,8 @@ void impl_data::read_file(char* file_name) {
       }
     }
   }
+
+  return 0;
 }
 
 void impl_data::create_selection_signal() {
@@ -277,11 +281,12 @@ void impl_data::write_circuit(std::ofstream *write_file) {
   *write_file << selector;
 }
 
-void impl_data::read_result(std::string file_name) {
+int impl_data::read_result(std::string file_name) {
   std::ifstream result_file;
   result_file.open(file_name, std::ios::in);
   if(!result_file) {
-    throw "cannot open result file";
+    std::cout << "cannot open result file" << std::endl;
+    return 1;
   }
 
   std::string str;
@@ -313,7 +318,8 @@ void impl_data::read_result(std::string file_name) {
   }
   
   if(result == "hoge") {
-    throw "no solution";
+    std::cout << "no solution" << std::endl;
+    return 1;
   }
   
   std::map<std::string, bool> selection_signal_result;
@@ -337,13 +343,16 @@ void impl_data::read_result(std::string file_name) {
     }
     assert(x_result[x_name] != "__error");
   }
+
+  return 0;
 }
 
-void impl_data::write_out(char* file_name) {
+int impl_data::write_out(char* file_name) {
   std::ofstream write_out;
   write_out.open(file_name, std::ios::out);
   if(!write_out) {
-    throw "cannot write out file";
+    std::cout << "cannot write out file" << std::endl;
+    return 1;
   }
   
   file.clear();
@@ -384,6 +393,8 @@ void impl_data::write_out(char* file_name) {
     }
     write_out << str << std::endl;
   }
+
+  return 0;
 }
 
 void impl_data::show_simple() {
@@ -489,3 +500,17 @@ void impl_data::show_detail() {
   }
 }
 
+int impl_data::setup(char* filename) {
+  if(read_file(filename)) return 1;
+  
+  // create selection signal
+  create_selection_signal();
+
+  // create selector
+  create_selector();
+
+  // implement subckt for each x
+  create_subckt();
+
+  return 0;
+}
