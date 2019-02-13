@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <cassert>
 
-int impl_data::read_file(char* file_name) {
+int impl_data::read_file(std::string file_name) {
   
   file.open(file_name, std::ios::in);
   if(!file) {
@@ -347,7 +347,7 @@ int impl_data::read_result(std::string file_name) {
   return 0;
 }
 
-int impl_data::write_out(char* file_name) {
+int impl_data::write_out(std::string file_name) {
   std::ofstream write_out;
   write_out.open(file_name, std::ios::out);
   if(!write_out) {
@@ -500,7 +500,7 @@ void impl_data::show_detail() {
   }
 }
 
-int impl_data::setup(char* filename) {
+int impl_data::setup(std::string filename) {
   if(read_file(filename)) return 1;
   
   // create selection signal

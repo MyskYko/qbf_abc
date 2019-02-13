@@ -33,7 +33,7 @@ class impl_data {
   std::map<std::string, std::string> x_result;
   
  public:
-  int setup(char* filename);
+  int setup(std::string filename);
   std::string get_top_name() { return top_name; }
   std::vector<std::string> copy_of_inputs() { return inputs; }
   std::vector<std::string> copy_of_outputs() { return outputs; }
@@ -44,13 +44,13 @@ class impl_data {
   std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals() { return candidate_selection_signals; }
   std::vector<std::string> copy_of_all_selection_signals() { return all_selection_signals; }
   double get_runtime() { return runtime; }
-  int read_file(char* file_name);
+  int read_file(std::string file_name);
   void create_selection_signal();
   void create_selector();
   void create_subckt();
   void write_circuit(std::ofstream *write_file);
   int read_result(std::string file_name);
-  int write_out(char* file_name);
+  int write_out(std::string file_name);
   void show_simple();
   void show_detail();
 };
