@@ -260,46 +260,53 @@ int main(int argc, char** argv) {
   
   std::map<std::string, std::string> value;
   
-  for(unsigned int c = 0; c < regs.size(); c++) {
+  for(unsigned int c = 0; c < num_cycle; c++) {
+    
     for(unsigned int b = 0; b < regs[c].size(); b++) {
       for(unsigned int r = 0; r < regs[c][b].size(); r++) {
 	str = regs[c][b][r];
-	while(str.substr(0,3) == "reg") {
+	if(str.substr(0,3) == "reg") {
+	  str = value[str];
+	}
+	if(str.substr(0,3) == "spx") {
+	  str = value[str];
+	}
+	if(str.substr(0,3) == "hdx") {
 	  str = value[str];
 	}
 	std::string key = "reg_c" + std::to_string(c) + "n" + std::to_string(b) + "r" + std::to_string(r);
 	value[key] = str;
       }
     }
-  }
-  
-  for(unsigned int c = 0; c < spxs.size(); c++) {
+    
     for(unsigned int b = 0; b < spxs[c].size(); b++) {
       for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
 	for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
 	  str = spxs[c][b][r][k];
-	  while(str.substr(0,3) == "reg" || str.substr(0,3) == "spx") {
-	    if(str.substr(0,3) == "reg") {
-	      str = value[str];
-	    }
-	    if(str.substr(0,3) == "spx") {
-	      str = value[str];
-	    }
-	  }
+	  str = value[str];
 	  std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
 	  value[key] = str;
 	}
       }
     }
-  }
 
-  for(unsigned int c = 0; c < regs.size(); c++) {
-    for(unsigned int b = 0; b < regs[c].size(); b++) {
-      for(unsigned int r = 0; r < regs[c][b].size(); r++) {
-	std::string key = "reg_c" + std::to_string(c) + "n" + std::to_string(b) + "r" + std::to_string(r);
-	str = value[key];
-	if(str.substr(0,3) == "spx") {
+    for(unsigned int b = 0; b < hdx_ins[c].size(); b++) {
+      for(unsigned int r = 0; r < hdx_ins[c][b].size(); r++) {
+	for(unsigned int k = 0; k < hdx_ins[c][b][r].size(); k++) {
+	  str = hdx_ins[c][b][r][k];
 	  str = value[str];
+	  std::string key = "hdx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
+	  value[key] = str;
+	}
+      }
+    }
+   
+    for(unsigned int b = 0; b < hdx_outs[c].size(); b++) {
+      for(unsigned int r = 0; r < hdx_outs[c][b].size(); r++) {
+	for(unsigned int k = 0; k < hdx_outs[c][b][r].size(); k++) {
+	  str = hdx_outs[c][b][r][k];
+	  str = value[str];
+	  std::string key = "hdx_c" + std::to_string(c) + "n" + std::to_string(b) + "n" + std::to_string(r) + "k" + std::to_string(k);
 	  value[key] = str;
 	}
       }
@@ -387,9 +394,99 @@ int main(int argc, char** argv) {
 	}
       }
     }
+
+
+    for(unsigned int c = 0; c < hdx_ins.size()-1; c++) {
+      int hdx_in_flag = 0;
+      for(unsigned int r = 0; r < hdx_ins[c][b].size(); r++) {
+	for(unsigned int k = 0; k < hdx_ins[c][b][r].size(); k++) {
+	  if(hdx_ins[c][b][r][k] != "") {
+	    hdx_in_flag = 1;
+	    break;
+	  }
+	}
+	if(hdx_in_flag) break;
+      }
+      
+      if(hdx_in_flag) {
+	dot_file << "hdx_c" << c << "n" << b << " [label = \"";
+	for(unsigned int r = 0; r < hdx_ins[c][b].size(); r++) {
+	  for(unsigned int k = 0; k < hdx_ins[c][b][r].size(); k++) {
+	    if(hdx_ins[c][b][r][k] != "") {
+	      std::string key = "hdx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
+	      dot_file << "<k" << r << k << ">" << value[key] << "|";
+	    }
+	  }
+	}
+	dot_file.seekp(-1, std::ios::cur);
+	dot_file <<  "\"];\n";
+      }
+    }
+
+    for(unsigned int c = 0; c < hdx_ins.size()-1; c++) {
+      for(unsigned int r = 0; r < hdx_ins[c][b].size(); r++) {
+	for(unsigned int k = 0; k < hdx_ins[c][b][r].size(); k++) {
+	  if(hdx_ins[c][b][r][k] != "") {
+	    str = hdx_ins[c][b][r][k];
+	    int pos = str.find("r", 3);
+	    int r1 = std::stoi(str.substr(pos+1));
+	    dot_file << "reg_c" << c << "n" << b << ":" << "r" << r1 << " -> " <<  "hdx_c" << c << "n" << b << ":" << "k" << r << k << " ;\n";
+	  }
+	}
+      }
+    }
+
     dot_file <<  "}\n";
   }
 
+  for(unsigned int c = 0; c < hdx_outs.size()-1; c++) {
+    for(unsigned int b = 0; b < hdx_outs[c].size(); b++) {
+      for(unsigned int r = b+1; r < hdx_outs[c][b].size(); r++) {
+	int hdx_out_flag = 0;
+	for(unsigned int k = 0; k < hdx_outs[c][b][r].size(); k++) {
+	  if(hdx_outs[c][b][r][k] != "") {
+	    hdx_out_flag = 1;
+	    break;
+	  }
+	}
+	
+	if(hdx_out_flag) {
+	  dot_file << "hdx_c" << c << "n" << b << "n" << r << " [label = \"";
+	  for(unsigned int k = 0; k < hdx_outs[c][b][r].size(); k++) {
+	    if(hdx_outs[c][b][r][k] != "") {
+	      std::string key = "hdx_c" + std::to_string(c) + "n" + std::to_string(b) + "n" + std::to_string(r) + "k" + std::to_string(k);
+	      dot_file << "<k" << k << ">" << value[key] << "|";
+	    }
+	  }
+	  dot_file.seekp(-1, std::ios::cur);
+	  dot_file <<  "\"];\n";
+	}
+      }
+    }    
+  }
+  
+  for(unsigned int c = 0; c < hdx_outs.size()-1; c++) {
+    for(unsigned int b = 0; b < hdx_outs[c].size(); b++) {
+      for(unsigned int r = b+1; r < hdx_outs[c][b].size(); r++) {
+	for(unsigned int k = 0; k < hdx_outs[c][b][r].size(); k++) {
+	  if(hdx_outs[c][b][r][k] != "") {
+	    str = hdx_outs[c][b][r][k];
+	    int pos1 = str.find("from", 3);
+	    int pos2 = str.find("to", 3);
+	    int from = std::stoi(str.substr(pos1+4, pos2-pos1-4));
+	    if(from == b) {
+	      dot_file << "hdx_c" << c << "n" << b << ":" << "k" << r << k << " -> " << "hdx_c" << c << "n" << b << "n" << r << ":" << "k" << k << " ;\n";
+	    }
+	    else {
+	      dot_file << "hdx_c" << c << "n" << r << ":" << "k" << b << k << " -> " << "hdx_c" << c << "n" << b << "n" << r << ":" << "k" << k << " ;\n";
+	    }
+	  }
+	}
+      }
+    }
+  }
+  
+  
   for(unsigned int c = 0; c < regs.size(); c++) {
     for(unsigned int b = 0; b < regs[c].size(); b++) {
       for(unsigned int r = 0; r < regs[c][b].size(); r++) {
@@ -406,11 +503,25 @@ int main(int argc, char** argv) {
 
 	  dot_file <<  "spx_c" << c2 << "n" << from2 << ":" << "k" << to2<< k2 << " -> " <<  "reg_c" << c << "n" << b << ":" << "r" << r << " [minlen = 2.0];\n";
 	}
+	else if(regs[c][b][r].substr(0,3) == "hdx") {
+	  str = regs[c][b][r];
+
+	  int pos0 = str.find("c", 3);
+	  int pos1 = str.find("n", 3);
+	  int pos2 = str.find("n", pos1+1);
+	  int pos3 = str.find("k", 3);
+
+	  int c2 = std::stoi(str.substr(pos0+1, pos1-pos0-1));
+	  int n1 = std::stoi(str.substr(pos1+1, pos2-pos1-1));
+	  int n2 = std::stoi(str.substr(pos2+1, pos3-pos2-1));
+	  int k2 = std::stoi(str.substr(pos3+1));
+
+	  dot_file <<  "hdx_c" << c2 << "n" << n1 << "n" << n2 << ":" << "k" << k2 << " -> " <<  "reg_c" << c << "n" << b << ":" << "r" << r << " [minlen = 2.0];\n";
+	}
       }
     }
   }
-
-
+  
   dot_file << "}\n";
 
   flush(dot_file);
