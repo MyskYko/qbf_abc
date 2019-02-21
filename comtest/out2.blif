@@ -1,0 +1,301 @@
+#.top impl
+.model impl
+.inputs Is1 Is2 Is3 Is4
+.outputs out1 out2 out3 out4
+.names Is1 reg_c0n0r0
+1 1
+.names Is1 reg_c0n0r1
+1 1
+.names Is1 reg_c0n0r2
+1 1
+.names Is1 reg_c0n0r3
+1 1
+.names Is2 reg_c0n1r0
+1 1
+.names Is2 reg_c0n1r1
+1 1
+.names Is2 reg_c0n1r2
+1 1
+.names Is2 reg_c0n1r3
+1 1
+.names Is3 reg_c0n2r0
+1 1
+.names Is3 reg_c0n2r1
+1 1
+.names Is3 reg_c0n2r2
+1 1
+.names Is3 reg_c0n2r3
+1 1
+.names Is4 reg_c0n3r0
+1 1
+.names Is4 reg_c0n3r1
+1 1
+.names Is4 reg_c0n3r2
+1 1
+.names Is4 reg_c0n3r3
+1 1
+.names reg_c0n0r0 reg_c1n0r0
+1 1
+.names spx_c0from3to0k0 reg_c1n0r1
+1 1
+.names spx_c0from3to0k0 reg_c1n0r2
+1 1
+.names spx_c0from3to0k0 reg_c1n0r3
+1 1
+.names spx_c0from0to1k0 reg_c1n1r0
+1 1
+.names spx_c0from0to1k0 reg_c1n1r1
+1 1
+.names reg_c0n1r0 reg_c1n1r2
+1 1
+.names spx_c0from0to1k0 reg_c1n1r3
+1 1
+.names spx_c0from1to2k0 reg_c1n2r0
+1 1
+.names reg_c0n2r0 reg_c1n2r1
+1 1
+.names spx_c0from1to2k0 reg_c1n2r2
+1 1
+.names reg_c0n2r2 reg_c1n2r3
+1 1
+.names spx_c0from2to3k0 reg_c1n3r0
+1 1
+.names spx_c0from2to3k0 reg_c1n3r1
+1 1
+.names spx_c0from2to3k0 reg_c1n3r2
+1 1
+.names reg_c0n3r0 reg_c1n3r3
+1 1
+.names reg_c1n0r3 reg_c2n0r0
+1 1
+.names spx_c1from3to0k0 reg_c2n0r1
+1 1
+.names reg_c1n0r1 reg_c2n0r2
+1 1
+.names reg_c1n0r0 reg_c2n0r3
+1 1
+.names reg_c1n1r0 reg_c2n1r0
+1 1
+.names spx_c1from0to1k0 reg_c2n1r1
+1 1
+.names spx_c1from0to1k0 reg_c2n1r2
+1 1
+.names reg_c1n1r2 reg_c2n1r3
+1 1
+.names reg_c1n2r3 reg_c2n2r0
+1 1
+.names spx_c1from1to2k0 reg_c2n2r1
+1 1
+.names reg_c1n2r0 reg_c2n2r2
+1 1
+.names spx_c1from1to2k0 reg_c2n2r3
+1 1
+.names spx_c1from2to3k0 reg_c2n3r0
+1 1
+.names reg_c1n3r3 reg_c2n3r1
+1 1
+.names reg_c1n3r3 reg_c2n3r2
+1 1
+.names reg_c1n3r1 reg_c2n3r3
+1 1
+.names reg_c2n0r1 reg_c3n0r0
+1 1
+.names reg_c2n0r3 reg_c3n0r1
+1 1
+.names reg_c2n0r1 reg_c3n0r2
+1 1
+.names reg_c2n0r2 reg_c3n0r3
+1 1
+.names reg_c2n1r1 reg_c3n1r0
+1 1
+.names reg_c2n1r0 reg_c3n1r1
+1 1
+.names spx_c2from0to1k0 reg_c3n1r2
+1 1
+.names reg_c2n1r3 reg_c3n1r3
+1 1
+.names spx_c2from1to2k0 reg_c3n2r0
+1 1
+.names reg_c2n2r3 reg_c3n2r1
+1 1
+.names reg_c2n2r0 reg_c3n2r2
+1 1
+.names reg_c2n2r1 reg_c3n2r3
+1 1
+.names spx_c2from2to3k0 reg_c3n3r0
+1 1
+.names reg_c2n3r2 reg_c3n3r1
+1 1
+.names reg_c2n3r0 reg_c3n3r2
+1 1
+.names reg_c2n3r3 reg_c3n3r3
+1 1
+.names reg_c3n0r3 reg_c4n0r0
+1 1
+.names reg_c3n0r1 reg_c4n0r1
+1 1
+.names reg_c3n0r0 reg_c4n0r2
+1 1
+.names spx_c3from3to0k0 reg_c4n0r3
+1 1
+.names reg_c3n1r1 reg_c4n1r0
+1 1
+.names reg_c3n1r0 reg_c4n1r1
+1 1
+.names reg_c3n1r3 reg_c4n1r2
+1 1
+.names spx_c3from0to1k0 reg_c4n1r3
+1 1
+.names reg_c3n2r0 reg_c4n2r0
+1 1
+.names reg_c3n2r2 reg_c4n2r1
+1 1
+.names reg_c3n2r3 reg_c4n2r2
+1 1
+.names spx_c3from1to2k0 reg_c4n2r3
+1 1
+.names reg_c3n3r0 reg_c4n3r0
+1 1
+.names reg_c3n3r3 reg_c4n3r1
+1 1
+.names reg_c3n3r1 reg_c4n3r2
+1 1
+.names reg_c3n3r2 reg_c4n3r3
+1 1
+.names reg_c0n0r0 spx_c0from0to1k0
+1 1
+.names reg_c0n1r0 spx_c0from1to2k0
+1 1
+.names reg_c0n2r0 spx_c0from2to3k0
+1 1
+.names reg_c0n3r3 spx_c0from3to0k0
+1 1
+.names reg_c1n0r1 spx_c1from0to1k0
+1 1
+.names reg_c1n1r0 spx_c1from1to2k0
+1 1
+.names reg_c1n2r2 spx_c1from2to3k0
+1 1
+.names reg_c1n3r2 spx_c1from3to0k0
+1 1
+.names reg_c2n0r3 spx_c2from0to1k0
+1 1
+.names reg_c2n1r2 spx_c2from1to2k0
+1 1
+.names reg_c2n2r3 spx_c2from2to3k0
+1 1
+.names reg_c2n3r0 spx_c2from3to0k0
+1 1
+.names reg_c3n0r2 spx_c3from0to1k0
+1 1
+.names reg_c3n1r3 spx_c3from1to2k0
+1 1
+.names reg_c3n2r1 spx_c3from2to3k0
+1 1
+.names reg_c3n3r2 spx_c3from3to0k0
+1 1
+#.candidates Is1 x_reg_c0n0r0
+#.candidates Is1 x_reg_c0n0r1
+#.candidates Is1 x_reg_c0n0r2
+#.candidates Is1 x_reg_c0n0r3
+#.candidates Is2 x_reg_c0n1r0
+#.candidates Is2 x_reg_c0n1r1
+#.candidates Is2 x_reg_c0n1r2
+#.candidates Is2 x_reg_c0n1r3
+#.candidates Is3 x_reg_c0n2r0
+#.candidates Is3 x_reg_c0n2r1
+#.candidates Is3 x_reg_c0n2r2
+#.candidates Is3 x_reg_c0n2r3
+#.candidates Is4 x_reg_c0n3r0
+#.candidates Is4 x_reg_c0n3r1
+#.candidates Is4 x_reg_c0n3r2
+#.candidates Is4 x_reg_c0n3r3
+#.candidates reg_c0n0r0 reg_c0n0r1 reg_c0n0r2 reg_c0n0r3 spx_c0from3to0k0 x_reg_c1n0r0
+#.candidates reg_c0n0r0 reg_c0n0r1 reg_c0n0r2 reg_c0n0r3 spx_c0from3to0k0 x_reg_c1n0r1
+#.candidates reg_c0n0r0 reg_c0n0r1 reg_c0n0r2 reg_c0n0r3 spx_c0from3to0k0 x_reg_c1n0r2
+#.candidates reg_c0n0r0 reg_c0n0r1 reg_c0n0r2 reg_c0n0r3 spx_c0from3to0k0 x_reg_c1n0r3
+#.candidates reg_c0n1r0 reg_c0n1r1 reg_c0n1r2 reg_c0n1r3 spx_c0from0to1k0 x_reg_c1n1r0
+#.candidates reg_c0n1r0 reg_c0n1r1 reg_c0n1r2 reg_c0n1r3 spx_c0from0to1k0 x_reg_c1n1r1
+#.candidates reg_c0n1r0 reg_c0n1r1 reg_c0n1r2 reg_c0n1r3 spx_c0from0to1k0 x_reg_c1n1r2
+#.candidates reg_c0n1r0 reg_c0n1r1 reg_c0n1r2 reg_c0n1r3 spx_c0from0to1k0 x_reg_c1n1r3
+#.candidates reg_c0n2r0 reg_c0n2r1 reg_c0n2r2 reg_c0n2r3 spx_c0from1to2k0 x_reg_c1n2r0
+#.candidates reg_c0n2r0 reg_c0n2r1 reg_c0n2r2 reg_c0n2r3 spx_c0from1to2k0 x_reg_c1n2r1
+#.candidates reg_c0n2r0 reg_c0n2r1 reg_c0n2r2 reg_c0n2r3 spx_c0from1to2k0 x_reg_c1n2r2
+#.candidates reg_c0n2r0 reg_c0n2r1 reg_c0n2r2 reg_c0n2r3 spx_c0from1to2k0 x_reg_c1n2r3
+#.candidates reg_c0n3r0 reg_c0n3r1 reg_c0n3r2 reg_c0n3r3 spx_c0from2to3k0 x_reg_c1n3r0
+#.candidates reg_c0n3r0 reg_c0n3r1 reg_c0n3r2 reg_c0n3r3 spx_c0from2to3k0 x_reg_c1n3r1
+#.candidates reg_c0n3r0 reg_c0n3r1 reg_c0n3r2 reg_c0n3r3 spx_c0from2to3k0 x_reg_c1n3r2
+#.candidates reg_c0n3r0 reg_c0n3r1 reg_c0n3r2 reg_c0n3r3 spx_c0from2to3k0 x_reg_c1n3r3
+#.candidates reg_c1n0r0 reg_c1n0r1 reg_c1n0r2 reg_c1n0r3 spx_c1from3to0k0 x_reg_c2n0r0
+#.candidates reg_c1n0r0 reg_c1n0r1 reg_c1n0r2 reg_c1n0r3 spx_c1from3to0k0 x_reg_c2n0r1
+#.candidates reg_c1n0r0 reg_c1n0r1 reg_c1n0r2 reg_c1n0r3 spx_c1from3to0k0 x_reg_c2n0r2
+#.candidates reg_c1n0r0 reg_c1n0r1 reg_c1n0r2 reg_c1n0r3 spx_c1from3to0k0 x_reg_c2n0r3
+#.candidates reg_c1n1r0 reg_c1n1r1 reg_c1n1r2 reg_c1n1r3 spx_c1from0to1k0 x_reg_c2n1r0
+#.candidates reg_c1n1r0 reg_c1n1r1 reg_c1n1r2 reg_c1n1r3 spx_c1from0to1k0 x_reg_c2n1r1
+#.candidates reg_c1n1r0 reg_c1n1r1 reg_c1n1r2 reg_c1n1r3 spx_c1from0to1k0 x_reg_c2n1r2
+#.candidates reg_c1n1r0 reg_c1n1r1 reg_c1n1r2 reg_c1n1r3 spx_c1from0to1k0 x_reg_c2n1r3
+#.candidates reg_c1n2r0 reg_c1n2r1 reg_c1n2r2 reg_c1n2r3 spx_c1from1to2k0 x_reg_c2n2r0
+#.candidates reg_c1n2r0 reg_c1n2r1 reg_c1n2r2 reg_c1n2r3 spx_c1from1to2k0 x_reg_c2n2r1
+#.candidates reg_c1n2r0 reg_c1n2r1 reg_c1n2r2 reg_c1n2r3 spx_c1from1to2k0 x_reg_c2n2r2
+#.candidates reg_c1n2r0 reg_c1n2r1 reg_c1n2r2 reg_c1n2r3 spx_c1from1to2k0 x_reg_c2n2r3
+#.candidates reg_c1n3r0 reg_c1n3r1 reg_c1n3r2 reg_c1n3r3 spx_c1from2to3k0 x_reg_c2n3r0
+#.candidates reg_c1n3r0 reg_c1n3r1 reg_c1n3r2 reg_c1n3r3 spx_c1from2to3k0 x_reg_c2n3r1
+#.candidates reg_c1n3r0 reg_c1n3r1 reg_c1n3r2 reg_c1n3r3 spx_c1from2to3k0 x_reg_c2n3r2
+#.candidates reg_c1n3r0 reg_c1n3r1 reg_c1n3r2 reg_c1n3r3 spx_c1from2to3k0 x_reg_c2n3r3
+#.candidates reg_c2n0r0 reg_c2n0r1 reg_c2n0r2 reg_c2n0r3 spx_c2from3to0k0 x_reg_c3n0r0
+#.candidates reg_c2n0r0 reg_c2n0r1 reg_c2n0r2 reg_c2n0r3 spx_c2from3to0k0 x_reg_c3n0r1
+#.candidates reg_c2n0r0 reg_c2n0r1 reg_c2n0r2 reg_c2n0r3 spx_c2from3to0k0 x_reg_c3n0r2
+#.candidates reg_c2n0r0 reg_c2n0r1 reg_c2n0r2 reg_c2n0r3 spx_c2from3to0k0 x_reg_c3n0r3
+#.candidates reg_c2n1r0 reg_c2n1r1 reg_c2n1r2 reg_c2n1r3 spx_c2from0to1k0 x_reg_c3n1r0
+#.candidates reg_c2n1r0 reg_c2n1r1 reg_c2n1r2 reg_c2n1r3 spx_c2from0to1k0 x_reg_c3n1r1
+#.candidates reg_c2n1r0 reg_c2n1r1 reg_c2n1r2 reg_c2n1r3 spx_c2from0to1k0 x_reg_c3n1r2
+#.candidates reg_c2n1r0 reg_c2n1r1 reg_c2n1r2 reg_c2n1r3 spx_c2from0to1k0 x_reg_c3n1r3
+#.candidates reg_c2n2r0 reg_c2n2r1 reg_c2n2r2 reg_c2n2r3 spx_c2from1to2k0 x_reg_c3n2r0
+#.candidates reg_c2n2r0 reg_c2n2r1 reg_c2n2r2 reg_c2n2r3 spx_c2from1to2k0 x_reg_c3n2r1
+#.candidates reg_c2n2r0 reg_c2n2r1 reg_c2n2r2 reg_c2n2r3 spx_c2from1to2k0 x_reg_c3n2r2
+#.candidates reg_c2n2r0 reg_c2n2r1 reg_c2n2r2 reg_c2n2r3 spx_c2from1to2k0 x_reg_c3n2r3
+#.candidates reg_c2n3r0 reg_c2n3r1 reg_c2n3r2 reg_c2n3r3 spx_c2from2to3k0 x_reg_c3n3r0
+#.candidates reg_c2n3r0 reg_c2n3r1 reg_c2n3r2 reg_c2n3r3 spx_c2from2to3k0 x_reg_c3n3r1
+#.candidates reg_c2n3r0 reg_c2n3r1 reg_c2n3r2 reg_c2n3r3 spx_c2from2to3k0 x_reg_c3n3r2
+#.candidates reg_c2n3r0 reg_c2n3r1 reg_c2n3r2 reg_c2n3r3 spx_c2from2to3k0 x_reg_c3n3r3
+#.candidates reg_c3n0r0 reg_c3n0r1 reg_c3n0r2 reg_c3n0r3 spx_c3from3to0k0 x_reg_c4n0r0
+#.candidates reg_c3n0r0 reg_c3n0r1 reg_c3n0r2 reg_c3n0r3 spx_c3from3to0k0 x_reg_c4n0r1
+#.candidates reg_c3n0r0 reg_c3n0r1 reg_c3n0r2 reg_c3n0r3 spx_c3from3to0k0 x_reg_c4n0r2
+#.candidates reg_c3n0r0 reg_c3n0r1 reg_c3n0r2 reg_c3n0r3 spx_c3from3to0k0 x_reg_c4n0r3
+#.candidates reg_c3n1r0 reg_c3n1r1 reg_c3n1r2 reg_c3n1r3 spx_c3from0to1k0 x_reg_c4n1r0
+#.candidates reg_c3n1r0 reg_c3n1r1 reg_c3n1r2 reg_c3n1r3 spx_c3from0to1k0 x_reg_c4n1r1
+#.candidates reg_c3n1r0 reg_c3n1r1 reg_c3n1r2 reg_c3n1r3 spx_c3from0to1k0 x_reg_c4n1r2
+#.candidates reg_c3n1r0 reg_c3n1r1 reg_c3n1r2 reg_c3n1r3 spx_c3from0to1k0 x_reg_c4n1r3
+#.candidates reg_c3n2r0 reg_c3n2r1 reg_c3n2r2 reg_c3n2r3 spx_c3from1to2k0 x_reg_c4n2r0
+#.candidates reg_c3n2r0 reg_c3n2r1 reg_c3n2r2 reg_c3n2r3 spx_c3from1to2k0 x_reg_c4n2r1
+#.candidates reg_c3n2r0 reg_c3n2r1 reg_c3n2r2 reg_c3n2r3 spx_c3from1to2k0 x_reg_c4n2r2
+#.candidates reg_c3n2r0 reg_c3n2r1 reg_c3n2r2 reg_c3n2r3 spx_c3from1to2k0 x_reg_c4n2r3
+#.candidates reg_c3n3r0 reg_c3n3r1 reg_c3n3r2 reg_c3n3r3 spx_c3from2to3k0 x_reg_c4n3r0
+#.candidates reg_c3n3r0 reg_c3n3r1 reg_c3n3r2 reg_c3n3r3 spx_c3from2to3k0 x_reg_c4n3r1
+#.candidates reg_c3n3r0 reg_c3n3r1 reg_c3n3r2 reg_c3n3r3 spx_c3from2to3k0 x_reg_c4n3r2
+#.candidates reg_c3n3r0 reg_c3n3r1 reg_c3n3r2 reg_c3n3r3 spx_c3from2to3k0 x_reg_c4n3r3
+#.candidates reg_c0n0r0 reg_c0n0r1 reg_c0n0r2 reg_c0n0r3 x_spx_c0from0to1k0
+#.candidates reg_c0n1r0 reg_c0n1r1 reg_c0n1r2 reg_c0n1r3 x_spx_c0from1to2k0
+#.candidates reg_c0n2r0 reg_c0n2r1 reg_c0n2r2 reg_c0n2r3 x_spx_c0from2to3k0
+#.candidates reg_c0n3r0 reg_c0n3r1 reg_c0n3r2 reg_c0n3r3 x_spx_c0from3to0k0
+#.candidates reg_c1n0r0 reg_c1n0r1 reg_c1n0r2 reg_c1n0r3 x_spx_c1from0to1k0
+#.candidates reg_c1n1r0 reg_c1n1r1 reg_c1n1r2 reg_c1n1r3 x_spx_c1from1to2k0
+#.candidates reg_c1n2r0 reg_c1n2r1 reg_c1n2r2 reg_c1n2r3 x_spx_c1from2to3k0
+#.candidates reg_c1n3r0 reg_c1n3r1 reg_c1n3r2 reg_c1n3r3 x_spx_c1from3to0k0
+#.candidates reg_c2n0r0 reg_c2n0r1 reg_c2n0r2 reg_c2n0r3 x_spx_c2from0to1k0
+#.candidates reg_c2n1r0 reg_c2n1r1 reg_c2n1r2 reg_c2n1r3 x_spx_c2from1to2k0
+#.candidates reg_c2n2r0 reg_c2n2r1 reg_c2n2r2 reg_c2n2r3 x_spx_c2from2to3k0
+#.candidates reg_c2n3r0 reg_c2n3r1 reg_c2n3r2 reg_c2n3r3 x_spx_c2from3to0k0
+#.candidates reg_c3n0r0 reg_c3n0r1 reg_c3n0r2 reg_c3n0r3 x_spx_c3from0to1k0
+#.candidates reg_c3n1r0 reg_c3n1r1 reg_c3n1r2 reg_c3n1r3 x_spx_c3from1to2k0
+#.candidates reg_c3n2r0 reg_c3n2r1 reg_c3n2r2 reg_c3n2r3 x_spx_c3from2to3k0
+#.candidates reg_c3n3r0 reg_c3n3r1 reg_c3n3r2 reg_c3n3r3 x_spx_c3from3to0k0
+.names reg_c4n0r0 reg_c4n0r1 reg_c4n0r2 reg_c4n0r3 out1
+0000 0
+.names reg_c4n1r0 reg_c4n1r1 reg_c4n1r2 reg_c4n1r3 out2
+0000 0
+.names reg_c4n2r0 reg_c4n2r1 reg_c4n2r2 reg_c4n2r3 out3
+0000 0
+.names reg_c4n3r0 reg_c4n3r1 reg_c4n3r2 reg_c4n3r3 out4
+0000 0
+.end

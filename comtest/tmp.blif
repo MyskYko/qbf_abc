@@ -1,0 +1,301 @@
+#.top impl
+.model impl
+.inputs Is1 Is2 Is3 Is4
+.outputs out1 out2 out3 out4
+.names x_reg_c0_n0_r0 reg_c0_n0_r0
+1 1
+.names x_reg_c0_n0_r1 reg_c0_n0_r1
+1 1
+.names x_reg_c0_n0_r2 reg_c0_n0_r2
+1 1
+.names x_reg_c0_n0_r3 reg_c0_n0_r3
+1 1
+.names x_reg_c0_n1_r0 reg_c0_n1_r0
+1 1
+.names x_reg_c0_n1_r1 reg_c0_n1_r1
+1 1
+.names x_reg_c0_n1_r2 reg_c0_n1_r2
+1 1
+.names x_reg_c0_n1_r3 reg_c0_n1_r3
+1 1
+.names x_reg_c0_n2_r0 reg_c0_n2_r0
+1 1
+.names x_reg_c0_n2_r1 reg_c0_n2_r1
+1 1
+.names x_reg_c0_n2_r2 reg_c0_n2_r2
+1 1
+.names x_reg_c0_n2_r3 reg_c0_n2_r3
+1 1
+.names x_reg_c0_n3_r0 reg_c0_n3_r0
+1 1
+.names x_reg_c0_n3_r1 reg_c0_n3_r1
+1 1
+.names x_reg_c0_n3_r2 reg_c0_n3_r2
+1 1
+.names x_reg_c0_n3_r3 reg_c0_n3_r3
+1 1
+.names x_reg_c1_n0_r0 reg_c1_n0_r0
+1 1
+.names x_reg_c1_n0_r1 reg_c1_n0_r1
+1 1
+.names x_reg_c1_n0_r2 reg_c1_n0_r2
+1 1
+.names x_reg_c1_n0_r3 reg_c1_n0_r3
+1 1
+.names x_reg_c1_n1_r0 reg_c1_n1_r0
+1 1
+.names x_reg_c1_n1_r1 reg_c1_n1_r1
+1 1
+.names x_reg_c1_n1_r2 reg_c1_n1_r2
+1 1
+.names x_reg_c1_n1_r3 reg_c1_n1_r3
+1 1
+.names x_reg_c1_n2_r0 reg_c1_n2_r0
+1 1
+.names x_reg_c1_n2_r1 reg_c1_n2_r1
+1 1
+.names x_reg_c1_n2_r2 reg_c1_n2_r2
+1 1
+.names x_reg_c1_n2_r3 reg_c1_n2_r3
+1 1
+.names x_reg_c1_n3_r0 reg_c1_n3_r0
+1 1
+.names x_reg_c1_n3_r1 reg_c1_n3_r1
+1 1
+.names x_reg_c1_n3_r2 reg_c1_n3_r2
+1 1
+.names x_reg_c1_n3_r3 reg_c1_n3_r3
+1 1
+.names x_reg_c2_n0_r0 reg_c2_n0_r0
+1 1
+.names x_reg_c2_n0_r1 reg_c2_n0_r1
+1 1
+.names x_reg_c2_n0_r2 reg_c2_n0_r2
+1 1
+.names x_reg_c2_n0_r3 reg_c2_n0_r3
+1 1
+.names x_reg_c2_n1_r0 reg_c2_n1_r0
+1 1
+.names x_reg_c2_n1_r1 reg_c2_n1_r1
+1 1
+.names x_reg_c2_n1_r2 reg_c2_n1_r2
+1 1
+.names x_reg_c2_n1_r3 reg_c2_n1_r3
+1 1
+.names x_reg_c2_n2_r0 reg_c2_n2_r0
+1 1
+.names x_reg_c2_n2_r1 reg_c2_n2_r1
+1 1
+.names x_reg_c2_n2_r2 reg_c2_n2_r2
+1 1
+.names x_reg_c2_n2_r3 reg_c2_n2_r3
+1 1
+.names x_reg_c2_n3_r0 reg_c2_n3_r0
+1 1
+.names x_reg_c2_n3_r1 reg_c2_n3_r1
+1 1
+.names x_reg_c2_n3_r2 reg_c2_n3_r2
+1 1
+.names x_reg_c2_n3_r3 reg_c2_n3_r3
+1 1
+.names x_reg_c3_n0_r0 reg_c3_n0_r0
+1 1
+.names x_reg_c3_n0_r1 reg_c3_n0_r1
+1 1
+.names x_reg_c3_n0_r2 reg_c3_n0_r2
+1 1
+.names x_reg_c3_n0_r3 reg_c3_n0_r3
+1 1
+.names x_reg_c3_n1_r0 reg_c3_n1_r0
+1 1
+.names x_reg_c3_n1_r1 reg_c3_n1_r1
+1 1
+.names x_reg_c3_n1_r2 reg_c3_n1_r2
+1 1
+.names x_reg_c3_n1_r3 reg_c3_n1_r3
+1 1
+.names x_reg_c3_n2_r0 reg_c3_n2_r0
+1 1
+.names x_reg_c3_n2_r1 reg_c3_n2_r1
+1 1
+.names x_reg_c3_n2_r2 reg_c3_n2_r2
+1 1
+.names x_reg_c3_n2_r3 reg_c3_n2_r3
+1 1
+.names x_reg_c3_n3_r0 reg_c3_n3_r0
+1 1
+.names x_reg_c3_n3_r1 reg_c3_n3_r1
+1 1
+.names x_reg_c3_n3_r2 reg_c3_n3_r2
+1 1
+.names x_reg_c3_n3_r3 reg_c3_n3_r3
+1 1
+.names x_reg_c4_n0_r0 reg_c4_n0_r0
+1 1
+.names x_reg_c4_n0_r1 reg_c4_n0_r1
+1 1
+.names x_reg_c4_n0_r2 reg_c4_n0_r2
+1 1
+.names x_reg_c4_n0_r3 reg_c4_n0_r3
+1 1
+.names x_reg_c4_n1_r0 reg_c4_n1_r0
+1 1
+.names x_reg_c4_n1_r1 reg_c4_n1_r1
+1 1
+.names x_reg_c4_n1_r2 reg_c4_n1_r2
+1 1
+.names x_reg_c4_n1_r3 reg_c4_n1_r3
+1 1
+.names x_reg_c4_n2_r0 reg_c4_n2_r0
+1 1
+.names x_reg_c4_n2_r1 reg_c4_n2_r1
+1 1
+.names x_reg_c4_n2_r2 reg_c4_n2_r2
+1 1
+.names x_reg_c4_n2_r3 reg_c4_n2_r3
+1 1
+.names x_reg_c4_n3_r0 reg_c4_n3_r0
+1 1
+.names x_reg_c4_n3_r1 reg_c4_n3_r1
+1 1
+.names x_reg_c4_n3_r2 reg_c4_n3_r2
+1 1
+.names x_reg_c4_n3_r3 reg_c4_n3_r3
+1 1
+.names x_spx_c0_from0_to1_k0 spx_c0_from0_to1_k0
+1 1
+.names x_spx_c0_from1_to2_k0 spx_c0_from1_to2_k0
+1 1
+.names x_spx_c0_from2_to3_k0 spx_c0_from2_to3_k0
+1 1
+.names x_spx_c0_from3_to0_k0 spx_c0_from3_to0_k0
+1 1
+.names x_spx_c1_from0_to1_k0 spx_c1_from0_to1_k0
+1 1
+.names x_spx_c1_from1_to2_k0 spx_c1_from1_to2_k0
+1 1
+.names x_spx_c1_from2_to3_k0 spx_c1_from2_to3_k0
+1 1
+.names x_spx_c1_from3_to0_k0 spx_c1_from3_to0_k0
+1 1
+.names x_spx_c2_from0_to1_k0 spx_c2_from0_to1_k0
+1 1
+.names x_spx_c2_from1_to2_k0 spx_c2_from1_to2_k0
+1 1
+.names x_spx_c2_from2_to3_k0 spx_c2_from2_to3_k0
+1 1
+.names x_spx_c2_from3_to0_k0 spx_c2_from3_to0_k0
+1 1
+.names x_spx_c3_from0_to1_k0 spx_c3_from0_to1_k0
+1 1
+.names x_spx_c3_from1_to2_k0 spx_c3_from1_to2_k0
+1 1
+.names x_spx_c3_from2_to3_k0 spx_c3_from2_to3_k0
+1 1
+.names x_spx_c3_from3_to0_k0 spx_c3_from3_to0_k0
+1 1
+#.candidates Is1 x_reg_c0_n0_r0
+#.candidates Is1 x_reg_c0_n0_r1
+#.candidates Is1 x_reg_c0_n0_r2
+#.candidates Is1 x_reg_c0_n0_r3
+#.candidates Is2 x_reg_c0_n1_r0
+#.candidates Is2 x_reg_c0_n1_r1
+#.candidates Is2 x_reg_c0_n1_r2
+#.candidates Is2 x_reg_c0_n1_r3
+#.candidates Is3 x_reg_c0_n2_r0
+#.candidates Is3 x_reg_c0_n2_r1
+#.candidates Is3 x_reg_c0_n2_r2
+#.candidates Is3 x_reg_c0_n2_r3
+#.candidates Is4 x_reg_c0_n3_r0
+#.candidates Is4 x_reg_c0_n3_r1
+#.candidates Is4 x_reg_c0_n3_r2
+#.candidates Is4 x_reg_c0_n3_r3
+#.candidates reg_c0_n0_r0 reg_c0_n0_r1 reg_c0_n0_r2 reg_c0_n0_r3 spx_c0_from3_to0_k0 x_reg_c1_n0_r0
+#.candidates reg_c0_n0_r0 reg_c0_n0_r1 reg_c0_n0_r2 reg_c0_n0_r3 spx_c0_from3_to0_k0 x_reg_c1_n0_r1
+#.candidates reg_c0_n0_r0 reg_c0_n0_r1 reg_c0_n0_r2 reg_c0_n0_r3 spx_c0_from3_to0_k0 x_reg_c1_n0_r2
+#.candidates reg_c0_n0_r0 reg_c0_n0_r1 reg_c0_n0_r2 reg_c0_n0_r3 spx_c0_from3_to0_k0 x_reg_c1_n0_r3
+#.candidates reg_c0_n1_r0 reg_c0_n1_r1 reg_c0_n1_r2 reg_c0_n1_r3 spx_c0_from0_to1_k0 x_reg_c1_n1_r0
+#.candidates reg_c0_n1_r0 reg_c0_n1_r1 reg_c0_n1_r2 reg_c0_n1_r3 spx_c0_from0_to1_k0 x_reg_c1_n1_r1
+#.candidates reg_c0_n1_r0 reg_c0_n1_r1 reg_c0_n1_r2 reg_c0_n1_r3 spx_c0_from0_to1_k0 x_reg_c1_n1_r2
+#.candidates reg_c0_n1_r0 reg_c0_n1_r1 reg_c0_n1_r2 reg_c0_n1_r3 spx_c0_from0_to1_k0 x_reg_c1_n1_r3
+#.candidates reg_c0_n2_r0 reg_c0_n2_r1 reg_c0_n2_r2 reg_c0_n2_r3 spx_c0_from1_to2_k0 x_reg_c1_n2_r0
+#.candidates reg_c0_n2_r0 reg_c0_n2_r1 reg_c0_n2_r2 reg_c0_n2_r3 spx_c0_from1_to2_k0 x_reg_c1_n2_r1
+#.candidates reg_c0_n2_r0 reg_c0_n2_r1 reg_c0_n2_r2 reg_c0_n2_r3 spx_c0_from1_to2_k0 x_reg_c1_n2_r2
+#.candidates reg_c0_n2_r0 reg_c0_n2_r1 reg_c0_n2_r2 reg_c0_n2_r3 spx_c0_from1_to2_k0 x_reg_c1_n2_r3
+#.candidates reg_c0_n3_r0 reg_c0_n3_r1 reg_c0_n3_r2 reg_c0_n3_r3 spx_c0_from2_to3_k0 x_reg_c1_n3_r0
+#.candidates reg_c0_n3_r0 reg_c0_n3_r1 reg_c0_n3_r2 reg_c0_n3_r3 spx_c0_from2_to3_k0 x_reg_c1_n3_r1
+#.candidates reg_c0_n3_r0 reg_c0_n3_r1 reg_c0_n3_r2 reg_c0_n3_r3 spx_c0_from2_to3_k0 x_reg_c1_n3_r2
+#.candidates reg_c0_n3_r0 reg_c0_n3_r1 reg_c0_n3_r2 reg_c0_n3_r3 spx_c0_from2_to3_k0 x_reg_c1_n3_r3
+#.candidates reg_c1_n0_r0 reg_c1_n0_r1 reg_c1_n0_r2 reg_c1_n0_r3 spx_c1_from3_to0_k0 x_reg_c2_n0_r0
+#.candidates reg_c1_n0_r0 reg_c1_n0_r1 reg_c1_n0_r2 reg_c1_n0_r3 spx_c1_from3_to0_k0 x_reg_c2_n0_r1
+#.candidates reg_c1_n0_r0 reg_c1_n0_r1 reg_c1_n0_r2 reg_c1_n0_r3 spx_c1_from3_to0_k0 x_reg_c2_n0_r2
+#.candidates reg_c1_n0_r0 reg_c1_n0_r1 reg_c1_n0_r2 reg_c1_n0_r3 spx_c1_from3_to0_k0 x_reg_c2_n0_r3
+#.candidates reg_c1_n1_r0 reg_c1_n1_r1 reg_c1_n1_r2 reg_c1_n1_r3 spx_c1_from0_to1_k0 x_reg_c2_n1_r0
+#.candidates reg_c1_n1_r0 reg_c1_n1_r1 reg_c1_n1_r2 reg_c1_n1_r3 spx_c1_from0_to1_k0 x_reg_c2_n1_r1
+#.candidates reg_c1_n1_r0 reg_c1_n1_r1 reg_c1_n1_r2 reg_c1_n1_r3 spx_c1_from0_to1_k0 x_reg_c2_n1_r2
+#.candidates reg_c1_n1_r0 reg_c1_n1_r1 reg_c1_n1_r2 reg_c1_n1_r3 spx_c1_from0_to1_k0 x_reg_c2_n1_r3
+#.candidates reg_c1_n2_r0 reg_c1_n2_r1 reg_c1_n2_r2 reg_c1_n2_r3 spx_c1_from1_to2_k0 x_reg_c2_n2_r0
+#.candidates reg_c1_n2_r0 reg_c1_n2_r1 reg_c1_n2_r2 reg_c1_n2_r3 spx_c1_from1_to2_k0 x_reg_c2_n2_r1
+#.candidates reg_c1_n2_r0 reg_c1_n2_r1 reg_c1_n2_r2 reg_c1_n2_r3 spx_c1_from1_to2_k0 x_reg_c2_n2_r2
+#.candidates reg_c1_n2_r0 reg_c1_n2_r1 reg_c1_n2_r2 reg_c1_n2_r3 spx_c1_from1_to2_k0 x_reg_c2_n2_r3
+#.candidates reg_c1_n3_r0 reg_c1_n3_r1 reg_c1_n3_r2 reg_c1_n3_r3 spx_c1_from2_to3_k0 x_reg_c2_n3_r0
+#.candidates reg_c1_n3_r0 reg_c1_n3_r1 reg_c1_n3_r2 reg_c1_n3_r3 spx_c1_from2_to3_k0 x_reg_c2_n3_r1
+#.candidates reg_c1_n3_r0 reg_c1_n3_r1 reg_c1_n3_r2 reg_c1_n3_r3 spx_c1_from2_to3_k0 x_reg_c2_n3_r2
+#.candidates reg_c1_n3_r0 reg_c1_n3_r1 reg_c1_n3_r2 reg_c1_n3_r3 spx_c1_from2_to3_k0 x_reg_c2_n3_r3
+#.candidates reg_c2_n0_r0 reg_c2_n0_r1 reg_c2_n0_r2 reg_c2_n0_r3 spx_c2_from3_to0_k0 x_reg_c3_n0_r0
+#.candidates reg_c2_n0_r0 reg_c2_n0_r1 reg_c2_n0_r2 reg_c2_n0_r3 spx_c2_from3_to0_k0 x_reg_c3_n0_r1
+#.candidates reg_c2_n0_r0 reg_c2_n0_r1 reg_c2_n0_r2 reg_c2_n0_r3 spx_c2_from3_to0_k0 x_reg_c3_n0_r2
+#.candidates reg_c2_n0_r0 reg_c2_n0_r1 reg_c2_n0_r2 reg_c2_n0_r3 spx_c2_from3_to0_k0 x_reg_c3_n0_r3
+#.candidates reg_c2_n1_r0 reg_c2_n1_r1 reg_c2_n1_r2 reg_c2_n1_r3 spx_c2_from0_to1_k0 x_reg_c3_n1_r0
+#.candidates reg_c2_n1_r0 reg_c2_n1_r1 reg_c2_n1_r2 reg_c2_n1_r3 spx_c2_from0_to1_k0 x_reg_c3_n1_r1
+#.candidates reg_c2_n1_r0 reg_c2_n1_r1 reg_c2_n1_r2 reg_c2_n1_r3 spx_c2_from0_to1_k0 x_reg_c3_n1_r2
+#.candidates reg_c2_n1_r0 reg_c2_n1_r1 reg_c2_n1_r2 reg_c2_n1_r3 spx_c2_from0_to1_k0 x_reg_c3_n1_r3
+#.candidates reg_c2_n2_r0 reg_c2_n2_r1 reg_c2_n2_r2 reg_c2_n2_r3 spx_c2_from1_to2_k0 x_reg_c3_n2_r0
+#.candidates reg_c2_n2_r0 reg_c2_n2_r1 reg_c2_n2_r2 reg_c2_n2_r3 spx_c2_from1_to2_k0 x_reg_c3_n2_r1
+#.candidates reg_c2_n2_r0 reg_c2_n2_r1 reg_c2_n2_r2 reg_c2_n2_r3 spx_c2_from1_to2_k0 x_reg_c3_n2_r2
+#.candidates reg_c2_n2_r0 reg_c2_n2_r1 reg_c2_n2_r2 reg_c2_n2_r3 spx_c2_from1_to2_k0 x_reg_c3_n2_r3
+#.candidates reg_c2_n3_r0 reg_c2_n3_r1 reg_c2_n3_r2 reg_c2_n3_r3 spx_c2_from2_to3_k0 x_reg_c3_n3_r0
+#.candidates reg_c2_n3_r0 reg_c2_n3_r1 reg_c2_n3_r2 reg_c2_n3_r3 spx_c2_from2_to3_k0 x_reg_c3_n3_r1
+#.candidates reg_c2_n3_r0 reg_c2_n3_r1 reg_c2_n3_r2 reg_c2_n3_r3 spx_c2_from2_to3_k0 x_reg_c3_n3_r2
+#.candidates reg_c2_n3_r0 reg_c2_n3_r1 reg_c2_n3_r2 reg_c2_n3_r3 spx_c2_from2_to3_k0 x_reg_c3_n3_r3
+#.candidates reg_c3_n0_r0 reg_c3_n0_r1 reg_c3_n0_r2 reg_c3_n0_r3 spx_c3_from3_to0_k0 x_reg_c4_n0_r0
+#.candidates reg_c3_n0_r0 reg_c3_n0_r1 reg_c3_n0_r2 reg_c3_n0_r3 spx_c3_from3_to0_k0 x_reg_c4_n0_r1
+#.candidates reg_c3_n0_r0 reg_c3_n0_r1 reg_c3_n0_r2 reg_c3_n0_r3 spx_c3_from3_to0_k0 x_reg_c4_n0_r2
+#.candidates reg_c3_n0_r0 reg_c3_n0_r1 reg_c3_n0_r2 reg_c3_n0_r3 spx_c3_from3_to0_k0 x_reg_c4_n0_r3
+#.candidates reg_c3_n1_r0 reg_c3_n1_r1 reg_c3_n1_r2 reg_c3_n1_r3 spx_c3_from0_to1_k0 x_reg_c4_n1_r0
+#.candidates reg_c3_n1_r0 reg_c3_n1_r1 reg_c3_n1_r2 reg_c3_n1_r3 spx_c3_from0_to1_k0 x_reg_c4_n1_r1
+#.candidates reg_c3_n1_r0 reg_c3_n1_r1 reg_c3_n1_r2 reg_c3_n1_r3 spx_c3_from0_to1_k0 x_reg_c4_n1_r2
+#.candidates reg_c3_n1_r0 reg_c3_n1_r1 reg_c3_n1_r2 reg_c3_n1_r3 spx_c3_from0_to1_k0 x_reg_c4_n1_r3
+#.candidates reg_c3_n2_r0 reg_c3_n2_r1 reg_c3_n2_r2 reg_c3_n2_r3 spx_c3_from1_to2_k0 x_reg_c4_n2_r0
+#.candidates reg_c3_n2_r0 reg_c3_n2_r1 reg_c3_n2_r2 reg_c3_n2_r3 spx_c3_from1_to2_k0 x_reg_c4_n2_r1
+#.candidates reg_c3_n2_r0 reg_c3_n2_r1 reg_c3_n2_r2 reg_c3_n2_r3 spx_c3_from1_to2_k0 x_reg_c4_n2_r2
+#.candidates reg_c3_n2_r0 reg_c3_n2_r1 reg_c3_n2_r2 reg_c3_n2_r3 spx_c3_from1_to2_k0 x_reg_c4_n2_r3
+#.candidates reg_c3_n3_r0 reg_c3_n3_r1 reg_c3_n3_r2 reg_c3_n3_r3 spx_c3_from2_to3_k0 x_reg_c4_n3_r0
+#.candidates reg_c3_n3_r0 reg_c3_n3_r1 reg_c3_n3_r2 reg_c3_n3_r3 spx_c3_from2_to3_k0 x_reg_c4_n3_r1
+#.candidates reg_c3_n3_r0 reg_c3_n3_r1 reg_c3_n3_r2 reg_c3_n3_r3 spx_c3_from2_to3_k0 x_reg_c4_n3_r2
+#.candidates reg_c3_n3_r0 reg_c3_n3_r1 reg_c3_n3_r2 reg_c3_n3_r3 spx_c3_from2_to3_k0 x_reg_c4_n3_r3
+#.candidates reg_c0_n0_r0 reg_c0_n0_r1 reg_c0_n0_r2 reg_c0_n0_r3 x_spx_c0_from0_to1_k0
+#.candidates reg_c0_n1_r0 reg_c0_n1_r1 reg_c0_n1_r2 reg_c0_n1_r3 x_spx_c0_from1_to2_k0
+#.candidates reg_c0_n2_r0 reg_c0_n2_r1 reg_c0_n2_r2 reg_c0_n2_r3 x_spx_c0_from2_to3_k0
+#.candidates reg_c0_n3_r0 reg_c0_n3_r1 reg_c0_n3_r2 reg_c0_n3_r3 x_spx_c0_from3_to0_k0
+#.candidates reg_c1_n0_r0 reg_c1_n0_r1 reg_c1_n0_r2 reg_c1_n0_r3 x_spx_c1_from0_to1_k0
+#.candidates reg_c1_n1_r0 reg_c1_n1_r1 reg_c1_n1_r2 reg_c1_n1_r3 x_spx_c1_from1_to2_k0
+#.candidates reg_c1_n2_r0 reg_c1_n2_r1 reg_c1_n2_r2 reg_c1_n2_r3 x_spx_c1_from2_to3_k0
+#.candidates reg_c1_n3_r0 reg_c1_n3_r1 reg_c1_n3_r2 reg_c1_n3_r3 x_spx_c1_from3_to0_k0
+#.candidates reg_c2_n0_r0 reg_c2_n0_r1 reg_c2_n0_r2 reg_c2_n0_r3 x_spx_c2_from0_to1_k0
+#.candidates reg_c2_n1_r0 reg_c2_n1_r1 reg_c2_n1_r2 reg_c2_n1_r3 x_spx_c2_from1_to2_k0
+#.candidates reg_c2_n2_r0 reg_c2_n2_r1 reg_c2_n2_r2 reg_c2_n2_r3 x_spx_c2_from2_to3_k0
+#.candidates reg_c2_n3_r0 reg_c2_n3_r1 reg_c2_n3_r2 reg_c2_n3_r3 x_spx_c2_from3_to0_k0
+#.candidates reg_c3_n0_r0 reg_c3_n0_r1 reg_c3_n0_r2 reg_c3_n0_r3 x_spx_c3_from0_to1_k0
+#.candidates reg_c3_n1_r0 reg_c3_n1_r1 reg_c3_n1_r2 reg_c3_n1_r3 x_spx_c3_from1_to2_k0
+#.candidates reg_c3_n2_r0 reg_c3_n2_r1 reg_c3_n2_r2 reg_c3_n2_r3 x_spx_c3_from2_to3_k0
+#.candidates reg_c3_n3_r0 reg_c3_n3_r1 reg_c3_n3_r2 reg_c3_n3_r3 x_spx_c3_from3_to0_k0
+.names reg_c4_n0_r0 reg_c4_n0_r1 reg_c4_n0_r2 reg_c4_n0_r3 out1
+0000 0
+.names reg_c4_n1_r0 reg_c4_n1_r1 reg_c4_n1_r2 reg_c4_n1_r3 out2
+0000 0
+.names reg_c4_n2_r0 reg_c4_n2_r1 reg_c4_n2_r2 reg_c4_n2_r3 out3
+0000 0
+.names reg_c4_n3_r0 reg_c4_n3_r1 reg_c4_n3_r2 reg_c4_n3_r3 out4
+0000 0
+.end

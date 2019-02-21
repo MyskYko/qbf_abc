@@ -127,7 +127,7 @@ int template_data::gen_reg() {
 	return 1;
       }
       for(int r = 0; r < num_reg[n]; r++) {
-	data += ".names x_reg_c" + std::to_string(c) + "_n" + std::to_string(n) + "_r" + std::to_string(r) + " reg_c" + std::to_string(c) + "_n" + std::to_string(n) + "_r" + std::to_string(r) + "\n1 1\n";
+	data += ".names x_reg_c" + std::to_string(c) + "n" + std::to_string(n) + "r" + std::to_string(r) + " reg_c" + std::to_string(c) + "n" + std::to_string(n) + "r" + std::to_string(r) + "\n1 1\n";
       }    
     }
   }
@@ -139,7 +139,7 @@ int template_data::gen_com() {
     for(int n1 = 0; n1 < num_node; n1++) {
       for(int n2 = 0; n2 < num_node; n2++) {
 	for(int k = 0; k < num_spx[n1][n2]; k++) {
-	  data += ".names x_spx_c" + std::to_string(c) + "_from" + std::to_string(n1) + "_to" + std::to_string(n2) + "_k" + std::to_string(k) + " spx_c" + std::to_string(c) + "_from" + std::to_string(n1) + "_to" + std::to_string(n2) + "_k" + std::to_string(k) + "\n1 1\n";
+	  data += ".names x_spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k) + " spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k) + "\n1 1\n";
 	}
       }
     }
@@ -149,10 +149,10 @@ int template_data::gen_com() {
     for(int n1 = 0; n1 < num_node-1; n1++) {
       for(int n2 = n1+1; n2 < num_node; n2++) {
 	for(int k = 0; k < num_hdx[n1][n2]; k++) {
-	  data += ".names x_hdx_c" + std::to_string(c) + "_n" + std::to_string(n1) + "_n" + std::to_string(n2) + "_k" + std::to_string(k) + " hdx_c" + std::to_string(c) + "_n" + std::to_string(n1) + "_n" + std::to_string(n2) + "_k" + std::to_string(k) + "\n1 1\n";
+	  data += ".names x_hdx_c" + std::to_string(c) + "n" + std::to_string(n1) + "n" + std::to_string(n2) + "k" + std::to_string(k) + " hdx_c" + std::to_string(c) + "n" + std::to_string(n1) + "n" + std::to_string(n2) + "k" + std::to_string(k) + "\n1 1\n";
 	  
-	  data += ".names x_hdx_c" + std::to_string(c) + "_from" + std::to_string(n1) + "_to" + std::to_string(n2) + "_k" + std::to_string(k) + " hdx_c" + std::to_string(c) + "_from" + std::to_string(n1) + "_to" + std::to_string(n2) + "_k" + std::to_string(k) + "\n1 1\n";
-	  data += ".names x_hdx_c" + std::to_string(c) + "_from" + std::to_string(n2) + "_to" + std::to_string(n1) + "_k" + std::to_string(k) + " hdx_c" + std::to_string(c) + "_from" + std::to_string(n2) + "_to" + std::to_string(n1) + "_k" + std::to_string(k) + "\n1 1\n";
+	  data += ".names x_hdx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k) + " hdx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k) + "\n1 1\n";
+	  data += ".names x_hdx_c" + std::to_string(c) + "from" + std::to_string(n2) + "to" + std::to_string(n1) + "k" + std::to_string(k) + " hdx_c" + std::to_string(c) + "from" + std::to_string(n2) + "to" + std::to_string(n1) + "k" + std::to_string(k) + "\n1 1\n";
 	}
       }
     }
@@ -175,7 +175,7 @@ int template_data::set_reg() {
       for(int i = 0; i < (int)initial_assignment[n].size(); i++) {
 	data += initial_assignment[n][i] + " ";
       }
-      data += "x_reg_c0_n" + std::to_string(n) + "_r" + std::to_string(r) + "\n";
+      data += "x_reg_c0n" + std::to_string(n) + "r" + std::to_string(r) + "\n";
     }
   }
   
@@ -188,25 +188,25 @@ int template_data::set_reg() {
       for(int r = 0; r < num_reg[n]; r++) {
 	data += "#.candidates ";
 	for(int r_from = 0; r_from < num_reg[n]; r_from++) {
-	  data += "reg_c" + std::to_string(c-1) + "_n" + std::to_string(n) + "_r" + std::to_string(r_from) + " ";
+	  data += "reg_c" + std::to_string(c-1) + "n" + std::to_string(n) + "r" + std::to_string(r_from) + " ";
 	}
 	for(int n_from = 0; n_from < num_node; n_from++) {
 	  for(int k = 0; k < num_spx[n_from][n]; k++) {
-	    data += "spx_c" + std::to_string(c-1) + "_from" + std::to_string(n_from) + "_to" + std::to_string(n) + "_k" + std::to_string(k) + " ";
+	    data += "spx_c" + std::to_string(c-1) + "from" + std::to_string(n_from) + "to" + std::to_string(n) + "k" + std::to_string(k) + " ";
 	  }
 	}
 	for(int n_from = 0; n_from < num_node; n_from++) {
 	  for(int k = 0; k < num_hdx[n_from][n]; k++) {
 	    if(n < n_from) {
-	      data += "hdx_c" + std::to_string(c-1) + "_n" + std::to_string(n) + "_n" + std::to_string(n_from) + "_k" + std::to_string(k) + " ";
+	      data += "hdx_c" + std::to_string(c-1) + "n" + std::to_string(n) + "n" + std::to_string(n_from) + "k" + std::to_string(k) + " ";
 	    }
 	    else {
-	      data += "hdx_c" + std::to_string(c-1) + "_n" + std::to_string(n_from) + "_n" + std::to_string(n) + "_k" + std::to_string(k) + " ";
+	      data += "hdx_c" + std::to_string(c-1) + "n" + std::to_string(n_from) + "n" + std::to_string(n) + "k" + std::to_string(k) + " ";
 	    }
 	  }
 	}
 	
-	data += "x_reg_c" + std::to_string(c) + "_n" + std::to_string(n) + "_r" + std::to_string(r) + "\n";
+	data += "x_reg_c" + std::to_string(c) + "n" + std::to_string(n) + "r" + std::to_string(r) + "\n";
       }    
     }
   }
@@ -224,10 +224,10 @@ int template_data::set_com() {
 	    return 1;
 	  }
 	  for(int r = 0; r < num_reg[n1]; r++) {
-	    data += "reg_c" + std::to_string(c) + "_n" + std::to_string(n1) + "_r" + std::to_string(r) + " ";
+	    data += "reg_c" + std::to_string(c) + "n" + std::to_string(n1) + "r" + std::to_string(r) + " ";
 	  }
 	  
-	  data += "x_spx_c" + std::to_string(c) + "_from" + std::to_string(n1) + "_to" + std::to_string(n2) + "_k" + std::to_string(k) + "\n";
+	  data += "x_spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k) + "\n";
 	}
       }
     }
@@ -244,9 +244,9 @@ int template_data::set_com() {
 	    return 1;
 	  }
 	  for(int r = 0; r < num_reg[n1]; r++) {
-	    data += "reg_c" + std::to_string(c) + "_n" + std::to_string(n1) + "_r" + std::to_string(r) + " ";
+	    data += "reg_c" + std::to_string(c) + "n" + std::to_string(n1) + "r" + std::to_string(r) + " ";
 	  }
-	  data += "x_hdx_c" + std::to_string(c) + "_from" + std::to_string(n1) + "_to" + std::to_string(n2) + "_k" + std::to_string(k) + "\n";
+	  data += "x_hdx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k) + "\n";
 	  
 	  // candidates from n2
 	  data += "#.candidates ";
@@ -255,15 +255,15 @@ int template_data::set_com() {
 	    return 1;
 	  }
 	  for(int r = 0; r < num_reg[n2]; r++) {
-	    data += "reg_c" + std::to_string(c) + "_n" + std::to_string(n2) + "_r" + std::to_string(r) + " ";
+	    data += "reg_c" + std::to_string(c) + "n" + std::to_string(n2) + "r" + std::to_string(r) + " ";
 	  }
-	  data += "x_hdx_c" + std::to_string(c) + "_from" + std::to_string(n2) + "_to" + std::to_string(n1) + "_k" + std::to_string(k) + "\n";
+	  data += "x_hdx_c" + std::to_string(c) + "from" + std::to_string(n2) + "to" + std::to_string(n1) + "k" + std::to_string(k) + "\n";
 
 	  // merge both n1 n2
 	  data += "#.candidates ";
-	  data += "hdx_c" + std::to_string(c) + "_from" + std::to_string(n1) + "_to" + std::to_string(n2) + "_k" + std::to_string(k) + " ";
-	  data += "hdx_c" + std::to_string(c) + "_from" + std::to_string(n2) + "_to" + std::to_string(n1) + "_k" + std::to_string(k) + " ";	  
-	  data += "x_hdx_c" + std::to_string(c) + "_n" + std::to_string(n1) + "_n" + std::to_string(n2) + "_k" + std::to_string(k) + "\n";
+	  data += "hdx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k) + " ";
+	  data += "hdx_c" + std::to_string(c) + "from" + std::to_string(n2) + "to" + std::to_string(n1) + "k" + std::to_string(k) + " ";	  
+	  data += "x_hdx_c" + std::to_string(c) + "n" + std::to_string(n1) + "n" + std::to_string(n2) + "k" + std::to_string(k) + "\n";
 	}
       }
     }
@@ -279,7 +279,7 @@ int template_data::set_out() {
       return 1;
     }
     for(int r = 0; r < num_reg[n]; r++) {
-      data += "reg_c" + std::to_string(num_cycle) + "_n" + std::to_string(n) + "_r" + std::to_string(r) + " ";
+      data += "reg_c" + std::to_string(num_cycle) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
     }
 
     if(final_assignment.size() < (unsigned)n) {
