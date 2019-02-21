@@ -74,10 +74,11 @@ int main(int argc, char** argv) {
     else if(str == ".end") break;
   }
 
-  int num_cycle = 0;
-  int num_node = 0;
-  int num_reg = 0;
-  int num_spx = 0;
+  int num_cycle = -1;
+  int num_node = -1;
+  int num_reg = -1;
+  int num_spx = -1;
+  int num_hdx = -1;
   
   for(auto itr = assignment.begin(); itr != assignment.end(); ++itr) {
     std::string key = itr->first;
@@ -86,9 +87,9 @@ int main(int argc, char** argv) {
     std::cout << key << std::endl;
 #endif
     if(key.substr(0,3) == "reg") {
-      unsigned int pos0 = key.find("c", 3);
-      unsigned int pos1 = key.find("n", 3);
-      unsigned int pos2 = key.find("r", 3);
+      int pos0 = key.find("c", 3);
+      int pos1 = key.find("n", 3);
+      int pos2 = key.find("r", 3);
 #ifdef DEBUG
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2) << std::endl;
 #endif
@@ -100,10 +101,10 @@ int main(int argc, char** argv) {
       if(num_reg < r) num_reg = r;
     }
     else if (key.substr(0,3) == "spx") {
-      unsigned int pos0 = key.find("c", 3);
-      unsigned int pos1 = key.find("from", 3);
-      unsigned int pos2 = key.find("to", 3);
-      unsigned int pos3 = key.find("k", 3);
+      int pos0 = key.find("c", 3);
+      int pos1 = key.find("from", 3);
+      int pos2 = key.find("to", 3);
+      int pos3 = key.find("k", 3);
 #ifdef DEBUG
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
 #endif
@@ -113,20 +114,59 @@ int main(int argc, char** argv) {
       int k = std::stoi(key.substr(pos3+1));
       if(num_spx < k) num_spx = k;
     }
+    else if (key.substr(0,3) == "hdx") {
+      int pos0 = key.find("c", 3);
+      int pos1 = key.find("from", 3);
+      int pos2 = key.find("to", 3);
+      int pos3 = key.find("k", 3);
+      int hdx_out = 0;
+      if(pos1 == std::string::npos) {
+	hdx_out = 1;
+	pos1 = key.find("n", 3);
+	pos2 = key.find("n", pos1+1);
+	pos3 = key.find("k", 3);
+      }
+#ifdef DEBUG
+      std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
+#endif
+      if(hdx_out == 0) {
+	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
+	int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
+	int to = std::stoi(key.substr(pos2+2, pos3-pos2-2));
+	int k = std::stoi(key.substr(pos3+1));
+	if(num_hdx < k) num_hdx = k;
+      }
+      else {
+	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
+	int n1 = std::stoi(key.substr(pos1+1, pos2-pos1-1));
+	int n2 = std::stoi(key.substr(pos2+1, pos3-pos2-1));
+	int k = std::stoi(key.substr(pos3+1));
+	if(num_hdx < k) num_hdx = k;
+      }
+    }
   }
 
   num_cycle++;
   num_node++;
   num_reg++;
   num_spx++;
+  num_hdx++;
 
   //array[cycle][node][count]
   std::vector<std::vector<std::vector<std::string> > > regs;
   regs = std::vector<std::vector<std::vector<std::string> > >(num_cycle, std::vector<std::vector<std::string> >(num_node, std::vector<std::string>(num_reg, "")));
   
   //array[cycle][fm][to][count]
-  std::vector<std::vector<std::vector<std::vector<std::string>>>> spxs;
+  std::vector<std::vector<std::vector<std::vector<std::string> > > > spxs;
   spxs = std::vector<std::vector<std::vector<std::vector<std::string> > > >(num_cycle, std::vector<std::vector<std::vector<std::string> > >(num_node, std::vector<std::vector<std::string> >(num_node, std::vector<std::string>(num_spx, ""))));
+  
+  //array[cycle][fm][to][count]
+  std::vector<std::vector<std::vector<std::vector<std::string> > > > hdx_ins;
+  hdx_ins = std::vector<std::vector<std::vector<std::vector<std::string> > > >(num_cycle, std::vector<std::vector<std::vector<std::string> > >(num_node, std::vector<std::vector<std::string> >(num_node, std::vector<std::string>(num_hdx, ""))));
+
+  //array[cycle][n1][n2][count]
+  std::vector<std::vector<std::vector<std::vector<std::string> > > > hdx_outs;
+  hdx_outs = std::vector<std::vector<std::vector<std::vector<std::string> > > >(num_cycle, std::vector<std::vector<std::vector<std::string> > >(num_node, std::vector<std::vector<std::string> >(num_node, std::vector<std::string>(num_hdx, ""))));
   
   
   for(auto itr = assignment.begin(); itr != assignment.end(); ++itr) {
@@ -136,9 +176,9 @@ int main(int argc, char** argv) {
     std::cout << key << std::endl;
 #endif
     if(key.substr(0,3) == "reg") {
-      unsigned int pos0 = key.find("c", 3);
-      unsigned int pos1 = key.find("n", 3);
-      unsigned int pos2 = key.find("r", 3);
+      int pos0 = key.find("c", 3);
+      int pos1 = key.find("n", 3);
+      int pos2 = key.find("r", 3);
 #ifdef DEBUG
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2) << "<-" << value << std::endl;
 #endif
@@ -148,10 +188,10 @@ int main(int argc, char** argv) {
       regs[c][n][r] = value;
     }
     else if (key.substr(0,3) == "spx") {
-      unsigned int pos0 = key.find("c", 3);
-      unsigned int pos1 = key.find("from", 3);
-      unsigned int pos2 = key.find("to", 3);
-      unsigned int pos3 = key.find("k", 3);
+      int pos0 = key.find("c", 3);
+      int pos1 = key.find("from", 3);
+      int pos2 = key.find("to", 3);
+      int pos3 = key.find("k", 3);
 #ifdef DEBUG
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
 #endif
@@ -160,6 +200,36 @@ int main(int argc, char** argv) {
       int to = std::stoi(key.substr(pos2+2, pos3-pos2-2));
       int k = std::stoi(key.substr(pos3+1));
       spxs[c][from][to][k] =  value;
+    }
+    else if (key.substr(0,3) == "hdx") {
+      int pos0 = key.find("c", 3);
+      int pos1 = key.find("from", 3);
+      int pos2 = key.find("to", 3);
+      int pos3 = key.find("k", 3);
+      int hdx_out = 0;
+      if(pos1 == std::string::npos) {
+	hdx_out = 1;
+	pos1 = key.find("n", 3);
+	pos2 = key.find("n", pos1+1);
+	pos3 = key.find("k", 3);
+      }
+#ifdef DEBUG
+      std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
+#endif
+      if(hdx_out == 0) {
+	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
+	int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
+	int to = std::stoi(key.substr(pos2+2, pos3-pos2-2));
+	int k = std::stoi(key.substr(pos3+1));
+	hdx_ins[c][from][to][k] = value;
+      }
+      else {
+	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
+	int n1 = std::stoi(key.substr(pos1+1, pos2-pos1-1));
+	int n2 = std::stoi(key.substr(pos2+1, pos3-pos2-1));
+	int k = std::stoi(key.substr(pos3+1));
+	hdx_outs[c][n1][n2][k] = value;
+      }
     }
   }
 
@@ -279,17 +349,30 @@ int main(int argc, char** argv) {
     }
 
     for(unsigned int c = 0; c < spxs.size()-1; c++) {
-      dot_file << "spx_c" << c << "n" << b << " [label = \"";
+      int spx_flag = 0;
       for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
 	for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
 	  if(spxs[c][b][r][k] != "") {
-	    std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
-	    dot_file << "<k" << r << k << ">" << value[key] << "|";
+	    spx_flag = 1;
+	    break;
 	  }
 	}
+	if(spx_flag) break;
       }
-      dot_file.seekp(-1, std::ios::cur);
-      dot_file <<  "\"];\n";
+      
+      if(spx_flag) {
+	dot_file << "spx_c" << c << "n" << b << " [label = \"";
+	for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
+	  for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
+	    if(spxs[c][b][r][k] != "") {
+	      std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
+	      dot_file << "<k" << r << k << ">" << value[key] << "|";
+	    }
+	  }
+	}
+	dot_file.seekp(-1, std::ios::cur);
+	dot_file <<  "\"];\n";
+      }
     }
 
     for(unsigned int c = 0; c < spxs.size()-1; c++) {
@@ -297,7 +380,7 @@ int main(int argc, char** argv) {
 	for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
 	  if(spxs[c][b][r][k] != "") {
 	    str = spxs[c][b][r][k];
-	    unsigned int pos = str.find("r", 3);
+	    int pos = str.find("r", 3);
 	    int r1 = std::stoi(str.substr(pos+1));
 	    dot_file << "reg_c" << c << "n" << b << ":" << "r" << r1 << " -> " <<  "spx_c" << c << "n" << b << ":" << "k" << r << k << " ;\n";
 	  }
@@ -312,10 +395,10 @@ int main(int argc, char** argv) {
       for(unsigned int r = 0; r < regs[c][b].size(); r++) {
 	if(regs[c][b][r].substr(0,3) == "spx") {
 	  str = regs[c][b][r];
-	  unsigned int pos0 = str.find("c", 3);
-	  unsigned int pos1 = str.find("from", 3);
-	  unsigned int pos2 = str.find("to", 3);
-	  unsigned int pos3 = str.find("k", 3);
+	  int pos0 = str.find("c", 3);
+	  int pos1 = str.find("from", 3);
+	  int pos2 = str.find("to", 3);
+	  int pos3 = str.find("k", 3);
 	  int c2 = std::stoi(str.substr(pos0+1, pos1-pos0-1));
 	  int from2 = std::stoi(str.substr(pos1+4, pos2-pos1-4));
 	  int to2 = std::stoi(str.substr(pos2+2, pos3-pos2-2));

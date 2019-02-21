@@ -196,11 +196,13 @@ int template_data::set_reg() {
 	  }
 	}
 	for(int n_from = 0; n_from < num_node; n_from++) {
-	  for(int k = 0; k < num_hdx[n_from][n]; k++) {
-	    if(n < n_from) {
+	  if(n < n_from) {
+	    for(int k = 0; k < num_hdx[n][n_from]; k++) {
 	      data += "hdx_c" + std::to_string(c-1) + "n" + std::to_string(n) + "n" + std::to_string(n_from) + "k" + std::to_string(k) + " ";
 	    }
-	    else {
+	  }
+	  else {
+	    for(int k = 0; k < num_hdx[n_from][n]; k++) {
 	      data += "hdx_c" + std::to_string(c-1) + "n" + std::to_string(n_from) + "n" + std::to_string(n) + "k" + std::to_string(k) + " ";
 	    }
 	  }

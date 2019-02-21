@@ -1,0 +1,37 @@
+#.top spec
+.model spec
+.inputs a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15 a16
+.outputs b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16
+.names a1 a2 a5 a6 b1
+0000 0
+.names a2 a3 a6 a7 b2
+0000 0
+.names a3 a4 a7 a8 b3
+0000 0
+.names a4 a8 b4
+00 0
+.names a5 a6 a9 a10 b5
+0000 0
+.names a6 a7 a10 a11 b6
+0000 0
+.names a7 a8 a11 a12 b7
+0000 0
+.names a8 a12 b8
+00 0
+.names a9 a10 a13 a14 b9
+0000 0
+.names a10 a11 a14 a15 b10
+0000 0
+.names a11 a12 a15 a16 b11
+0000 0
+.names a12 a16 b12
+00 0
+.names a13 a14 b13
+00 0
+.names a14 a15 b14
+00 0
+.names a15 a16 b15
+00 0
+.names a16 b16
+0 0
+.end

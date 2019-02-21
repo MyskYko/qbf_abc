@@ -2,7 +2,7 @@ cycle
 3
 
 node
-4
+16
 
 reg
 4 4 4 4
