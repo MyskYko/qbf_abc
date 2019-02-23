@@ -295,6 +295,33 @@ int template_data::set_out() {
   }
   return 0;
 }
+int template_data::set_onehot_spx_inout() {
+  for(int c = 0; c < num_cycle; c++) {
+    for(int n1 = 0; n1 < num_node; n1++) {
+      std::string groupzeroonehot_in = "#.groupzeroonehot";
+      for(int n2 = 0; n2 < num_node; n2++) {
+	for(int k = 0; k < num_spx[n1][n2]; k++) {
+	  groupzeroonehot_in += " spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k);
+	}
+      }
+      data += groupzeroonehot_in + "\n";
+    }
+  }
+
+  for(int c = 0; c < num_cycle; c++) {
+    for(int n2 = 0; n2 < num_node; n2++) {
+      std::string groupzeroonehot_out = "#.groupzeroonehot";
+      for(int n1 = 0; n1 < num_node; n1++) {
+	for(int k = 0; k < num_spx[n1][n2]; k++) {
+	  groupzeroonehot_out += " spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k);
+	}
+      }
+      data += groupzeroonehot_out + "\n";
+    }
+  }
+	  
+  return 0;
+}
 int template_data::write_circuit(std::string filename) {
   std::ofstream file;
   file.open(filename, std::ios::out);

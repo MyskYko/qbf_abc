@@ -22,6 +22,7 @@
 // "#.group x3 x2 x1 x0" assignes "x"s to the candidate of same place in "#.candidates".
 // "#.onehot wire_a" means wire_a shoud be used for one x. You can also call this like "#.onehot wire_a wire_b".
 // "#.zeroonehot wire_a" means wire_a shoud be used for only one x or nothing. You can also call this like "#.zeroonehot wire_a wire_b".
+// "#.groupzeroonehot wire_a wire_b" means only one of wire_a wire_b can be used for x. That one must be used for only one x.
 
 // 0=sat, 1=unsat, -1=error
 int synthesis(std::string spec_filename, std::string impl_filename, std::string out_filename, int fVerbose) {
@@ -35,7 +36,7 @@ int synthesis(std::string spec_filename, std::string impl_filename, std::string 
   if(
      spec.setup(spec_filename) ||
      impl.setup(impl_filename) ||
-     top.setup(impl.copy_of_candidate_selection_signals(), impl.copy_of_x_names(), impl.copy_of_x_selection_signals(), impl.copy_of_onehot_candidate_names(), impl.copy_of_zeroonehot_candidate_names(), spec.copy_of_outputs(), spec.copy_of_inputs(), impl.copy_of_all_selection_signals(), spec.get_top_name(), impl.get_top_name())
+     top.setup(impl.copy_of_candidate_selection_signals(), impl.copy_of_x_names(), impl.copy_of_x_selection_signals(), impl.copy_of_onehot_candidate_names(), impl.copy_of_zeroonehot_candidate_names(), impl.copy_of_groupzeroonehot_candidate_names(), spec.copy_of_outputs(), spec.copy_of_inputs(), impl.copy_of_all_selection_signals(), spec.get_top_name(), impl.get_top_name())
      )
     return -1;
   

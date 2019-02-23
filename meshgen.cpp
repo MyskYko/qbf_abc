@@ -359,7 +359,7 @@ int main(int argc, char** argv) {
 
   flush(mesh_file);
   
-  std::string command = "python3 mesh.py " + std::string(mesh_file_name) + argv[2];
-  system(command.c_str());
+  //  std::string command = "python3 mesh.py " + std::string(mesh_file_name) + argv[2];
+  //  system(command.c_str());
   return 0;
 }

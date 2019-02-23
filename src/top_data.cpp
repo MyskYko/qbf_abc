@@ -72,6 +72,33 @@ int top_data::create_zeroonehot_signal() {
   return 0;
 }
 
+int top_data::create_groupzeroonehot_signal() {
+  // assuming max_signal_count_zeroonehot is already initialized
+  for(auto candidate_names : groupzeroonehot_candidate_names) {
+    int count = 0;
+    for(auto candidate_name: candidate_names) {
+      if(candidate_selection_signals[candidate_name].size() == 0) {
+	std::cout << "There is no using \"" + candidate_name + "\" although it is in groupzeroonehot" << std::endl;
+	return 1;
+      }
+      count += candidate_selection_signals[candidate_name].size();
+    }
+    if(max_signal_count_zeroonehot < count) {
+      max_signal_count_zeroonehot = count;
+    }
+  }
+
+  for(unsigned int i = 0; i < groupzeroonehot_candidate_names.size(); i++) {
+    std::string candidate_name = "__group" + std::to_string(i);
+    std::string constraint_signal;
+    constraint_signal = "__constraint_zeroonehot_" + candidate_name;
+    constraint_signals.push_back(constraint_signal);
+    groupzeroonehot_candidate_to_constraint_signal[candidate_name] = constraint_signal;
+  }
+  
+  return 0;
+}
+
 
 void top_data::create_output_constraint_signal() {
   for(auto output: outputs_to_be_compared) {
@@ -175,6 +202,22 @@ void top_data::create_constraint_subckt() {
     constraint_subckts.push_back(subckt);
   }
 
+  for(unsigned int ind = 0; ind < groupzeroonehot_candidate_names.size(); ind++) {
+    auto candidate_names = groupzeroonehot_candidate_names[ind];
+    std::string subckt;
+    subckt += ".subckt __zeroonehot";
+    int i = 0;
+    for(auto candidate_name: candidate_names) {
+      for(std::string signal : candidate_selection_signals[candidate_name]) {
+	subckt += " in" + std::to_string(i) + "=" + signal;
+	i++;
+      }
+    }
+    std::string candidate_name = "__group" + std::to_string(ind);
+    subckt += " out=" + groupzeroonehot_candidate_to_constraint_signal[candidate_name];
+    subckt += "\n";
+    constraint_subckts.push_back(subckt);
+  }
   
   for(auto output: outputs_to_be_compared) {
     std::string spec_output = "__spec_" + output;
@@ -297,15 +340,16 @@ void top_data::show_detail() {
   }
 }
 
-int top_data::setup(std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals, std::vector<std::string> copy_of_onehot_candidate_names, std::vector<std::string> copy_of_zeroonehot_candidate_names, std::vector<std::string> copy_of_outputs, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals, std::string spec_top, std::string impl_top) {
+int top_data::setup(std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals, std::vector<std::string> copy_of_onehot_candidate_names, std::vector<std::string> copy_of_zeroonehot_candidate_names, std::vector<std::vector<std::string> > copy_of_groupzeroonehot_candidate_names, std::vector<std::string> copy_of_outputs, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals, std::string spec_top, std::string impl_top) {
   candidate_selection_signals = copy_of_candidate_selection_signals;
   x_names = copy_of_x_names;
   x_selection_signals = copy_of_x_selection_signals;
 
   onehot_candidate_names = copy_of_onehot_candidate_names;
   zeroonehot_candidate_names = copy_of_zeroonehot_candidate_names;
+  groupzeroonehot_candidate_names = copy_of_groupzeroonehot_candidate_names;
 
-  if(create_onehot_signal() || create_zeroonehot_signal()) return 1;
+  if(create_onehot_signal() || create_zeroonehot_signal() || create_groupzeroonehot_signal()) return 1;
 
   outputs_to_be_compared = copy_of_outputs;
   create_output_constraint_signal();

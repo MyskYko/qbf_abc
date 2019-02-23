@@ -29,6 +29,7 @@ public:
   int set_reg();
   int set_com();
   int set_out();
+  int set_onehot_spx_inout();
   int write_circuit(std::string filename);
   void print() { std::cout << data; }
 

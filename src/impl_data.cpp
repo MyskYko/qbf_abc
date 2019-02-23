@@ -45,6 +45,7 @@ int impl_data::read_file(std::string file_name) {
     bool flag_group = false;
     bool flag_onehot = false;
     bool flag_zeroonehot = false;
+    bool flag_groupzeroonehot = false;
     
     while(std::getline(ss, str2, delim)) {
       if(flag_top) {
@@ -67,6 +68,9 @@ int impl_data::read_file(std::string file_name) {
       }
       else if(flag_zeroonehot) {
 	zeroonehot_candidate_names.push_back(str2);
+      }
+      else if(flag_groupzeroonehot) {
+	c_names.push_back(str2);
       }
       
       if(str2 == ".top") {
@@ -97,6 +101,9 @@ int impl_data::read_file(std::string file_name) {
       else if(str2 == ".zeroonehot") {
 	flag_zeroonehot = true;
       }
+      else if(str2 == ".groupzeroonehot") {
+	flag_groupzeroonehot = true;
+      }
     }
     
     if(flag_candidates) {
@@ -104,6 +111,9 @@ int impl_data::read_file(std::string file_name) {
       c_names.pop_back();
       x_names.push_back(x_name);
       x_candidate_names[x_name] = c_names;
+    }
+    if(flag_groupzeroonehot) {
+      groupzeroonehot_candidate_names.push_back(c_names);
     }
   }
   

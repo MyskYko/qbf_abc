@@ -22,6 +22,7 @@ int main(int argc, char **argv) {
   t.set_reg();
   t.set_com();
   t.set_out();
+  t.set_onehot_spx_inout();
   t.write_circuit(impl_filename);
   t.print();
   
