@@ -13,7 +13,7 @@
 #define SIZE 10
 
 int main(int argc, char** argv) {
-  if(argc < 3) {
+  if(argc < 2) {
     std::cout << "error\n";
     return 1;
   }
@@ -30,6 +30,13 @@ int main(int argc, char** argv) {
   const char* mesh_file_name = "__mesh";
   mesh_file.open(mesh_file_name, std::ios::out);
   if(!mesh_file) {
+    std::cout << "error\n";
+    return 1;
+  }
+  std::ofstream con_file;
+  const char* con_file_name = "__con";
+  con_file.open(con_file_name, std::ios::out);
+  if(!con_file) {
     std::cout << "error\n";
     return 1;
   }
@@ -259,6 +266,7 @@ int main(int argc, char** argv) {
 #endif
   
   std::map<std::string, std::string> value;
+  std::map<std::string, int> isSpxUsed;
   
   for(unsigned int c = 0; c < num_cycle; c++) {
     
@@ -269,6 +277,7 @@ int main(int argc, char** argv) {
 	  str = value[str];
 	}
 	if(str.substr(0,3) == "spx") {
+	  isSpxUsed[str] = 1;
 	  str = value[str];
 	}
 	if(str.substr(0,3) == "hdx") {
@@ -356,6 +365,31 @@ int main(int argc, char** argv) {
       }
     }
   }
+
+  if(argc > 2) {
+    for(unsigned int c = 0; c < spxs.size()-1; c++) {
+      for(unsigned int b = 0; b < spxs[c].size(); b++) {
+	for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
+	  for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
+	    std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
+	    if(isSpxUsed[key]) {
+	      con_file << std::to_string(c) << " " << value_int[value[key]] << " " << std::to_string(b) << " ";
+	      if(b < r) {
+		if(r == b+1) con_file << "E";
+		else con_file << "S";
+	      }
+	      else {
+		if(r == b-1) con_file << "W";
+		else con_file << "N";
+	      }
+	      con_file << std::endl;
+	    }
+	  }
+	}
+      }
+    }
+  }
+
 
   flush(mesh_file);
   
