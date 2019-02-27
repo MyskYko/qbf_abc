@@ -319,6 +319,23 @@ int template_data::set_onehot_spx_inout() {
       data += groupzeroonehot_out + "\n";
     }
   }
+
+  for(int c = 0; c < num_cycle; c++) {
+    for(int n2 = 0; n2 < num_node; n2++) {
+      for(int n1 = n2+1; n1 < num_node; n1++) {
+	if( num_spx[n1][n2] == 0 && num_spx[n2][n1] == 0 ) continue;
+	std::string groupzeroonehot_out = "#.groupzeroonehot";
+	for(int k = 0; k < num_spx[n1][n2]; k++) {
+	  groupzeroonehot_out += " spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k);
+	}
+	for(int k = 0; k < num_spx[n2][n1]; k++) {
+	  groupzeroonehot_out += " spx_c" + std::to_string(c) + "from" + std::to_string(n2) + "to" + std::to_string(n1) + "k" + std::to_string(k);
+	}
+      data += groupzeroonehot_out + "\n";
+      }
+    }
+  }
+
 	  
   return 0;
 }
