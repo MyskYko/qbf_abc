@@ -128,7 +128,7 @@ class genPNG:
         self.meshx = 4
         self.meshy = 4
         self.time = 4
-        self.font_pass = '/Library/Fonts/Times New Roman.ttf'
+        self.font_pass = '/usr/share/fonts/dejavu/DejaVuSerif.ttf'
         # each cycle
         for i in range(self.time):
             img = self.printPNG(i)

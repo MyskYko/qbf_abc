@@ -19,6 +19,8 @@ private:
   
   std::vector<std::vector<std::string> > initial_assignment;
   std::vector<std::vector<std::string> > final_assignment;
+
+  int flag_onehot_spx_inout = 0;
   
   std::string data;
   

@@ -1,0 +1,32 @@
+cycle
+6
+
+node
+4
+
+reg
+8 8 8 8
+
+spx
+0 1 0 0
+0 0 1 0
+0 0 0 1
+1 0 0 0
+n
+hdx
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+
+initial
+Is1 Is5
+Is2 Is6
+Is3 Is7
+Is4 Is8
+
+final
+out1
+out2
+out3
+out4

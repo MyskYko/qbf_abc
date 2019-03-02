@@ -16,14 +16,10 @@ int main(int argc, char **argv) {
   bool flag_show_detail = (argc > 4);
   
   template_data t;
-  t.setup(setting_filename);
-  t.gen_reg();
-  t.gen_com();
-  t.set_reg();
-  t.set_com();
-  t.set_out();
-  t.set_onehot_spx_inout();
-  t.write_circuit(impl_filename);
+  if(t.setup(setting_filename) || t.write_circuit(impl_filename)) {
+    std::cout << "error" << std::endl;
+    return 1;
+  }
   t.print();
   
   extern int synthesis(std::string spec_filename, std::string impl_filename, std::string out_filename, int fVerbose);

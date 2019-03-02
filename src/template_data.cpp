@@ -115,6 +115,9 @@ int template_data::read_file(std::string filename) {
 	final_assignment.push_back(final_i);
       }
     }
+    else if(str == "onehot_spx_inout") {
+      flag_onehot_spx_inout = 1;
+    }
   }
   return 0;
 }
@@ -396,5 +399,13 @@ int template_data::write_circuit(std::string filename) {
 }
 
 int template_data::setup(std::string filename) {
-  return read_file(filename);
+  if(read_file(filename)) return 1;
+  if(gen_reg()) return 1;
+  if(gen_com()) return 1;
+  if(set_reg()) return 1;
+  if(set_com()) return 1;
+  if(set_out()) return 1;
+  if(flag_onehot_spx_inout)
+    if(set_onehot_spx_inout()) return 1;
+  return 0;
 }

@@ -122,12 +122,12 @@ def check_dir(num, x):
         return 'S'
 
 class genPNG:
-    def __init__(self, x_list, d_list):
+    def __init__(self, x_list, d_list, time_):
         self.xlist = x_list
         self.dlist = d_list
         self.meshx = 2
         self.meshy = 2
-        self.time = 4
+        self.time = time_
         self.font_pass = '/usr/share/fonts/dejavu/DejaVuSerif.ttf'
         # each cycle
         for i in range(self.time):
@@ -256,4 +256,4 @@ if __name__ == '__main__':
     with open('out.txt', 'w') as lines:
         for i in d_list_:
             lines.write(str(i)+'\n')
-    png = genPNG(x_list_, d_list_)
+    png = genPNG(x_list_, d_list_, int(sys.argv[2]))
