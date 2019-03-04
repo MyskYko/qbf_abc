@@ -1,11 +1,11 @@
-cycle
+step
 3
 
 node
 4
 
 reg
-4 4 4 4
+1 1 1 1
 
 spx
 0 1 0 0

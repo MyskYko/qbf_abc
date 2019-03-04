@@ -17,9 +17,9 @@ int template_data::read_file(std::string filename) {
   
   std::string str;
   while (getline(file, str)) {
-    if(str == "cycle") {
+    if(str == "step") {
       getline(file, str);
-      num_cycle = std::stoi(str);
+      num_step = std::stoi(str);
     }
     else if(str == "node") {
       getline(file, str);
@@ -129,7 +129,7 @@ int template_data::read_file(std::string filename) {
 }
 
 int template_data::gen_reg() {
-  for(int c = 0; c < num_cycle+1; c++) {
+  for(int c = 0; c < num_step+1; c++) {
     for(int n = 0; n < num_node; n++) {
       if(num_reg.size() < (unsigned)n) {
 	std::cout <<  "num reg hasn't been set" << std::endl;		
@@ -144,7 +144,7 @@ int template_data::gen_reg() {
 }
 
 int template_data::gen_com() {
-  for(int c = 0; c < num_cycle; c++) {
+  for(int c = 0; c < num_step; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       for(int n2 = 0; n2 < num_node; n2++) {
 	for(int k = 0; k < num_spx[n1][n2]; k++) {
@@ -154,7 +154,7 @@ int template_data::gen_com() {
     }
   }
 
-  for(int c = 0; c < num_cycle; c++) {
+  for(int c = 0; c < num_step; c++) {
     for(int n1 = 0; n1 < num_node-1; n1++) {
       for(int n2 = n1+1; n2 < num_node; n2++) {
 	for(int k = 0; k < num_hdx[n1][n2]; k++) {
@@ -189,7 +189,7 @@ int template_data::set_reg() {
     }
   }
   
-  for(int c = 1; c < num_cycle+1; c++) {
+  for(int c = 1; c < num_step+1; c++) {
     for(int n = 0; n < num_node; n++) {
       if(num_reg.size() < (unsigned)n) {
 	std::cout <<  "num reg hasn't been set" << std::endl;		
@@ -226,7 +226,7 @@ int template_data::set_reg() {
   return 0;
 }
 int template_data::set_com() {
-  for(int c = 0; c < num_cycle; c++) {
+  for(int c = 0; c < num_step; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       for(int n2 = 0; n2 < num_node; n2++) {
 	for(int k = 0; k < num_spx[n1][n2]; k++) {
@@ -245,7 +245,7 @@ int template_data::set_com() {
     }
   }
   
-  for(int c = 0; c < num_cycle; c++) {
+  for(int c = 0; c < num_step; c++) {
     for(int n1 = 0; n1 < num_node-1; n1++) {
       for(int n2 = n1+1; n2 < num_node; n2++) {
 	for(int k = 0; k < num_hdx[n1][n2]; k++) {
@@ -291,7 +291,7 @@ int template_data::set_out() {
       return 1;
     }
     for(int r = 0; r < num_reg[n]; r++) {
-      data += "reg_c" + std::to_string(num_cycle) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
+      data += "reg_c" + std::to_string(num_step) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
     }
 
     if(final_assignment.size() < (unsigned)n) {
@@ -306,7 +306,7 @@ int template_data::set_out() {
   return 0;
 }
 int template_data::set_onehot_spx_in() {
-  for(int c = 0; c < num_cycle; c++) {
+  for(int c = 0; c < num_step; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       std::string groupzeroonehot_in = "#.groupzeroonehot";
       for(int n2 = 0; n2 < num_node; n2++) {
@@ -320,7 +320,7 @@ int template_data::set_onehot_spx_in() {
   return 0;
 }
 int template_data::set_onehot_spx_out() {
-  for(int c = 0; c < num_cycle; c++) {
+  for(int c = 0; c < num_step; c++) {
     for(int n2 = 0; n2 < num_node; n2++) {
       std::string groupzeroonehot_out = "#.groupzeroonehot";
       for(int n1 = 0; n1 < num_node; n1++) {
@@ -334,7 +334,7 @@ int template_data::set_onehot_spx_out() {
   return 0;
 }
 int template_data::set_onehot_spx_between() {
-  for(int c = 0; c < num_cycle; c++) {
+  for(int c = 0; c < num_step; c++) {
     for(int n2 = 0; n2 < num_node; n2++) {
       for(int n1 = n2+1; n1 < num_node; n1++) {
 	if( num_spx[n1][n2] == 0 && num_spx[n2][n1] == 0 ) continue;

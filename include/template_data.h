@@ -8,7 +8,7 @@
 
 class template_data {
 private:
-  int num_cycle = 0;
+  int num_step = 0;
   
   int num_node = 0;
   std::vector<int> num_reg;
