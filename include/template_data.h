@@ -20,7 +20,9 @@ private:
   std::vector<std::vector<std::string> > initial_assignment;
   std::vector<std::vector<std::string> > final_assignment;
 
-  int flag_onehot_spx_inout = 0;
+  int flag_onehot_spx_in = 0;
+  int flag_onehot_spx_out = 0;
+  int flag_onehot_spx_between = 0;
   
   std::string data;
   
@@ -31,7 +33,9 @@ public:
   int set_reg();
   int set_com();
   int set_out();
-  int set_onehot_spx_inout();
+  int set_onehot_spx_in();
+  int set_onehot_spx_out();
+  int set_onehot_spx_between();
   int write_circuit(std::string filename);
   int write_spec(std::string filename);
   void print() { std::cout << data; }

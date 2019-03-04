@@ -115,8 +115,14 @@ int template_data::read_file(std::string filename) {
 	final_assignment.push_back(final_i);
       }
     }
-    else if(str == "onehot_spx_inout") {
-      flag_onehot_spx_inout = 1;
+    else if(str == "onehot_spx_in") {
+      flag_onehot_spx_in = 1;
+    }
+    else if(str == "onehot_spx_out") {
+      flag_onehot_spx_out = 1;
+    }
+    else if(str == "onehot_spx_between") {
+      flag_onehot_spx_between = 1;
     }
   }
   return 0;
@@ -299,7 +305,7 @@ int template_data::set_out() {
   }
   return 0;
 }
-int template_data::set_onehot_spx_inout() {
+int template_data::set_onehot_spx_in() {
   for(int c = 0; c < num_cycle; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       std::string groupzeroonehot_in = "#.groupzeroonehot";
@@ -311,7 +317,9 @@ int template_data::set_onehot_spx_inout() {
       data += groupzeroonehot_in + "\n";
     }
   }
-
+  return 0;
+}
+int template_data::set_onehot_spx_out() {
   for(int c = 0; c < num_cycle; c++) {
     for(int n2 = 0; n2 < num_node; n2++) {
       std::string groupzeroonehot_out = "#.groupzeroonehot";
@@ -323,24 +331,24 @@ int template_data::set_onehot_spx_inout() {
       data += groupzeroonehot_out + "\n";
     }
   }
-
+  return 0;
+}
+int template_data::set_onehot_spx_between() {
   for(int c = 0; c < num_cycle; c++) {
     for(int n2 = 0; n2 < num_node; n2++) {
       for(int n1 = n2+1; n1 < num_node; n1++) {
 	if( num_spx[n1][n2] == 0 && num_spx[n2][n1] == 0 ) continue;
-	std::string groupzeroonehot_out = "#.groupzeroonehot";
+	std::string groupzeroonehot_ashdx = "#.groupzeroonehot";
 	for(int k = 0; k < num_spx[n1][n2]; k++) {
-	  groupzeroonehot_out += " spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k);
+	  groupzeroonehot_ashdx += " spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k);
 	}
 	for(int k = 0; k < num_spx[n2][n1]; k++) {
-	  groupzeroonehot_out += " spx_c" + std::to_string(c) + "from" + std::to_string(n2) + "to" + std::to_string(n1) + "k" + std::to_string(k);
+	  groupzeroonehot_ashdx += " spx_c" + std::to_string(c) + "from" + std::to_string(n2) + "to" + std::to_string(n1) + "k" + std::to_string(k);
 	}
-      data += groupzeroonehot_out + "\n";
+      data += groupzeroonehot_ashdx + "\n";
       }
     }
   }
-
-	  
   return 0;
 }
 int template_data::write_circuit(std::string filename) {
@@ -447,7 +455,11 @@ int template_data::setup(std::string filename) {
   if(set_reg()) return 1;
   if(set_com()) return 1;
   if(set_out()) return 1;
-  if(flag_onehot_spx_inout)
-    if(set_onehot_spx_inout()) return 1;
+  if(flag_onehot_spx_in)
+    if(set_onehot_spx_in()) return 1;
+  if(flag_onehot_spx_out)
+    if(set_onehot_spx_out()) return 1;
+  if(flag_onehot_spx_between)
+    if(set_onehot_spx_between()) return 1;
   return 0;
 }

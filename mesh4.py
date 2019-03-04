@@ -192,7 +192,7 @@ class genPNG:
             newline_count = 0
             for j in self.xlist:
                 if (j[1] == cycle or cycle < 0) and j[2] == i:
-                    text += 'X' + str(j[0]) + ' '
+                    text += 'X' + str(j[0]-1) + ' '
                     newline_count += 1
                     if not newline_count % 2:
                         text += '\n'
