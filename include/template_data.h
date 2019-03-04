@@ -33,6 +33,7 @@ public:
   int set_out();
   int set_onehot_spx_inout();
   int write_circuit(std::string filename);
+  int write_spec(std::string filename);
   void print() { std::cout << data; }
 
   int setup(std::string filename);

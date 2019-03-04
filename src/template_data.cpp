@@ -178,6 +178,7 @@ int template_data::set_reg() {
       for(int i = 0; i < (int)initial_assignment[n].size(); i++) {
 	data += initial_assignment[n][i] + " ";
       }
+      if(initial_assignment[n].size() == 0) data += "zero ";
       data += "x_reg_c0n" + std::to_string(n) + "r" + std::to_string(r) + "\n";
     }
   }
@@ -291,7 +292,7 @@ int template_data::set_out() {
       std::cout << "final assignment hasn't been set" << std::endl;
       return 1;
     }
-    data += final_assignment[n][0] + "\n";
+    data += "out" + std::to_string(n) + "\n";
     
     for(int r = 0; r < num_reg[n]; r++) data += "0";
     data += " 0\n";
@@ -374,25 +375,66 @@ int template_data::write_circuit(std::string filename) {
   
   file << ".outputs";
   
-  std::vector<std::string> outputs;
   for(int n = 0; n < num_node; n++) {
-    if(final_assignment.size() < (unsigned)n) {
-      std::cout <<  "final assignment hasn't been set" << std::endl;
-      return 1;
-    }
-    for(int i = 0; i < (int)final_assignment[n].size(); i++) {
-      outputs.push_back(final_assignment[n][i]);
-    }
-  }
-  std::sort(outputs.begin(), outputs.end());
-  outputs.erase(std::unique(outputs.begin(), outputs.end()), outputs.end());
-  
-  for(int i = 0; i < (int)outputs.size(); i++) {
-    file << " " << outputs[i];
+    file << " out" << n;
   }
   file << std::endl;
 
   file << data;
+  
+  file << ".end\n";
+  return 0;
+}
+
+int template_data::write_spec(std::string filename) {
+  std::ofstream file;
+  file.open(filename, std::ios::out);
+  if(!file) {
+    std::cout <<  "cannot open impl file" << std::endl;
+    return 1;
+  }
+  
+  file << "#.top spec\n";
+  file << ".model spec\n";
+  file << ".inputs";
+  
+  std::vector<std::string> inputs;
+  for(int n = 0; n < num_node; n++) {
+    if(initial_assignment.size() < (unsigned)n) {
+      std::cout <<  "initial assignment hasn't been set" << std::endl;
+      return 1;
+    }
+    for(int i = 0; i < (int)initial_assignment[n].size(); i++) {
+      inputs.push_back(initial_assignment[n][i]);
+    }
+  }
+  std::sort(inputs.begin(), inputs.end());
+  inputs.erase(std::unique(inputs.begin(), inputs.end()), inputs.end());
+  
+  for(int i = 0; i < (int)inputs.size(); i++) {
+    file << " " << inputs[i];
+  }
+  file << std::endl;
+  
+  file << ".outputs";
+  
+  for(int n = 0; n < num_node; n++) {
+    file << " out" << n;
+  }
+  file << std::endl;
+
+  for(int n = 0; n < num_node; n++) {
+    file << ".names";
+    for(int i = 0; i < (int)final_assignment[n].size(); i++) {
+      file << " " << final_assignment[n][i];
+    }
+    file << " out" << n << std::endl;
+    for(int i = 0; i < (int)final_assignment[n].size(); i++) {
+      file << "0";
+    }
+    file << " 0\n";
+  }
+  
   
   file << ".end\n";
   return 0;

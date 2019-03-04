@@ -12,7 +12,7 @@ spx
 0 0 1 0
 0 0 0 1
 1 0 0 0
-n
+
 hdx
 0 0 0 0
 0 0 0 0
@@ -21,12 +21,12 @@ hdx
 
 initial
 Is1
-Is2
-Is3
-Is4
+
+
+
 
 final
-Is1 Is2 Is3 Is4
-Is1 Is2 Is3 Is4
-Is1 Is2 Is3 Is4
-Is1 Is2 Is3 Is4
+Is1
+Is1
+Is1
+Is1

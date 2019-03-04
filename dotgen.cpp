@@ -521,6 +521,15 @@ int main(int argc, char** argv) {
       }
     }
   }
+
+  for(unsigned int c = 0; c < regs.size(); c++) {
+    dot_file << "{rank = same;";
+    for(unsigned int b = 0; b < regs[0].size(); b++) {
+      dot_file << "reg_c" << c << "n" << b << ";";
+    }
+    dot_file << "}\n";
+  }
+  
   
   dot_file << "}\n";
 

@@ -349,10 +349,16 @@ int main(int argc, char** argv) {
   }
 #endif
   std::map<std::string, int> value_int;
-  int value_count = 1;
+  std::vector<std::string> values;
   for(auto itr = value.begin(); itr != value.end(); ++itr) {
-    if(value_int[itr->second] == 0) {
-      value_int[itr->second] = value_count;
+    values.push_back(itr->second);
+  }
+  std::sort(values.begin(), values.end());
+  values.erase(std::unique(values.begin(), values.end()), values.end());
+  int value_count = 1;
+  for(auto str : values) {
+    if(value_int[str] == 0) {
+      value_int[str] = value_count;
       value_count++;
     }
   }
@@ -361,6 +367,7 @@ int main(int argc, char** argv) {
     for(unsigned int c = 0; c < regs.size(); c++) {
       for(unsigned int r = 0; r < regs[c][b].size(); r++) {
 	std::string key = "reg_c" + std::to_string(c) + "n" + std::to_string(b) + "r" + std::to_string(r);
+	if(value[key] == "zero") continue;
 	mesh_file << c << " " << b << " " << value_int[value[key]] << std::endl;
       }
     }
