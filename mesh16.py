@@ -129,7 +129,7 @@ class genPNG:
         self.meshy = 4
         self.time = time_
         self.font_pass = '/Library/Fonts/Arial.ttf'
-        #'/usr/share/fonts/dejavu/DejaVuSerif.ttf'
+#        '/usr/share/fonts/dejavu/DejaVuSerif.ttf'
         # each cycle
         for i in range(self.time):
             img = self.printPNG(i)
@@ -253,18 +253,8 @@ if __name__ == '__main__':
             node = int(line.split()[2])
             x_list__.append([node, cycle_, place])
     x_list_ = [x for i, x in enumerate(x_list__) if i == x_list__.index(x)]
-    d_list__ = list()
-    with open(sys.argv[2]) as lines:
-        for line in lines:
-            cycle_ = int(line.split()[0])
-            node = int(line.split()[1])
-            place = int(line.split()[2]) + 1
-            dire = (line.split()[3])
-            d_list__.append([node, cycle_, place, dire])
-    d_list_ = [x for i, x in enumerate(d_list__) if i == d_list__.index(x)]
-
-#    d_list_ = write_xd(x_list_)
+    d_list_ = write_xd(x_list_)
     with open('out.txt', 'w') as lines:
         for i in d_list_:
             lines.write(str(i)+'\n')
-    png = genPNG(x_list_, d_list_, int(sys.argv[3]))
+    png = genPNG(x_list_, d_list_, int(sys.argv[2]))
