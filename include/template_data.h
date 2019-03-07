@@ -20,6 +20,7 @@ private:
   std::vector<std::vector<std::string> > initial_assignment;
   std::vector<std::vector<std::string> > final_assignment;
 
+  int flag_onesendrecv_spx = 0;
   int flag_onehot_spx_in = 0;
   int flag_onehot_spx_out = 0;
   int flag_onehot_spx_between = 0;
@@ -33,6 +34,7 @@ public:
   int set_reg();
   int set_com();
   int set_out();
+  int set_onesendrecv_spx();
   int set_onehot_spx_in();
   int set_onehot_spx_out();
   int set_onehot_spx_between();

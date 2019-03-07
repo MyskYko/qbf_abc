@@ -74,15 +74,10 @@ int top_data::create_zeroonehot_signal() {
 
 int top_data::create_groupzeroonehot_signal() {
   // assuming max_signal_count_zeroonehot is already initialized
-  for(auto candidate_names : groupzeroonehot_candidate_names) {
+  for(auto candidate_namess : groupzeroonehot_candidate_names) {
     int count = 0;
-    for(auto candidate_name: candidate_names) {
-      if(candidate_selection_signals[candidate_name].size() == 0) {
-	std::cout << "There is no using \"" + candidate_name + "\" although it is in groupzeroonehot" << std::endl;
-	return 1;
-      }
-      count += candidate_selection_signals[candidate_name].size();
-    }
+    count += candidate_namess.size();
+    
     if(max_signal_count_zeroonehot < count) {
       max_signal_count_zeroonehot = count;
     }
@@ -203,16 +198,30 @@ void top_data::create_constraint_subckt() {
   }
 
   for(unsigned int ind = 0; ind < groupzeroonehot_candidate_names.size(); ind++) {
-    auto candidate_names = groupzeroonehot_candidate_names[ind];
+    auto candidate_namess = groupzeroonehot_candidate_names[ind];
     std::string subckt;
-    subckt += ".subckt __zeroonehot";
-    int i = 0;
-    for(auto candidate_name: candidate_names) {
-      for(std::string signal : candidate_selection_signals[candidate_name]) {
-	subckt += " in" + std::to_string(i) + "=" + signal;
-	i++;
+    for(unsigned int ind2 = 0; ind2 < candidate_namess.size(); ind2++) {
+      auto candidate_names = candidate_namess[ind2];
+      subckt += ".names";
+	for(auto candidate_name: candidate_names) {
+	  for(std::string signal : candidate_selection_signals[candidate_name]) {
+	    subckt += " " + signal;
+	  }
+	}
+      subckt += " __group" + std::to_string(ind) + "_" + std::to_string(ind2) + "\n";
+      for(auto candidate_name: candidate_names) {
+	for(std::string signal : candidate_selection_signals[candidate_name]) {
+	  subckt += "0";
+	}
       }
+      subckt += " 0\n";
     }
+    
+    subckt += ".subckt __zeroonehot";
+    for(unsigned int ind2 = 0; ind2 < candidate_namess.size(); ind2++) {
+      subckt += " in" + std::to_string(ind2) + "=" + " __group" + std::to_string(ind) + "_" + std::to_string(ind2);
+    }
+    
     std::string candidate_name = "__group" + std::to_string(ind);
     subckt += " out=" + groupzeroonehot_candidate_to_constraint_signal[candidate_name];
     subckt += "\n";
@@ -340,7 +349,7 @@ void top_data::show_detail() {
   }
 }
 
-int top_data::setup(std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals, std::vector<std::string> copy_of_onehot_candidate_names, std::vector<std::string> copy_of_zeroonehot_candidate_names, std::vector<std::vector<std::string> > copy_of_groupzeroonehot_candidate_names, std::vector<std::string> copy_of_outputs, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals, std::string spec_top, std::string impl_top) {
+int top_data::setup(std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals, std::vector<std::string> copy_of_onehot_candidate_names, std::vector<std::string> copy_of_zeroonehot_candidate_names, std::vector<std::vector<std::vector<std::string> > > copy_of_groupzeroonehot_candidate_names, std::vector<std::string> copy_of_outputs, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals, std::string spec_top, std::string impl_top) {
   candidate_selection_signals = copy_of_candidate_selection_signals;
   x_names = copy_of_x_names;
   x_selection_signals = copy_of_x_selection_signals;

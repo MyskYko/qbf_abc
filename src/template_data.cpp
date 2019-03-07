@@ -115,6 +115,9 @@ int template_data::read_file(std::string filename) {
 	final_assignment.push_back(final_i);
       }
     }
+    else if(str == "onesendrecv_spx") {
+      flag_onesendrecv_spx = 1;
+    }
     else if(str == "onehot_spx_in") {
       flag_onehot_spx_in = 1;
     }
@@ -305,6 +308,41 @@ int template_data::set_out() {
   }
   return 0;
 }
+
+int template_data::set_onesendrecv_spx() {
+  for(int c = 0; c < num_step; c++) {
+    for(int n1 = 0; n1 < num_node; n1++) {
+      std::string onesendrecv = "#.groupzeroonehot ";
+      for(int n2 = 0; n2 < num_node; n2++) {
+	for(int k = 0; k < num_spx[n1][n2]; k++) {
+	  onesendrecv += "spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k);
+	  if(k != num_spx[n1][n2] - 1)
+	    onesendrecv += ",";
+	}
+	if(num_spx[n1][n2] != 0)
+	  onesendrecv += " ";
+      }
+      data += onesendrecv + "\b\n";
+    }
+  }
+  for(int c = 0; c < num_step; c++) {
+    for(int n2 = 0; n2 < num_node; n2++) {
+      std::string onesendrecv = "#.groupzeroonehot ";
+      for(int n1 = 0; n1 < num_node; n1++) {
+	for(int k = 0; k < num_spx[n1][n2]; k++) {
+	  onesendrecv += "spx_c" + std::to_string(c) + "from" + std::to_string(n1) + "to" + std::to_string(n2) + "k" + std::to_string(k);
+	  if(k != num_spx[n1][n2] - 1)
+	    onesendrecv += ",";
+	}
+	if(num_spx[n1][n2] != 0)
+	  onesendrecv += " ";
+      }
+      data += onesendrecv + "\b\n";
+    }
+  }
+  return 0;
+}
+
 int template_data::set_onehot_spx_in() {
   for(int c = 0; c < num_step; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
@@ -455,6 +493,8 @@ int template_data::setup(std::string filename) {
   if(set_reg()) return 1;
   if(set_com()) return 1;
   if(set_out()) return 1;
+  if(flag_onesendrecv_spx)
+    if(set_onesendrecv_spx()) return 1;
   if(flag_onehot_spx_in)
     if(set_onehot_spx_in()) return 1;
   if(flag_onehot_spx_out)

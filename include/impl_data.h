@@ -18,7 +18,7 @@ class impl_data {
   unsigned int max_candidate_count_x;  
   std::vector<std::string> onehot_candidate_names;
   std::vector<std::string> zeroonehot_candidate_names;
-  std::vector<std::vector<std::string> > groupzeroonehot_candidate_names;
+  std::vector<std::vector<std::vector<std::string> > > groupzeroonehot_candidate_names;
   unsigned int group_count;
   std::map<std::string, int> x_group;
   std::map<int, std::string> group_symbol;
@@ -42,7 +42,7 @@ class impl_data {
   std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals() { return x_selection_signals; }
   std::vector<std::string> copy_of_onehot_candidate_names() { return onehot_candidate_names; }
   std::vector<std::string> copy_of_zeroonehot_candidate_names() { return zeroonehot_candidate_names; }
-  std::vector<std::vector<std::string> > copy_of_groupzeroonehot_candidate_names() { return groupzeroonehot_candidate_names; }
+  std::vector<std::vector<std::vector<std::string> > > copy_of_groupzeroonehot_candidate_names() { return groupzeroonehot_candidate_names; }
   std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals() { return candidate_selection_signals; }
   std::vector<std::string> copy_of_all_selection_signals() { return all_selection_signals; }
   double get_runtime() { return runtime; }

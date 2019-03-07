@@ -1,5 +1,5 @@
-cycle
-3
+step
+2
 
 node
 4
@@ -8,11 +8,11 @@ reg
 4 4 4 4
 
 spx
-0 1 0 0
-0 0 1 0
-0 0 0 1
-1 0 0 0
-n
+0 2 0 2
+2 0 2 0
+0 2 0 2
+2 0 2 0
+
 hdx
 0 0 0 0
 0 0 0 0
@@ -30,3 +30,5 @@ Is1 Is2 Is3 Is4
 Is1 Is2 Is3 Is4
 Is1 Is2 Is3 Is4
 Is1 Is2 Is3 Is4
+
+onesendrecv_spx

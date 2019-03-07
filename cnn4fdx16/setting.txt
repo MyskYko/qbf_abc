@@ -1,4 +1,4 @@
-cycle
+step
 3
 
 node
@@ -44,37 +44,39 @@ hdx
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 initial
-a01
-a02
-a03
-a04
-a05
-a06
-a07
-a08
-a09
-a10
-a11
-a12
-a13
-a14
-a15
-a16
+X01
+X02
+X03
+X04
+X05
+X06
+X07
+X08
+X09
+X10
+X11
+X12
+X13
+X14
+X15
+X16
 
 final
-a01 a02 a05 a06
-a02 a03 a06 a07
-a03 a04 a07 a08
-a04 a08
-a05 a06 a09 a10
-a06 a07 a10 a11
-a07 a08 a11 a12
-a08 a12
-a09 a10 a13 a14
-a10 a11 a14 a15
-a11 a12 a15 a16
-a12 a16
-a13 a14
-a14 a15
-a15 a16
-a16
+X01 X02 X05 X06
+X02 X03 X06 X07
+X03 X04 X07 X08
+X04 X08
+X05 X06 X09 X10
+X06 X07 X10 X11
+X07 X08 X11 X12
+X08 X12
+X09 X10 X13 X14
+X10 X11 X14 X15
+X11 X12 X15 X16
+X12 X16
+X13 X14
+X14 X15
+X15 X16
+X16
+
+onesendrecv_spx

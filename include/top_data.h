@@ -11,7 +11,7 @@ class top_data {
   std::vector<std::string> constraint_signals;
   std::vector<std::string> onehot_candidate_names;
   std::vector<std::string> zeroonehot_candidate_names;
-  std::vector<std::vector<std::string> > groupzeroonehot_candidate_names;
+  std::vector<std::vector<std::vector<std::string> > > groupzeroonehot_candidate_names;
   std::map<std::string, std::vector<std::string> > candidate_selection_signals;
   std::vector<std::string> x_names;
   std::map<std::string, std::vector<std::string> > x_selection_signals;
@@ -40,7 +40,7 @@ class top_data {
   std::string constraint_output = "__constraint";
 
  public:
-  int setup(std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals, std::vector<std::string> copy_of_onehot_candidate_names, std::vector<std::string> copy_of_zeroonehot_candidate_names, std::vector<std::vector<std::string> > copy_of_groupzeroonehot_candidate_names, std::vector<std::string> copy_of_outputs, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals, std::string spec_top, std::string impl_top);
+  int setup(std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals, std::vector<std::string> copy_of_onehot_candidate_names, std::vector<std::string> copy_of_zeroonehot_candidate_names, std::vector<std::vector<std::vector<std::string> > > copy_of_groupzeroonehot_candidate_names, std::vector<std::string> copy_of_outputs, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals, std::string spec_top, std::string impl_top);
   std::vector<std::string> copy_of_selection_signals() { return selection_signals; }
 
   int create_onehot_signal();

@@ -113,7 +113,18 @@ int impl_data::read_file(std::string file_name) {
       x_candidate_names[x_name] = c_names;
     }
     if(flag_groupzeroonehot) {
-      groupzeroonehot_candidate_names.push_back(c_names);
+      char delim2 = ',';
+      std::string str3;
+      std::vector<std::vector<std::string> > d_namess;
+      for(auto c_name: c_names) {
+	std::vector<std::string> d_names;
+	std::stringstream ss2(c_name);
+	while(std::getline(ss2, str3, delim2)) {
+	  d_names.push_back(str3);
+	}
+	d_namess.push_back(d_names);
+      }
+      groupzeroonehot_candidate_names.push_back(d_namess);
     }
   }
   
