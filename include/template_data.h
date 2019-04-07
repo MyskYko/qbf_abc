@@ -24,6 +24,7 @@ private:
   int flag_onehot_spx_in = 0;
   int flag_onehot_spx_out = 0;
   int flag_onehot_spx_between = 0;
+  int flag_implicit_reg = 0;
   
   std::string data;
   
