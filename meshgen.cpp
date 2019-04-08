@@ -9,12 +9,11 @@
 #include <algorithm>
 #include <cassert>
 
-#define DEBUG
 #define SIZE 10
 
 int main(int argc, char** argv) {
   if(argc < 2) {
-    std::cout << "error\n";
+    std::cout << "result.blif (flag_show_detail)\n";
     return 1;
   }
   std::vector<std::pair<std::string, std::string> > assignment;
@@ -27,19 +26,20 @@ int main(int argc, char** argv) {
     return 1;
   }
   std::ofstream mesh_file;
-  const char* mesh_file_name = "__mesh";
+  const char* mesh_file_name = (file_name + std::string(".assign.txt")).c_str();
   mesh_file.open(mesh_file_name, std::ios::out);
   if(!mesh_file) {
     std::cout << "error\n";
     return 1;
   }
   std::ofstream con_file;
-  const char* con_file_name = "__con";
+  const char* con_file_name = (argv[1] + std::string(".com.txt")).c_str();
   con_file.open(con_file_name, std::ios::out);
   if(!con_file) {
     std::cout << "error\n";
     return 1;
   }
+  bool fVerbose = (argc > 2);
   
   std::string str;
   while(getline(solution_file, str)) {
@@ -90,16 +90,16 @@ int main(int argc, char** argv) {
   for(auto itr = assignment.begin(); itr != assignment.end(); ++itr) {
     std::string key = itr->first;
     std::string value = itr->second;
-#ifdef DEBUG
-    std::cout << key << std::endl;
-#endif
+    if(fVerbose)
+      std::cout << key << std::endl;
+    
     if(key.substr(0,3) == "reg") {
       int pos0 = key.find("c", 3);
       int pos1 = key.find("n", 3);
       int pos2 = key.find("r", 3);
-#ifdef DEBUG
+    if(fVerbose)
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2) << std::endl;
-#endif
+
       int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
       int n = std::stoi(key.substr(pos1+1, pos2-pos1-1));
       int r = std::stoi(key.substr(pos2+1));
@@ -112,12 +112,12 @@ int main(int argc, char** argv) {
       int pos1 = key.find("from", 3);
       int pos2 = key.find("to", 3);
       int pos3 = key.find("k", 3);
-#ifdef DEBUG
+    if(fVerbose)
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
-#endif
-      int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
-      int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
-      int to = std::stoi(key.substr(pos2+2, pos3-pos2-2));
+
+      //      int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
+      //      int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
+      //      int to = std::stoi(key.substr(pos2+2, pos3-pos2-2));
       int k = std::stoi(key.substr(pos3+1));
       if(num_spx < k) num_spx = k;
     }
@@ -133,20 +133,20 @@ int main(int argc, char** argv) {
 	pos2 = key.find("n", pos1+1);
 	pos3 = key.find("k", 3);
       }
-#ifdef DEBUG
-      std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
-#endif
+      if(fVerbose)
+	std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
+
       if(hdx_out == 0) {
-	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
-	int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
-	int to = std::stoi(key.substr(pos2+2, pos3-pos2-2));
+	//	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
+	//	int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
+	//	int to = std::stoi(key.substr(pos2+2, pos3-pos2-2));
 	int k = std::stoi(key.substr(pos3+1));
 	if(num_hdx < k) num_hdx = k;
       }
       else {
-	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
-	int n1 = std::stoi(key.substr(pos1+1, pos2-pos1-1));
-	int n2 = std::stoi(key.substr(pos2+1, pos3-pos2-1));
+	//	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
+	//	int n1 = std::stoi(key.substr(pos1+1, pos2-pos1-1));
+	//	int n2 = std::stoi(key.substr(pos2+1, pos3-pos2-1));
 	int k = std::stoi(key.substr(pos3+1));
 	if(num_hdx < k) num_hdx = k;
       }
@@ -179,16 +179,16 @@ int main(int argc, char** argv) {
   for(auto itr = assignment.begin(); itr != assignment.end(); ++itr) {
     std::string key = itr->first;
     std::string value = itr->second;
-#ifdef DEBUG
-    std::cout << key << std::endl;
-#endif
+    if(fVerbose)
+      std::cout << key << std::endl;
+
     if(key.substr(0,3) == "reg") {
       int pos0 = key.find("c", 3);
       int pos1 = key.find("n", 3);
       int pos2 = key.find("r", 3);
-#ifdef DEBUG
+    if(fVerbose)
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2) << "<-" << value << std::endl;
-#endif
+
       int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
       int n = std::stoi(key.substr(pos1+1, pos2-pos1-1));
       int r = std::stoi(key.substr(pos2+1));
@@ -199,9 +199,9 @@ int main(int argc, char** argv) {
       int pos1 = key.find("from", 3);
       int pos2 = key.find("to", 3);
       int pos3 = key.find("k", 3);
-#ifdef DEBUG
+    if(fVerbose)
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
-#endif
+
       int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
       int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
       int to = std::stoi(key.substr(pos2+2, pos3-pos2-2));
@@ -220,9 +220,9 @@ int main(int argc, char** argv) {
 	pos2 = key.find("n", pos1+1);
 	pos3 = key.find("k", 3);
       }
-#ifdef DEBUG
+    if(fVerbose)
       std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
-#endif
+
       if(hdx_out == 0) {
 	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
 	int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
@@ -241,29 +241,29 @@ int main(int argc, char** argv) {
   }
 
   
-#ifdef DEBUG
-  for(unsigned int c = 0; c < regs.size(); c++) {
-    for(unsigned int b = 0; b < regs[c].size(); b++) {
-      for(unsigned int r = 0; r < regs[c][b].size(); r++) {
-	std::cout << regs[c][b][r] << ",";
-      }
-      std::cout << std::endl;
-    }
-    std::cout << std::endl;
-  }
-  
-  for(unsigned int c = 0; c < spxs.size()-1; c++) {
-    for(unsigned int b = 0; b < spxs[c].size(); b++) {
-      for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
-	for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
-	  std::cout << spxs[c][b][r][k] << ",";
+  if(fVerbose) {
+    for(unsigned int c = 0; c < regs.size(); c++) {
+      for(unsigned int b = 0; b < regs[c].size(); b++) {
+	for(unsigned int r = 0; r < regs[c][b].size(); r++) {
+	  std::cout << regs[c][b][r] << ",";
 	}
+	std::cout << std::endl;
       }
       std::cout << std::endl;
     }
-    std::cout << std::endl;
+  
+    for(unsigned int c = 0; c < spxs.size()-1; c++) {
+      for(unsigned int b = 0; b < spxs[c].size(); b++) {
+	for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
+	  for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
+	    std::cout << spxs[c][b][r][k] << ",";
+	  }
+	}
+	std::cout << std::endl;
+      }
+      std::cout << std::endl;
+    }
   }
-#endif
   
   std::map<std::string, std::string> value;
   std::map<std::string, int> isSpxUsed;
@@ -323,31 +323,32 @@ int main(int argc, char** argv) {
   }
 
 
-#ifdef DEBUG
-  for(unsigned int c = 0; c < regs.size(); c++) {
-    for(unsigned int b = 0; b < regs[c].size(); b++) {
-      for(unsigned int r = 0; r < regs[c][b].size(); r++) {
-	std::string key = "reg_c" + std::to_string(c) + "n" + std::to_string(b) + "r" + std::to_string(r);
-	std::cout << value[key] << ",";
-      }
-      std::cout << std::endl;
-    }
-    std::cout << std::endl;
-  }
-  
-  for(unsigned int c = 0; c < spxs.size()-1; c++) {
-    for(unsigned int b = 0; b < spxs[c].size(); b++) {
-      for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
-	for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
-	  std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
+  if(fVerbose) {
+    for(unsigned int c = 0; c < regs.size(); c++) {
+      for(unsigned int b = 0; b < regs[c].size(); b++) {
+	for(unsigned int r = 0; r < regs[c][b].size(); r++) {
+	  std::string key = "reg_c" + std::to_string(c) + "n" + std::to_string(b) + "r" + std::to_string(r);
 	  std::cout << value[key] << ",";
 	}
+	std::cout << std::endl;
       }
       std::cout << std::endl;
     }
-    std::cout << std::endl;
+  
+    for(unsigned int c = 0; c < spxs.size()-1; c++) {
+      for(unsigned int b = 0; b < spxs[c].size(); b++) {
+	for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
+	  for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
+	    std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
+	    std::cout << value[key] << ",";
+	  }
+	}
+	std::cout << std::endl;
+      }
+      std::cout << std::endl;
+    }
   }
-#endif
+
   std::map<std::string, int> value_int;
   std::vector<std::string> values;
   for(auto itr = value.begin(); itr != value.end(); ++itr) {
