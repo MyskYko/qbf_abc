@@ -8,25 +8,27 @@
 
 class template_data {
 private:
-  int num_step = 0;
+  int num_cycle;
   
-  int num_node = 0;
+  int num_node;
   std::vector<int> num_reg;
   
   std::vector<std::vector<int> > num_spx; // fdx is expressed by 2 spx.
   std::vector<std::vector<int> > num_hdx; // hdx[i][j], i < j.
-  int num_com = 0;
   
   std::vector<std::vector<std::string> > initial_assignment;
   std::vector<std::vector<std::string> > final_assignment;
 
-  int flag_onesendrecv_spx = 0;
-  int flag_onehot_spx_in = 0;
-  int flag_onehot_spx_out = 0;
-  int flag_onehot_spx_between = 0;
-  int flag_implicit_reg = 0;
+  int flag_onesendrecv_spx;
+  int flag_onehot_spx_in;
+  int flag_onehot_spx_out;
+  int flag_onehot_spx_between;
+  int flag_implicit_reg;
   
   std::string data;
+
+  void reset();
+  int check_setting();
   
 public:
   int read_file(std::string filename);

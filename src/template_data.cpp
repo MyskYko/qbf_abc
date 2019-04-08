@@ -7,6 +7,80 @@
 #include <algorithm>
 #include <cassert>
 
+void template_data::reset() {
+  num_cycle = 0;
+  num_node = 0;
+  num_reg.clear();
+  num_spx.clear();
+  num_hdx.clear();
+  initial_assignment.clear();
+  final_assignment.clear();
+  flag_onesendrecv_spx = 0;
+  flag_onehot_spx_in = 0;
+  flag_onehot_spx_out = 0;
+  flag_onehot_spx_between = 0;
+  flag_implicit_reg = 0;
+  data = "";
+}
+
+int template_data::check_setting() {
+  if(num_cycle == 0) {
+    std::cout <<  "num_cycle = 0 or has not been set." << std::endl;
+    return 1;
+  }
+  if(num_node == 0) {
+    std::cout <<  "num_node = 0 or has not been set." << std::endl;
+    return 1;
+  }
+  if(num_reg.empty()) {
+    if(flag_implicit_reg) {
+      std::cout <<  "num_reg has not been set. Fill them by zero (implicit reg is ON)." << std::endl;
+      for(int i = 0; i < num_node; i++) num_reg.push_back(1);
+    }
+    else {
+      std::cout <<  "num_reg has not been set. Fill each by max(init assign, fin assign for a node)." << std::endl;
+      int max_assignment = 0;
+      for(int i = 0; i < num_node; i++) {
+	if(initial_assignment.size() < (unsigned)i) {
+	  std::cout <<  "initial assignment hasn't been set" << std::endl;
+	  return 1;
+	}
+	if(final_assignment.size() < (unsigned)i) {
+	  std::cout <<  "final assignment hasn't been set" << std::endl;
+	  return 1;
+	}
+	int max_assignment_ = (int)std::max(initial_assignment[i].size(), final_assignment[i].size());
+	if(max_assignment < max_assignment_) max_assignment = max_assignment_;
+      }
+      for(int i = 0; i < num_node; i++) num_reg.push_back(max_assignment);
+    }
+  }
+  if(num_spx.empty()) {
+    std::cout <<  "num_spx has not been set. Fill them by zero" << std::endl;
+    for(int i = 0; i < num_node; i++) {
+      std::vector<int> num_spx_(num_node);
+      num_spx.push_back(num_spx_);
+    }
+  }
+  if(num_hdx.empty()) {
+    std::cout <<  "num_hdx has not been set. Fill them by zero" << std::endl;
+    for(int i = 0; i < num_node; i++) {
+      std::vector<int> num_hdx_(num_node);
+      num_hdx.push_back(num_hdx_);
+    }
+  }
+  if(initial_assignment.empty()) {
+	std::cout <<  "initial assignment hasn't been set" << std::endl;
+	return 1;
+  };
+  if(final_assignment.empty()) {
+    	std::cout <<  "initial assignment hasn't been set" << std::endl;
+	return 1;
+  }
+
+  return 0;
+}
+
 int template_data::read_file(std::string filename) {
   std::ifstream file;
   file.open(filename, std::ios::in);
@@ -14,20 +88,26 @@ int template_data::read_file(std::string filename) {
     std::cout <<  "cannot open impl file" << std::endl;
     return 1;
   }
+
+  reset();
   
   std::string str;
   while (getline(file, str)) {
-    if(str == "step") {
+    if(str == "cycle") {
       getline(file, str);
-      num_step = std::stoi(str);
+      num_cycle = std::stoi(str);
     }
     else if(str == "node") {
       getline(file, str);
       num_node = std::stoi(str);
     }
     else if(str == "reg") {
+      if(!num_reg.empty()) {
+	std::cout <<  "reg is declared more than once" << std::endl;
+	return 1;
+      }
       num_reg.clear();
-      if(num_node == 0 ) {
+      if(num_node == 0) {
 	std::cout <<  "write num node before reg" << std::endl;	
 	return 1;
       }
@@ -44,7 +124,10 @@ int template_data::read_file(std::string filename) {
       }
     }
     else if(str == "spx") {
-      num_spx.clear();
+      if(!num_spx.empty()) {
+	std::cout <<  "spx is declared more than once" << std::endl;
+	return 1;
+      }
       if(num_node == 0 ) {
 	std::cout <<  "write num node before spx" << std::endl;	
 	return 1;
@@ -62,7 +145,10 @@ int template_data::read_file(std::string filename) {
       }
     }
     else if(str == "hdx") {
-      num_hdx.clear();
+      if(!num_hdx.empty()) {
+	std::cout <<  "hdx is declared more than once" << std::endl;
+	return 1;
+      }
       if(num_node == 0 ) {
 	std::cout <<  "write num node before hdx" << std::endl;	
 	return 1;
@@ -80,7 +166,10 @@ int template_data::read_file(std::string filename) {
       }
     }
     else if(str == "initial") {
-      initial_assignment.clear();
+      if(!initial_assignment.empty()) {
+	std::cout <<  "initial assignment is declared more than once" << std::endl;
+	return 1;
+      }
       if(num_node == 0 ) {
 	std::cout <<  "write num node before initial assignment" << std::endl;	
 	return 1;
@@ -98,7 +187,10 @@ int template_data::read_file(std::string filename) {
       }
     }
     else if(str == "final") {
-      final_assignment.clear();
+      if(!final_assignment.empty()) {
+	std::cout <<  "final assignment is declared more than once" << std::endl;
+	return 1;
+      }
       if(num_node == 0 ) {
 	std::cout <<  "write num node before final assignment" << std::endl;	
 	return 1;
@@ -131,11 +223,12 @@ int template_data::read_file(std::string filename) {
       flag_implicit_reg = 1;
     }
   }
-  return 0;
+
+  return check_setting();
 }
 
 int template_data::gen_reg() {
-  for(int c = 0; c < num_step+1; c++) {
+  for(int c = 0; c < num_cycle+1; c++) {
     for(int n = 0; n < num_node; n++) {
       if(num_reg.size() < (unsigned)n) {
 	std::cout <<  "num reg hasn't been set" << std::endl;		
@@ -150,7 +243,7 @@ int template_data::gen_reg() {
 }
 
 int template_data::gen_com() {
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       for(int n2 = 0; n2 < num_node; n2++) {
 	for(int k = 0; k < num_spx[n1][n2]; k++) {
@@ -160,7 +253,7 @@ int template_data::gen_com() {
     }
   }
 
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n1 = 0; n1 < num_node-1; n1++) {
       for(int n2 = n1+1; n2 < num_node; n2++) {
 	for(int k = 0; k < num_hdx[n1][n2]; k++) {
@@ -195,7 +288,7 @@ int template_data::set_reg() {
     }
   }
   
-  for(int c = 1; c < num_step+1; c++) {
+  for(int c = 1; c < num_cycle+1; c++) {
     for(int n = 0; n < num_node; n++) {
       if(num_reg.size() < (unsigned)n) {
 	std::cout <<  "num reg hasn't been set" << std::endl;		
@@ -232,7 +325,7 @@ int template_data::set_reg() {
   return 0;
 }
 int template_data::set_com() {
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       for(int n2 = 0; n2 < num_node; n2++) {
 	for(int k = 0; k < num_spx[n1][n2]; k++) {
@@ -251,7 +344,7 @@ int template_data::set_com() {
     }
   }
   
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n1 = 0; n1 < num_node-1; n1++) {
       for(int n2 = n1+1; n2 < num_node; n2++) {
 	for(int k = 0; k < num_hdx[n1][n2]; k++) {
@@ -302,11 +395,11 @@ int template_data::set_out() {
     }
     if(!flag_implicit_reg) {
       for(int r = 0; r < num_reg[n]; r++) {
-	data += "reg_c" + std::to_string(num_step) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
+	data += "reg_c" + std::to_string(num_cycle) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
       }
     }
     else {
-      for(int c = 0; c <= num_step; c++) {
+      for(int c = 0; c <= num_cycle; c++) {
 	for(int r = 0; r < num_reg[n]; r++) {
 	  data += "reg_c" + std::to_string(c) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
 	}
@@ -319,7 +412,7 @@ int template_data::set_out() {
       for(int r = 0; r < num_reg[n]; r++) data += "0";
     }
     else {
-      for(int c = 0; c <= num_step; c++) for(int r = 0; r < num_reg[n]; r++) data += "0";
+      for(int c = 0; c <= num_cycle; c++) for(int r = 0; r < num_reg[n]; r++) data += "0";
     }
     data += " 0\n";
 
@@ -340,7 +433,7 @@ int template_data::set_out() {
 }
 
 int template_data::set_onesendrecv_spx() {
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       std::string onesendrecv = "#.groupzeroonehot ";
       for(int n2 = 0; n2 < num_node; n2++) {
@@ -355,7 +448,7 @@ int template_data::set_onesendrecv_spx() {
       data += onesendrecv + "\b\n";
     }
   }
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n2 = 0; n2 < num_node; n2++) {
       std::string onesendrecv = "#.groupzeroonehot ";
       for(int n1 = 0; n1 < num_node; n1++) {
@@ -374,7 +467,7 @@ int template_data::set_onesendrecv_spx() {
 }
 
 int template_data::set_onehot_spx_in() {
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       std::string groupzeroonehot_in = "#.groupzeroonehot";
       for(int n2 = 0; n2 < num_node; n2++) {
@@ -388,7 +481,7 @@ int template_data::set_onehot_spx_in() {
   return 0;
 }
 int template_data::set_onehot_spx_out() {
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n2 = 0; n2 < num_node; n2++) {
       std::string groupzeroonehot_out = "#.groupzeroonehot";
       for(int n1 = 0; n1 < num_node; n1++) {
@@ -402,7 +495,7 @@ int template_data::set_onehot_spx_out() {
   return 0;
 }
 int template_data::set_onehot_spx_between() {
-  for(int c = 0; c < num_step; c++) {
+  for(int c = 0; c < num_cycle; c++) {
     for(int n2 = 0; n2 < num_node; n2++) {
       for(int n1 = n2+1; n1 < num_node; n1++) {
 	if( num_spx[n1][n2] == 0 && num_spx[n2][n1] == 0 ) continue;
