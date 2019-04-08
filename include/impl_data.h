@@ -30,7 +30,6 @@ class impl_data {
   std::string selector = "";
   std::vector<std::string> subckts;
 
-  double runtime = 0;
   std::map<std::string, std::string> x_result;
   
   void create_selection_signal();
@@ -50,7 +49,6 @@ class impl_data {
   std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals() { return candidate_selection_signals; }
   std::vector<std::string> copy_of_all_selection_signals() { return all_selection_signals; }
   
-  double get_runtime() { return runtime; }
   int read_file(std::string file_name);
   void write_circuit(std::ofstream *write_file);
   int read_result(std::string file_name);

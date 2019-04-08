@@ -58,29 +58,26 @@ int synthesis(std::string spec_filename, std::string impl_filename, std::string 
   spec.write_circuit(&tmp_file);
   impl.write_circuit(&tmp_file);
   tmp_file.flush();
+
+  // show simple
+  impl.show_simple();
+  clock_t end = clock();
+  double runtime = (double)(end - start) / CLOCKS_PER_SEC;
+  std::cout << "generated qbf, time:" << runtime << std::endl << std::endl;
   
   // solve
-  impl.show_simple();
   std::string log_file_name = "__log.txt"; // "__log_" + out_filename + ".txt";
-  std::string command = "abc -c \"read " + tmp_file_name + "; strash; qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + ";\" > " + log_file_name;
+  std::string command = "abc -c \"read " + tmp_file_name + "; strash; time; dc2;dc2;dc2;dc2;dc2; time; qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + "; time;\" | tee " + log_file_name;
   system(command.c_str());
   
   // get result
   if(impl.read_result(log_file_name)) {
-    clock_t end = clock();
-    double runtime = (double)(end - start) / CLOCKS_PER_SEC + impl.get_runtime();  
-    std::cout << "time:" << runtime<< std::endl;
     return 1;
   }
   if(fVerbose) impl.show_detail();
   
   // generate out file
   if(impl.write_out(out_filename)) return -1;
-  
-  // finish program
-  clock_t end = clock();
-  double runtime = (double)(end - start) / CLOCKS_PER_SEC + impl.get_runtime();  
-  std::cout << "time:" << runtime<< std::endl;
   
   return 0;
 }

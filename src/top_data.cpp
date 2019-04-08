@@ -105,6 +105,7 @@ void top_data::create_output_constraint_signal() {
 }
 
 void top_data::create_onehot() {
+  if(max_signal_count_onehot == 0) return;
   onehot += ".model __onehot\n";
   onehot += ".inputs";
   for(unsigned int i = 0; i < max_signal_count_onehot; i++) {
@@ -134,6 +135,7 @@ void top_data::create_onehot() {
 }
 
 void top_data::create_zeroonehot() {
+  if(max_signal_count_zeroonehot == 0) return;
   zeroonehot += ".model __zeroonehot\n";
   zeroonehot += ".inputs";
   for(unsigned int i = 0; i < max_signal_count_zeroonehot; i++) {

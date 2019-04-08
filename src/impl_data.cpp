@@ -318,22 +318,13 @@ int impl_data::read_result(std::string file_name) {
 
     std::string str2;
     bool flag_result = false;
-    bool flag_runtime = false;
     while(std::getline(ss, str2, delim)) {
       if(flag_result) {
 	result = str2;
 	flag_result = false;
       }
-      if(flag_runtime) {
-	if(str2[0] >= '0' && str2[0] <= '9') {
-	  runtime = std::stod(str2);
-	}
-      }
       if(str2 == "Parameters:") {
 	flag_result = true;
-      }
-      if(str2 == "runtime") {
-	flag_runtime = true;
       }
     }
   }
@@ -512,7 +503,7 @@ void impl_data::show_detail() {
     std::cout << std::endl;
   }
 
-  if(runtime != 0) {
+  if(!x_result.empty()) {
     std::cout << "---result---" << std::endl;
     for(auto x_name : x_names) {
       std::cout << x_name  << ":" << x_result[x_name] << std::endl;
@@ -523,6 +514,7 @@ void impl_data::show_detail() {
 
 int impl_data::setup(std::string filename) {
   if(read_file(filename)) return 1;
+  x_result.clear();
   
   // create selection signal
   create_selection_signal();
