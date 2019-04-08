@@ -3,7 +3,7 @@ bin
 build
 __*
 *out*
-*png*
+*png
 *.exe
 .DS_Store
 *.DS_Store

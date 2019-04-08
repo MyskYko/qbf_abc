@@ -368,7 +368,7 @@ int main(int argc, char** argv) {
       for(unsigned int r = 0; r < regs[c][b].size(); r++) {
 	std::string key = "reg_c" + std::to_string(c) + "n" + std::to_string(b) + "r" + std::to_string(r);
 	if(value[key] == "zero") continue;
-	mesh_file << c << " " << b << " " << value_int[value[key]] << std::endl;
+	mesh_file << c << " " << b << " " << value[key] << std::endl;
       }
     }
   }
@@ -380,15 +380,7 @@ int main(int argc, char** argv) {
 	  for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
 	    std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
 	    if(isSpxUsed[key]) {
-	      con_file << std::to_string(c) << " " << value_int[value[key]] << " " << std::to_string(b) << " ";
-	      if(b < r) {
-		if(r == b+1) con_file << "E";
-		else con_file << "S";
-	      }
-	      else {
-		if(r == b-1) con_file << "W";
-		else con_file << "N";
-	      }
+	      con_file << std::to_string(c) << " " << std::to_string(b) << " " << std::to_string(r) << " " << value[key] << " ";
 	      con_file << std::endl;
 	    }
 	  }

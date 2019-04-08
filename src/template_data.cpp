@@ -290,64 +290,51 @@ int template_data::set_com() {
   return 0;
 }
 int template_data::set_out() {
-  if(!flag_implicit_reg) {
-    for(int n = 0; n < num_node; n++) {
-      data += ".names ";
-      if(num_reg.size() < (unsigned)n) {
-	std::cout << "num reg hasn't been set" << std::endl;
-	return 1;
-      }
+  for(int n = 0; n < num_node; n++) {
+    data += ".names ";
+    if(num_reg.size() < (unsigned)n) {
+      std::cout << "num reg hasn't been set" << std::endl;
+      return 1;
+    }
+    if(final_assignment.size() < (unsigned)n) {
+      std::cout << "final assignment hasn't been set" << std::endl;
+      return 1;
+    }
+    if(!flag_implicit_reg) {
       for(int r = 0; r < num_reg[n]; r++) {
 	data += "reg_c" + std::to_string(num_step) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
       }
-
-      if(final_assignment.size() < (unsigned)n) {
-	std::cout << "final assignment hasn't been set" << std::endl;
-	return 1;
-      }
-      data += "out" + std::to_string(n) + "\n";
-    
-      for(int r = 0; r < num_reg[n]; r++) data += "0";
-      data += " 0\n";
     }
-  }
-  else {
-    for(int n = 0; n < num_node; n++) {
-      data += ".names ";
-      if(num_reg.size() < (unsigned)n) {
-	std::cout << "num reg hasn't been set" << std::endl;
-	return 1;
-      }
+    else {
       for(int c = 0; c <= num_step; c++) {
 	for(int r = 0; r < num_reg[n]; r++) {
 	  data += "reg_c" + std::to_string(c) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
 	}
       }
+    }
 
-      data += "t_out" + std::to_string(n) + "\n";
+    data += "t_out" + std::to_string(n) + "\n";
 
+    if(!flag_implicit_reg) {
+      for(int r = 0; r < num_reg[n]; r++) data += "0";
+    }
+    else {
       for(int c = 0; c <= num_step; c++) for(int r = 0; r < num_reg[n]; r++) data += "0";
-      
-      data += " 0\n";
+    }
+    data += " 0\n";
 
-      if(final_assignment.size() < (unsigned)n) {
-	std::cout << "final assignment hasn't been set" << std::endl;
-	return 1;
-      }
-      
-      data += ".names";
-      for(int i = 0; i < (int)final_assignment[n].size(); i++) {
-	data += " " + final_assignment[n][i];
-      }
-      data += " s_out" + std::to_string(n) +"\n";
-      for(int i = 0; i < (int)final_assignment[n].size(); i++) {
-	data += "0";
-      }
-      data += " 1\n";
-
-      data += ".names t_out" + std::to_string(n) + " s_out" + std::to_string(n) + " out" + std::to_string(n) + "\n";
-      data += "00 0\n";
-    }    
+    data += ".names";
+    for(int i = 0; i < (int)final_assignment[n].size(); i++) {
+      data += " " + final_assignment[n][i];
+    }
+    data += " s_out" + std::to_string(n) +"\n";
+    for(int i = 0; i < (int)final_assignment[n].size(); i++) {
+      data += "0";
+    }
+    data += " 1\n";
+    
+    data += ".names t_out" + std::to_string(n) + " s_out" + std::to_string(n) + " out" + std::to_string(n) + "\n";
+    data += "00 0\n";
   }
   return 0;
 }
@@ -512,25 +499,10 @@ int template_data::write_spec(std::string filename) {
   }
   file << std::endl;
 
-  if(!flag_implicit_reg) {
-    for(int n = 0; n < num_node; n++) {
-      file << ".names";
-      for(int i = 0; i < (int)final_assignment[n].size(); i++) {
-	file << " " << final_assignment[n][i];
-      }
-      file << " out" << n << std::endl;
-      for(int i = 0; i < (int)final_assignment[n].size(); i++) {
-	file << "0";
-      }
-      file << " 0\n";
-    }
-  }
-  else {
-    for(int n = 0; n < num_node; n++) {
-      file << ".names";
-      file << " out" << n << std::endl;
-      file << "1\n";
-    }
+  for(int n = 0; n < num_node; n++) {
+    file << ".names";
+    file << " out" << n << std::endl;
+    file << "1\n";
   }
   
   file << ".end\n";
