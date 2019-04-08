@@ -32,29 +32,27 @@ int template_data::check_setting() {
     std::cout <<  "num_node = 0 or has not been set." << std::endl;
     return 1;
   }
+  if(flag_systolic) {
+    num_reg.clear();
+    for(int i = 0; i < num_node; i++) num_reg.push_back(1);
+  }
   if(num_reg.empty()) {
-    if(flag_implicit_reg) {
-      std::cout <<  "num_reg has not been set. Fill them by zero (implicit reg is ON)." << std::endl;
-      for(int i = 0; i < num_node; i++) num_reg.push_back(1);
-    }
-    else {
-      std::cout <<  "num_reg has not been set. Fill them by max(init assign, fin assign for a node)." << std::endl;
-      int max_assignment = 0;
-      for(int i = 0; i < num_node; i++) {
-	if(initial_assignment.size() < (unsigned)i) {
-	  std::cout <<  "initial assignment hasn't been set" << std::endl;
-	  return 1;
-	}
-	if(final_assignment.size() < (unsigned)i) {
-	  std::cout <<  "final assignment hasn't been set" << std::endl;
-	  return 1;
-	}
-	int max_assignment_ = (int)std::max(initial_assignment[i].size(), final_assignment[i].size());
-	if(max_assignment < max_assignment_) max_assignment = max_assignment_;
+    std::cout <<  "num_reg has not been set. Fill them by max(init assign, fin assign for a node)." << std::endl;
+    int max_assignment = 0;
+    for(int i = 0; i < num_node; i++) {
+      if(initial_assignment.size() < (unsigned)i) {
+	std::cout <<  "initial assignment hasn't been set" << std::endl;
+	return 1;
       }
-      std::cout << "num_reg = " << max_assignment << std::endl;
-      for(int i = 0; i < num_node; i++) num_reg.push_back(max_assignment);
+      if(final_assignment.size() < (unsigned)i) {
+	std::cout <<  "final assignment hasn't been set" << std::endl;
+	return 1;
+      }
+      int max_assignment_ = (int)std::max(initial_assignment[i].size(), final_assignment[i].size());
+      if(max_assignment < max_assignment_) max_assignment = max_assignment_;
     }
+    std::cout << "num_reg = " << max_assignment << std::endl;
+    for(int i = 0; i < num_node; i++) num_reg.push_back(max_assignment);
   }
   if(num_spx.empty()) {
     std::cout <<  "num_spx has not been set. Fill them by zero" << std::endl;
@@ -222,6 +220,9 @@ int template_data::read_file(std::string filename) {
     }
     else if(str == "implicit_reg") {
       flag_implicit_reg = 1;
+    }
+    else if(str == "systolic") {
+      flag_systolic = 1;
     }
   }
 

@@ -24,7 +24,7 @@ private:
   int flag_onehot_spx_out;
   int flag_onehot_spx_between;
   int flag_implicit_reg;
-  
+  int flag_systolic;
   std::string data;
 
   void reset();
