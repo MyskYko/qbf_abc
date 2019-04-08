@@ -4,16 +4,16 @@
 
 int main(int argc, char **argv) {
   // prepare to read file
-  if(argc < 3) {
-    std::cout << "./a.out setting.txt output.blif (flag_show_detail)" << std::endl;
+  if(argc < 2) {
+    std::cout << "./a.out setting.txt (flag_show_detail)" << std::endl;
     return -1;
   }
   
   std::string spec_filename = "__spec.blif";
   std::string setting_filename = std::string(argv[1]);
-  std::string out_filename = std::string(argv[2]);
+  std::string out_filename = std::string(argv[1]) + ".out.blif";
   std::string impl_filename = "__impl.blif";
-  bool flag_show_detail = (argc > 3);
+  bool flag_show_detail = (argc > 2);
   
   template_data t;
   if(t.setup(setting_filename) || t.write_circuit(impl_filename) || t.write_spec(spec_filename)) {

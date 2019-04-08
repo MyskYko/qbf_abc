@@ -67,7 +67,7 @@ int synthesis(std::string spec_filename, std::string impl_filename, std::string 
   
   // solve
   std::string log_file_name = "__log.txt"; // "__log_" + out_filename + ".txt";
-  std::string command = "abc -c \"read " + tmp_file_name + "; strash; time; dc2;dc2;dc2;dc2;dc2; time; qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + "; time;\" | tee " + log_file_name;
+  std::string command = "abc -c \"read " + tmp_file_name + "; strash; print_stats; time; dc2;dc2;dc2;dc2;dc2; print_stats; time; qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + "; time;\" | tee " + log_file_name;
   system(command.c_str());
   
   // get result

@@ -222,6 +222,7 @@ int template_data::read_file(std::string filename) {
       flag_implicit_reg = 1;
     }
     else if(str == "systolic") {
+      flag_implicit_reg = 1;
       flag_systolic = 1;
     }
   }
@@ -386,7 +387,6 @@ int template_data::set_com() {
 }
 int template_data::set_out() {
   for(int n = 0; n < num_node; n++) {
-    data += ".names ";
     if(num_reg.size() < (unsigned)n) {
       std::cout << "num reg hasn't been set" << std::endl;
       return 1;
@@ -395,28 +395,6 @@ int template_data::set_out() {
       std::cout << "final assignment hasn't been set" << std::endl;
       return 1;
     }
-    if(!flag_implicit_reg) {
-      for(int r = 0; r < num_reg[n]; r++) {
-	data += "reg_c" + std::to_string(num_cycle) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
-      }
-    }
-    else {
-      for(int c = 0; c <= num_cycle; c++) {
-	for(int r = 0; r < num_reg[n]; r++) {
-	  data += "reg_c" + std::to_string(c) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
-	}
-      }
-    }
-
-    data += "t_out" + std::to_string(n) + "\n";
-
-    if(!flag_implicit_reg) {
-      for(int r = 0; r < num_reg[n]; r++) data += "0";
-    }
-    else {
-      for(int c = 0; c <= num_cycle; c++) for(int r = 0; r < num_reg[n]; r++) data += "0";
-    }
-    data += " 0\n";
 
     data += ".names";
     for(int i = 0; i < (int)final_assignment[n].size(); i++) {
@@ -428,8 +406,32 @@ int template_data::set_out() {
     }
     data += " 1\n";
     
-    data += ".names t_out" + std::to_string(n) + " s_out" + std::to_string(n) + " out" + std::to_string(n) + "\n";
-    data += "00 0\n";
+    if(!flag_implicit_reg) {
+      data += ".names ";
+      for(int r = 0; r < num_reg[n]; r++) {
+	data += "reg_c" + std::to_string(num_cycle) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
+      }
+      data += "t_out" + std::to_string(n) + "\n";
+      for(int r = 0; r < num_reg[n]; r++) data += "0";
+      data += " 0\n";
+      
+      data += ".names t_out" + std::to_string(n) + " s_out" + std::to_string(n) + " out" + std::to_string(n) + "\n";
+      data += "00 0\n11 0\n";
+    }
+    else {
+      data += ".names ";
+      for(int c = 0; c <= num_cycle; c++) {
+	for(int r = 0; r < num_reg[n]; r++) {
+	  data += "reg_c" + std::to_string(c) + "n" + std::to_string(n) + "r" + std::to_string(r) + " ";
+	}
+      }
+      data += "t_out" + std::to_string(n) + "\n";
+      for(int c = 0; c <= num_cycle; c++) for(int r = 0; r < num_reg[n]; r++) data += "0";
+      data += " 0\n";
+      
+      data += ".names t_out" + std::to_string(n) + " s_out" + std::to_string(n) + " out" + std::to_string(n) + "\n";
+      data += "00 0\n";
+    }
   }
   return 0;
 }
