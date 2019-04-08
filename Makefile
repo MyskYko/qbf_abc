@@ -16,7 +16,7 @@ EXE_NAME = gen
 
 CXX = g++
 
-CXX_FLAGS = -Wall -g
+CXX_FLAGS = -Wall -g -std=c++11
 INC_FLAGS = $(addprefix -I,$(INC_DIRS))
 
 # collect sources ...

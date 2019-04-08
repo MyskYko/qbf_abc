@@ -29,8 +29,6 @@ private:
 
   void reset();
   int check_setting();
-  
-public:
   int read_file(std::string filename);
   int gen_reg();
   int gen_com();
@@ -41,6 +39,8 @@ public:
   int set_onehot_spx_in();
   int set_onehot_spx_out();
   int set_onehot_spx_between();
+  
+public:
   int write_circuit(std::string filename);
   int write_spec(std::string filename);
   void print() { std::cout << data; }

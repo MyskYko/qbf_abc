@@ -315,7 +315,7 @@ void top_data::write_circuit(std::ofstream *write_file) {
 
 void top_data::show_detail() {
   std::cout << "max_signal_count_for_each_onehot:" << std::to_string(max_signal_count_onehot) << std::endl;
-  std::cout << "max_signal_count_for_each_onehot:" << std::to_string(max_signal_count_zeroonehot) << std::endl;  
+  std::cout << "max_signal_count_for_each_zeroonehot:" << std::to_string(max_signal_count_zeroonehot) << std::endl;  
   std::cout << "---constraint_signal---" << std::endl;
   for(auto constraint_signal: constraint_signals) {
     std::cout << constraint_signal << " ";

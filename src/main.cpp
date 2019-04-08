@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
     std::cout << "error" << std::endl;
     return 1;
   }
-  t.print();
+  if(flag_show_detail) t.print();
   
   extern int synthesis(std::string spec_filename, std::string impl_filename, std::string out_filename, int fVerbose);
 

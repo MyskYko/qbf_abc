@@ -38,7 +38,7 @@ int template_data::check_setting() {
       for(int i = 0; i < num_node; i++) num_reg.push_back(1);
     }
     else {
-      std::cout <<  "num_reg has not been set. Fill each by max(init assign, fin assign for a node)." << std::endl;
+      std::cout <<  "num_reg has not been set. Fill them by max(init assign, fin assign for a node)." << std::endl;
       int max_assignment = 0;
       for(int i = 0; i < num_node; i++) {
 	if(initial_assignment.size() < (unsigned)i) {
@@ -52,6 +52,7 @@ int template_data::check_setting() {
 	int max_assignment_ = (int)std::max(initial_assignment[i].size(), final_assignment[i].size());
 	if(max_assignment < max_assignment_) max_assignment = max_assignment_;
       }
+      std::cout << "num_reg = " << max_assignment << std::endl;
       for(int i = 0; i < num_node; i++) num_reg.push_back(max_assignment);
     }
   }
