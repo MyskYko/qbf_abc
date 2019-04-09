@@ -9,17 +9,16 @@
 #include <algorithm>
 #include <cassert>
 
-#define SIZE 10
-
-int main(int argc, char** argv) {
-  if(argc < 2) {
-    std::cout << "result.blif (flag_show_detail)\n";
-    return 1;
-  }
+int parse(std::string file_name, int fVerbose){
+  //main(int argc, char** argv) {
+  //  if(argc < 2) {
+  //    std::cout << "result.blif (flag_show_detail)\n";
+  //    return 1;
+  //  }
   std::vector<std::pair<std::string, std::string> > assignment;
   std::vector<std::string> outputs;
   std::ifstream solution_file;
-  std::string file_name = std::string(argv[1]);
+  //  std::string file_name = std::string(argv[1]);
   solution_file.open(file_name, std::ios::in);
   if(!solution_file) {
     std::cout << "error in openning solution\n";
@@ -39,7 +38,7 @@ int main(int argc, char** argv) {
     std::cout << "error in openning com\n";
     return 1;
   }
-  bool fVerbose = (argc > 2);
+  //  bool fVerbose = (argc > 2);
   
   std::string str;
   while(getline(solution_file, str)) {

@@ -33,7 +33,22 @@ int main(int argc, char **argv) {
   
   extern int synthesis(std::string spec_filename, std::string impl_filename, std::string qbf_filename, std::string out_filename, std::string log_filename, int fVerbose);
 
-  synthesis(spec_filename, impl_filename, qbf_filename, out_filename, log_filename, flag_show_detail);
+  int r = synthesis(spec_filename, impl_filename, qbf_filename, out_filename, log_filename, flag_show_detail);
+  if(r == 1) {
+    std::cout << "unsat" << std::endl;
+    return 1;
+  }
+  if(r == -1) {
+    std::cout << "error in synthesis" << std::endl;
+    return 1;
+  }
 
+  extern int parse(std::string out_filename, int fVerbose);
+
+  if(parse(out_filename, flag_show_detail)) {
+    std::cout << "error in parse result.blif" << std::endl;
+    return 1;
+  }
+  
   return 0;
 }

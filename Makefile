@@ -25,8 +25,6 @@ SRCS = $(shell find $(SRC_DIR) -name "*.cpp")
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 #DEPS = $(OBJS:.o=.d)
 
-all: $(BIN_DIR)/$(EXE_NAME) $(BIN_DIR)/$(EXE2_NAME)
-
 # rules for c++ files
 $(OBJ_DIR)/%.o: %.cpp
 	$(MKDIR_P) $(dir $@)
@@ -36,9 +34,6 @@ $(OBJ_DIR)/%.o: %.cpp
 $(BIN_DIR)/$(EXE_NAME): $(OBJS)
 	$(MKDIR_P) $(BIN_DIR)
 	$(CXX) $(OBJS) -o $@
-
-$(BIN_DIR)/$(EXE2_NAME): $(SRC2_NAME)
-	$(CXX) $(CXX_FLAGS) $(SRC2_NAME) -o $@
 
 .PHONY: clean
 
