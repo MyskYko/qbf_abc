@@ -18,7 +18,7 @@ hasPadding = int(argv[6])
 
 file_name = "cnn_m" + str(mat_row) + "x" + str(mat_col) + "_w" + str(win_row) + "x" + str(win_col) + "_c" + str(min_cycle) + "_p" + str(hasPadding);
 for i in range(7, len(argv)):
-    file_name += "_" + argv[i] + "\n"
+    file_name += "_" + argv[i]
 file_name += ".txt"
 print(file_name)
 f = open(file_name, "w")

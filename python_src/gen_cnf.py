@@ -188,14 +188,13 @@ def cnf_generate(f, num_var, num_node, num_cycle, init_assign, num_spx, fin_assi
                         for i in range(0, num_var):
                             onehot_groups[j + l * num_node].append(i + count * num_var + l * num_con * num_var + num_assign + 1)
                         count += 1
-                        
         for onehot_group in onehot_groups:
-            data = [i for i in range(0, len(onehot_gorup))]
+            data = [i for i in range(0, len(onehot_group))]
             for pattern in itertools.combinations(data, 2):
                 for i in pattern:
                     f.write("-" + str(onehot_group[i]) + " ")
-                    f.write("0\n")
-                    num_cla += 1
+                f.write("0\n")
+                num_cla += 1
 
     #systolic
     if "systolic" in options:
