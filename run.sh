@@ -29,6 +29,12 @@ elif [ $1 = "SAT" -o $1 = "1" ]; then
     out_filename=${filename}.sat.cnf.out
     assign_filename=${out_filename}.assign.txt
     com_filename=${out_filename}.com.txt
+    if [ -e $cnf_filename ]; then
+	rm $cnf_filename
+    fi
+    if [ -e $out_filename ]; then
+	rm $out_filename
+    fi
     if [ -e $assign_filename ]; then
 	rm $assign_filename
     fi

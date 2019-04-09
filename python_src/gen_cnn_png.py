@@ -88,32 +88,32 @@ def gen_img(mat_row, mat_col, num_cycle, assign, com):
     arrowsize = 10
     padding = rectsize // 2
     margin = padding // 2
-    img = Image.new('RGB', ((rectsize + padding) * mat_col, (rectsize + padding) * mat_row * (num_cycle + 1)), white)
-    draw = ImageDraw.Draw(img)
+    img = [Image.new('RGB', ((rectsize + padding) * mat_col, (rectsize + padding) * mat_row), white) for i in range(0, num_cycle + 1)]
+    draw = [ImageDraw.Draw(img[i]) for i in range(0, num_cycle + 1)]
     font = ImageFont.truetype('/usr/share/fonts/dejavu/DejaVuSerif.ttf', fontsize, encoding='utf-8')
 
     for k in range(0, num_cycle + 1):
-        draw.rectangle((0, (rectsize + padding) * mat_row * k, (rectsize + padding) * mat_col - 1, (rectsize + padding) * mat_row * (k + 1) - 1), outline=black)
-        draw.text((0, (rectsize + padding) * mat_row * k), "cycle:" + str(k), font=font, fill=black)
+#        draw[k].rectangle((0, (rectsize + padding) * mat_row * k, (rectsize + padding) * mat_col - 1, (rectsize + padding) * mat_row * (k + 1) - 1), outline=black)
+        draw[k].text((0, 0), "cycle:" + str(k), font=font, fill=black)
         for i in range(0, mat_row):
             for j in range(0, mat_col):
                 x = margin + (rectsize + padding) * j
-                y = margin + (rectsize + padding) * (i + mat_row * k)
-                draw.rectangle((x, y, x + rectsize, y + rectsize), fill=block_color)
+                y = margin + (rectsize + padding) * i
+                draw[k].rectangle((x, y, x + rectsize, y + rectsize), fill=block_color)
                 dx = 0
                 dy = 0
                 next_dx = 0
                 for var in assign[k][j + i * mat_col]:
-                    size = draw.textsize(var)
+                    size = draw[k].textsize(var)
                     if dx + size[0] > rectsize:
                         print("oversize or too many vars in node, wrapped as ...")
-                        draw.test((x + dx, y + dy), "...", font=font, fill=black)
+                        draw[k].test((x + dx, y + dy), "...", font=font, fill=black)
                         break
                     if dy + size[1] > rectsize:
                         dx += next_dx
                         dy = 0
                         next_dx = 0
-                    draw.text((x + dx, y + dy), var, font=font, fill=black)
+                    draw[k].text((x + dx, y + dy), var, font=font, fill=black)
                     dy += size[1]
                     if size[0] > next_dx:
                         next_dx = size[0]
@@ -124,22 +124,22 @@ def gen_img(mat_row, mat_col, num_cycle, assign, com):
                 for j_from in range(0, mat_col):
                     node_from = j_from + i_from * mat_col
                     x_from = margin + (rectsize + padding) * j_from
-                    y_from = margin + (rectsize + padding) * (i_from + mat_row * k)
+                    y_from = margin + (rectsize + padding) * i_from
                     direction = 'U'
                     i_to = i_from - 1
                     j_to = j_from
                     if i_to >= 0:
                         node_to = j_to + i_to * mat_col
                         if len(com[k][node_from][node_to]) > 0:
-                            write_arrow(draw, x_from + rectsize // 2 - arrowsize, y_from, padding, arrowsize, direction)
+                            write_arrow(draw[k], x_from + rectsize // 2 - arrowsize, y_from, padding, arrowsize, direction)
                             dy = arrowsize
                             for var in com[k][node_from][node_to]:
-                                size = draw.textsize(var)
+                                size = draw[k].textsize(var)
                                 if size[0] > rectsize // 2 or dy + size[1] > padding:
                                     print("oversize or too many vars in communication, wrapped as ...")
-                                    draw.text((x_from, y_from - padding + dy), "...", font=font, fill=black)
+                                    draw[k].text((x_from, y_from - padding + dy), "...", font=font, fill=black)
                                     break
-                                draw.text((x_from, y_from - padding + dy), var, font=font, fill=black)
+                                draw[k].text((x_from, y_from - padding + dy), var, font=font, fill=black)
                                 dy += size[1]
                     direction = 'R'
                     i_to = i_from
@@ -147,47 +147,47 @@ def gen_img(mat_row, mat_col, num_cycle, assign, com):
                     if j_to < mat_col:
                         node_to = j_to + i_to * mat_col
                         if len(com[k][node_from][node_to]) > 0:
-                            write_arrow(draw, x_from + rectsize, y_from + rectsize // 2 - arrowsize, padding, arrowsize, direction)
+                            write_arrow(draw[k], x_from + rectsize, y_from + rectsize // 2 - arrowsize, padding, arrowsize, direction)
                             dy = -arrowsize * 2
                             for var in com[k][node_from][node_to]:
-                                size = draw.textsize(var)
+                                size = draw[k].textsize(var)
                                 dy += -size[1]
                                 if size[0] > padding or -dy > rectsize // 2:
                                     print("oversize or too many vars in communication, wrapped as ...")
-                                    draw.text((x_from + rectsize, y_from + rectsize // 2 + dy), "...", font=font, fill=black)
+                                    draw[k].text((x_from + rectsize, y_from + rectsize // 2 + dy), "...", font=font, fill=black)
                                     break
-                                draw.text((x_from + rectsize, y_from + rectsize // 2 + dy), var, font=font, fill=black)
+                                draw[k].text((x_from + rectsize, y_from + rectsize // 2 + dy), var, font=font, fill=black)
                     direction = 'D'
                     i_to = i_from + 1
                     j_to = j_from
                     if i_to < mat_row:
                         node_to = j_to + i_to * mat_col
                         if len(com[k][node_from][node_to]) > 0:
-                            write_arrow(draw, x_from + rectsize // 2 + arrowsize, y_from + rectsize, padding, arrowsize, direction)
+                            write_arrow(draw[k], x_from + rectsize // 2 + arrowsize, y_from + rectsize, padding, arrowsize, direction)
                             dy = -arrowsize
                             for var in com[k][node_from][node_to]:
-                                size = draw.textsize(var)
+                                size = draw[k].textsize(var)
                                 dy += -size[1]
                                 if size[0] > rectsize // 2 or -dy > padding:
                                     print("oversize or too many vars in communication, wrapped as ...")
-                                    draw.text((x_from + rectsize // 2 + arrowsize, y_from + rectsize + padding + dy), "...", font=font, fill=black)
+                                    draw[k].text((x_from + rectsize // 2 + arrowsize, y_from + rectsize + padding + dy), "...", font=font, fill=black)
                                     break
-                                draw.text((x_from + rectsize // 2 + arrowsize, y_from + rectsize + padding + dy), var, font=font, fill=black)
+                                draw[k].text((x_from + rectsize // 2 + arrowsize, y_from + rectsize + padding + dy), var, font=font, fill=black)
                     direction = 'L'
                     i_to = i_from
                     j_to = j_from - 1
                     if j_to >= 0:
                         node_to = j_to + i_to * mat_col
                         if len(com[k][node_from][node_to]) > 0:
-                            write_arrow(draw, x_from, y_from + rectsize // 2 + arrowsize, padding, arrowsize, direction)
+                            write_arrow(draw[k], x_from, y_from + rectsize // 2 + arrowsize, padding, arrowsize, direction)
                             dy = arrowsize * 2
                             for var in com[k][node_from][node_to]:
-                                size = draw.textsize(var)
+                                size = draw[k].textsize(var)
                                 if size[0] > padding or dy > rectsize // 2:
                                     print("oversize or too many vars in communication, wrapped as ...")
-                                    draw.text((x_from - padding, y_from + rectsize // 2 + dy), "...", font=font, fill=black)
+                                    draw[k].text((x_from - padding, y_from + rectsize // 2 + dy), "...", font=font, fill=black)
                                     break
-                                draw.text((x_from - padding, y_from + rectsize // 2 + dy), var, font=font, fill=black)
+                                draw[k].text((x_from - padding, y_from + rectsize // 2 + dy), var, font=font, fill=black)
                                 dy += size[1]
 
     return img
@@ -224,7 +224,9 @@ if __name__ == "__main__":
     img = gen_img(mat_row, mat_col, num_cycle, assign, com)
     
     try:
-        img.save(assign_file_name + ".png")
+        img[0].save(assign_file_name + ".gif", save_all=True, append_images=img[1:], optimize=False, duration=1000, loop=0)
+        for i in range(0, num_cycle + 1):
+            img[i].save(assign_file_name + str(i) + ".png")
     except:
         print("image file ([assignment file name].png) cannot be open")
         exit()
