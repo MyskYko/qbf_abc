@@ -2,13 +2,23 @@ if [ $# -lt 7 ]; then
     echo "QBF_or_SAT mat_row mat_col win_row win_col cycle hasPadding (option)"
     exit 1
 fi
-cd tests
+
+path=$(cd $(dirname $0); pwd)
+
+cd ${path}/tests
 filename=`python3 ../python_src/gen_cnn_setting.py "${@:2}"`
+newdirname=`echo $filename | sed 's/\.[^\.]*$//'`
 extension=`echo $filename | sed 's/^.*\.\([^\.]*\)$/\1/'`
 if [ $extension != "txt" ]; then
     echo "generate setting file failed because : " $filename
     exit 1
 fi
+
+if [ ! -e $newdirname ]; then
+    mkdir $newdirname
+fi
+mv $filename ${newdirname}/.
+cd $newdirname
 
 assign_filename=""
 com_filename=""
@@ -22,7 +32,7 @@ if [ $1 = "QBF" -o $1 = "0" ]; then
 	rm $com_filename
     fi
     
-    ../bin/qbf_syn $filename
+    ${path}/bin/qbf_syn $filename
 
 elif [ $1 = "SAT" -o $1 = "1" ]; then
     cnf_filename=${filename}.sat.cnf
@@ -42,9 +52,9 @@ elif [ $1 = "SAT" -o $1 = "1" ]; then
 	rm $com_filename
     fi
 
-    python3 ../python_src/gen_cnf.py $filename
+    python3 ${path}/python_src/gen_cnf.py $filename
     minisat $cnf_filename $out_filename
-    r=`python3 ../python_src/parse_result.py $filename $out_filename`
+    r=`python3 ${path}/python_src/parse_result.py $filename $out_filename`
     if [ -n "$r" ]; then
 	echo $r
 	exit 1
@@ -58,5 +68,5 @@ if [ ! -e $assign_filename -o ! -e $com_filename ]; then
     exit 0
 fi
 
-python3 ../python_src/gen_cnn_png.py $2 $3 $6 $assign_filename $com_filename
+python3 ${path}/python_src/gen_cnn_png.py $2 $3 $6 $assign_filename $com_filename
 echo "synthesis succeeded"
