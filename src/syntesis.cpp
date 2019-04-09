@@ -25,7 +25,7 @@
 // "#.groupzeroonehot wire_a wire_b" means only one of wire_a wire_b can be used for x. That one must be used for only one x.
 
 // 0=sat, 1=unsat, -1=error
-int synthesis(std::string spec_filename, std::string impl_filename, std::string out_filename, int fVerbose) {
+int synthesis(std::string spec_filename, std::string impl_filename, std::string qbf_filename, std::string out_filename, std::string log_filename, int fVerbose) {
 
   clock_t start = clock();
 
@@ -47,7 +47,7 @@ int synthesis(std::string spec_filename, std::string impl_filename, std::string 
   }
   
   // write tmp
-  std::string tmp_file_name = "__tmp_top.blif"; // "__tmp_" + out_filename + ".blif";
+  std::string tmp_file_name = qbf_filename; // "__tmp_top.blif"; // "__tmp_" + out_filename + ".blif";
   std::ofstream tmp_file;
   tmp_file.open(tmp_file_name, std::ios::out);
   if(!tmp_file) {
@@ -63,15 +63,18 @@ int synthesis(std::string spec_filename, std::string impl_filename, std::string 
   impl.show_simple();
   clock_t end = clock();
   double runtime = (double)(end - start) / CLOCKS_PER_SEC;
-  std::cout << "generated qbf, time:" << runtime << std::endl << std::endl;
-  
+  std::string log = "generated qbf, " + std::to_string(runtime) + "sec";
+  std::cout << log << std::endl;
+  std::string command2 = "echo \"" + log + "\" >> " + log_filename;
+  system(command2.c_str());
+
   // solve
-  std::string log_file_name = "__log.txt"; // "__log_" + out_filename + ".txt";
-  std::string command = "abc -c \"read " + tmp_file_name + "; strash; print_stats; time; dc2;dc2;dc2;dc2;dc2; print_stats; time; qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + "; time;\" | tee " + log_file_name;
+  //std::string log_file_name = "__log.txt"; // "__log_" + out_filename + ".txt";
+  std::string command = "abc -c \"read_blif " + tmp_file_name + "; strash; print_stats; time; dc2;dc2;dc2;dc2;dc2; print_stats; time; qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + "; time;\" | tee -a " + log_filename;
   system(command.c_str());
   
   // get result
-  if(impl.read_result(log_file_name)) {
+  if(impl.read_result(log_filename)) {
     return 1;
   }
   if(fVerbose) impl.show_detail();

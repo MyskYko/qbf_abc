@@ -19,24 +19,24 @@ int main(int argc, char** argv) {
   std::vector<std::pair<std::string, std::string> > assignment;
   std::vector<std::string> outputs;
   std::ifstream solution_file;
-  const char* file_name = argv[1];
+  std::string file_name = std::string(argv[1]);
   solution_file.open(file_name, std::ios::in);
   if(!solution_file) {
-    std::cout << "error\n";
+    std::cout << "error in openning solution\n";
     return 1;
   }
   std::ofstream mesh_file;
-  const char* mesh_file_name = (file_name + std::string(".assign.txt")).c_str();
+  std::string mesh_file_name = file_name + std::string(".assign.txt");
   mesh_file.open(mesh_file_name, std::ios::out);
   if(!mesh_file) {
-    std::cout << "error\n";
+    std::cout << "error in openning assign\n";
     return 1;
   }
   std::ofstream con_file;
-  const char* con_file_name = (argv[1] + std::string(".com.txt")).c_str();
+  std::string con_file_name = file_name + std::string(".com.txt");
   con_file.open(con_file_name, std::ios::out);
   if(!con_file) {
-    std::cout << "error\n";
+    std::cout << "error in openning com\n";
     return 1;
   }
   bool fVerbose = (argc > 2);
@@ -90,15 +90,13 @@ int main(int argc, char** argv) {
   for(auto itr = assignment.begin(); itr != assignment.end(); ++itr) {
     std::string key = itr->first;
     std::string value = itr->second;
-    if(fVerbose)
-      std::cout << key << std::endl;
+    if(fVerbose) std::cout << key << std::endl;
     
     if(key.substr(0,3) == "reg") {
       int pos0 = key.find("c", 3);
       int pos1 = key.find("n", 3);
       int pos2 = key.find("r", 3);
-    if(fVerbose)
-      std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2) << std::endl;
+    if(fVerbose) std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2) << std::endl;
 
       int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
       int n = std::stoi(key.substr(pos1+1, pos2-pos1-1));
@@ -112,8 +110,7 @@ int main(int argc, char** argv) {
       int pos1 = key.find("from", 3);
       int pos2 = key.find("to", 3);
       int pos3 = key.find("k", 3);
-    if(fVerbose)
-      std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
+    if(fVerbose) std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
 
       //      int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
       //      int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
@@ -127,14 +124,13 @@ int main(int argc, char** argv) {
       int pos2 = key.find("to", 3);
       int pos3 = key.find("k", 3);
       int hdx_out = 0;
-      if(pos1 == std::string::npos) {
+      if((size_t)pos1 == std::string::npos) {
 	hdx_out = 1;
 	pos1 = key.find("n", 3);
 	pos2 = key.find("n", pos1+1);
 	pos3 = key.find("k", 3);
       }
-      if(fVerbose)
-	std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
+      if(fVerbose) std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
 
       if(hdx_out == 0) {
 	//	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
@@ -179,15 +175,13 @@ int main(int argc, char** argv) {
   for(auto itr = assignment.begin(); itr != assignment.end(); ++itr) {
     std::string key = itr->first;
     std::string value = itr->second;
-    if(fVerbose)
-      std::cout << key << std::endl;
+    if(fVerbose) std::cout << key << std::endl;
 
     if(key.substr(0,3) == "reg") {
       int pos0 = key.find("c", 3);
       int pos1 = key.find("n", 3);
       int pos2 = key.find("r", 3);
-    if(fVerbose)
-      std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2) << "<-" << value << std::endl;
+    if(fVerbose) std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2) << "<-" << value << std::endl;
 
       int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
       int n = std::stoi(key.substr(pos1+1, pos2-pos1-1));
@@ -199,8 +193,7 @@ int main(int argc, char** argv) {
       int pos1 = key.find("from", 3);
       int pos2 = key.find("to", 3);
       int pos3 = key.find("k", 3);
-    if(fVerbose)
-      std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
+    if(fVerbose) std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
 
       int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
       int from = std::stoi(key.substr(pos1+4, pos2-pos1-4));
@@ -214,14 +207,13 @@ int main(int argc, char** argv) {
       int pos2 = key.find("to", 3);
       int pos3 = key.find("k", 3);
       int hdx_out = 0;
-      if(pos1 == std::string::npos) {
+      if((size_t)pos1 == std::string::npos) {
 	hdx_out = 1;
 	pos1 = key.find("n", 3);
 	pos2 = key.find("n", pos1+1);
 	pos3 = key.find("k", 3);
       }
-    if(fVerbose)
-      std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
+    if(fVerbose) std::cout << key.substr(pos0, pos1-pos0) << ","  << key.substr(pos1, pos2-pos1) << ","  << key.substr(pos2, pos3-pos2) << "," << key.substr(pos3) << std::endl;
 
       if(hdx_out == 0) {
 	int c = std::stoi(key.substr(pos0+1, pos1-pos0-1));
@@ -268,7 +260,7 @@ int main(int argc, char** argv) {
   std::map<std::string, std::string> value;
   std::map<std::string, int> isSpxUsed;
   
-  for(unsigned int c = 0; c < num_cycle; c++) {
+  for(unsigned int c = 0; c < (unsigned int)num_cycle; c++) {
     
     for(unsigned int b = 0; b < regs[c].size(); b++) {
       for(unsigned int r = 0; r < regs[c][b].size(); r++) {
@@ -373,25 +365,22 @@ int main(int argc, char** argv) {
       }
     }
   }
+  flush(mesh_file);
 
-  if(argc > 2) {
-    for(unsigned int c = 0; c < spxs.size()-1; c++) {
-      for(unsigned int b = 0; b < spxs[c].size(); b++) {
-	for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
-	  for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
-	    std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
-	    if(isSpxUsed[key]) {
-	      con_file << std::to_string(c) << " " << std::to_string(b) << " " << std::to_string(r) << " " << value[key] << " ";
-	      con_file << std::endl;
-	    }
+  for(unsigned int c = 0; c < spxs.size()-1; c++) {
+    for(unsigned int b = 0; b < spxs[c].size(); b++) {
+      for(unsigned int r = 0; r < spxs[c][b].size(); r++) {
+	for(unsigned int k = 0; k < spxs[c][b][r].size(); k++) {
+	  std::string key = "spx_c" + std::to_string(c) + "from" + std::to_string(b) + "to" + std::to_string(r) + "k" + std::to_string(k);
+	  if(isSpxUsed[key]) {
+	    con_file << std::to_string(c) << " " << std::to_string(b) << " " << std::to_string(r) << " " << value[key] << " ";
+	    con_file << std::endl;
 	  }
 	}
       }
     }
   }
-
-
-  flush(mesh_file);
+  flush(con_file);
   
   //  std::string command = "python3 mesh.py " + std::string(mesh_file_name) + argv[2];
   //  system(command.c_str());

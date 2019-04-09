@@ -75,7 +75,7 @@ int top_data::create_zeroonehot_signal() {
 int top_data::create_groupzeroonehot_signal() {
   // assuming max_signal_count_zeroonehot is already initialized
   for(auto candidate_namess : groupzeroonehot_candidate_names) {
-    int count = 0;
+    unsigned int count = 0;
     count += candidate_namess.size();
     
     if(max_signal_count_zeroonehot < count) {

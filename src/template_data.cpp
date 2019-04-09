@@ -20,6 +20,7 @@ void template_data::reset() {
   flag_onehot_spx_out = 0;
   flag_onehot_spx_between = 0;
   flag_implicit_reg = 0;
+  flag_systolic = 0;
   data = "";
 }
 
