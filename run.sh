@@ -14,7 +14,7 @@ assign_filename=""
 com_filename=""
 if [ $1 = "QBF" -o $1 = "0" ]; then
     assign_filename=${filename}.qbf.out.blif.assign.txt
-    com_filename= ${filename}.qbf.out.blif.com.txt
+    com_filename=${filename}.qbf.out.blif.com.txt
     if [ -e $assign_filename ]; then
 	rm $assign_filename
     fi
@@ -53,3 +53,4 @@ if [ ! -e $assign_filename -o ! -e $com_filename ]; then
 fi
 
 python3 ../python_src/gen_cnn_png.py $2 $3 $6 $assign_filename $com_filename
+echo "synthesis succeeded"

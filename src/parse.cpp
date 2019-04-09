@@ -61,6 +61,8 @@ int parse(std::string file_name, int fVerbose){
 	}
 	solution_file.seekg(original);
 	*/
+	std::cout << "zero assignment :" << last_str << std::endl;
+	continue;
 	assert(0);
       }
       assignment.push_back(std::make_pair(last_str, last_str_before));
