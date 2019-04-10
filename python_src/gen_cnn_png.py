@@ -107,7 +107,7 @@ def gen_img(mat_row, mat_col, num_cycle, assign, com):
                     size = draw[k].textsize(var)
                     if dx + size[0] > rectsize:
                         print("oversize or too many vars in node, wrapped as ...")
-                        draw[k].test((x + dx, y + dy), "...", font=font, fill=black)
+                        draw[k].text((x + dx, y + dy), "...", font=font, fill=black)
                         break
                     if dy + size[1] > rectsize:
                         dx += next_dx

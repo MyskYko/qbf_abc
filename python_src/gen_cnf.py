@@ -137,9 +137,15 @@ def cnf_generate(f, num_var, num_node, num_cycle, init_assign, num_spx, fin_assi
                     for k in range(0, num_cycle + 1):
                         f.write(str(i + j * num_var + k * num_node * num_var + 1) + " ")
                     f.write("0\n")
+            else:
+                if "imp_reg" not in options:                
+                    f.write("-" + str(i + j * num_var + num_cycle * num_node * num_var + 1) + " 0\n")
                 
     for j in range(0, num_node):
-        num_cla += len(fin_assign[j])
+        if "imp_reg" not in options:        
+            num_cla += num_var
+        else:
+            num_cla += len(fin_assign[j])
 
     #sinplex connection
     #com i from j to k at l
@@ -212,6 +218,12 @@ def cnf_generate(f, num_var, num_node, num_cycle, init_assign, num_spx, fin_assi
     return num_lit, num_cla
 
 
+def text_omit(array):
+    text = str(array)
+    if len(text) > 20:
+        return text[:20] + "..."
+    return text
+
 if __name__ == "__main__":
     argv = sys.argv
     if len(argv) < 2:
@@ -232,9 +244,9 @@ if __name__ == "__main__":
     print("setting file:", argv[1])
     print("num_cycle: ", num_cycle)
     print("num_node: ", num_node)
-    print("num_spx: ", num_spx)
-    print("initial assignment: ", init_assign)
-    print("final assignment: ", fin_assign)
+    print("num_spx: " + text_omit(num_spx))
+    print("initial assignment: " + text_omit(init_assign))
+    print("final assignment: "+ text_omit(fin_assign))
     for option in options:
         print(option)
     
@@ -242,7 +254,7 @@ if __name__ == "__main__":
 
     num_var, var_id, id_var, init_assign_id, fin_assign_id = identify_var(init_assign, fin_assign)
     print("num_var: ", num_var)
-    print("var_id: ", var_id)
+#    print("var_id: ", var_id)
 
     time_start = time.time()
     num_lit, num_cla = cnf_generate(sat_file, num_var, num_node, num_cycle, init_assign_id, num_spx, fin_assign_id, options)
