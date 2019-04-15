@@ -37,6 +37,8 @@ def read_setting(setting_file):
         elif line.rstrip('\n') == "systolic":
             options.append("imp_reg")
             options.append("systolic")
+        elif line.rstrip('\n') == "symmetric":
+            options.append("symmetric")
         line = setting_file.readline()
 
     return num_cycle, num_node, num_spx, init_assign, fin_assign, options
@@ -83,7 +85,8 @@ def cnf_generate(f, num_var, num_node, num_cycle, init_assign, num_spx, fin_assi
     num_assign = (num_cycle + 1) * num_node * num_var
     num_lit += num_assign
     #com v in k at c
-    num_lit += num_cycle * num_con * num_var
+    num_com = num_cycle * num_con * num_var
+    num_lit += num_com
 
     #initial assignment
     for j in range(0, num_node):
@@ -213,7 +216,33 @@ def cnf_generate(f, num_var, num_node, num_cycle, init_assign, num_spx, fin_assi
                         f.write("-" + str(i + j * num_var + k * num_node * num_var + 1) + " ")
                     f.write("0\n")
                     num_cla += 1
-                
+
+    #symmetric
+    #com i from j to k at l
+    if "symmetric" in options:
+        com_types = []
+        for l in range(0, num_cycle):
+            count = 0
+            for k in range(0, num_node):
+                for j in range(0, num_node):
+                    if num_spx[j][k] > 0:
+                        if k - j not in com_types:
+                            com_types.append(k - j)
+                        com_type = com_types.index(k - j)
+                        for i in range(0, num_var):
+                            f.write("-" + str(i + count * num_var + l * num_con * num_var + num_assign + 1) + " ")
+                            f.write(str(com_type + l * len(com_types) + num_com + num_assign + 1) + " 0\n")
+                        count += 1
+        num_cla += num_cycle * num_con * num_var
+        num_lit += num_cycle * len(com_types)
+        data = [i for i in range(0, len(com_types))]
+        for pattern in itertools.combinations(data, 2):
+            for l in range(0, num_cycle):
+                for com_type in pattern:
+                    f.write("-" + str(com_type + l * len(com_types) + num_com + num_assign + 1) + " ")
+                f.write("0\n")
+                num_cla += 1
+        
     f.write("p cnf " + str(num_lit) + " " + str(num_cla) + "\n")
     return num_lit, num_cla
 
