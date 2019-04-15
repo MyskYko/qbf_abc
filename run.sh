@@ -32,7 +32,7 @@ if [ $1 = "QBF" -o $1 = "0" ]; then
 	rm $com_filename
     fi
     
-    ${path}/bin/qbf_syn $filename
+    unbuffer ${path}/bin/qbf_syn $filename
 
 elif [ $1 = "SAT" -o $1 = "1" ]; then
     cnf_filename=${filename}.sat.cnf
@@ -56,8 +56,8 @@ elif [ $1 = "SAT" -o $1 = "1" ]; then
 	rm $com_filename
     fi
 
-    python3 ${path}/python_src/gen_cnf.py $filename | tee $log_filename
-    minisat $cnf_filename $out_filename | tee -a $log_filename
+    unbuffer python3 ${path}/python_src/gen_cnf.py $filename | tee $log_filename
+    unbuffer minisat $cnf_filename $out_filename | tee -a $log_filename
     r=`python3 ${path}/python_src/parse_result.py $filename $out_filename`
     if [ -n "$r" ]; then
 	echo $r
