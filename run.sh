@@ -1,5 +1,11 @@
-if [ $# -lt 8 ]; then
-    echo "QBF_or_SAT mat_row mat_col win_row win_col cycle pad_row pad_col (option)"
+if [ $# -lt 1 ]; then
+    echo "QBF_or_SAT"
+    exit 1
+    
+fi
+
+if [ $1 != "QBF" -a $1 != "SAT" ]; then
+    echo "QBF_or_SAT"
     exit 1
 fi
 
@@ -9,7 +15,7 @@ cd ${path}/tests
 filename=`python3 ../python_src/gen_cnn_setting.py "${@:2}"`
 newdirname=`echo $filename | sed 's/\.[^\.]*$//'`
 extension=`echo $filename | sed 's/^.*\.\([^\.]*\)$/\1/'`
-if [ $extension != "txt" ]; then
+if [ "$extension" != "txt" ]; then
     echo "generate setting file failed because : " $filename
     exit 1
 fi

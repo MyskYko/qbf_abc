@@ -471,7 +471,7 @@ int template_data::set_onesendrecv_spx() {
   return 0;
 }
 
-int template_data::set_onehot_spx_in() {
+int template_data::set_onehot_spx_out() {
   for(int c = 0; c < num_cycle; c++) {
     for(int n1 = 0; n1 < num_node; n1++) {
       std::string groupzeroonehot_in = "#.groupzeroonehot";
@@ -485,7 +485,7 @@ int template_data::set_onehot_spx_in() {
   }
   return 0;
 }
-int template_data::set_onehot_spx_out() {
+int template_data::set_onehot_spx_in() {
   for(int c = 0; c < num_cycle; c++) {
     for(int n2 = 0; n2 < num_node; n2++) {
       std::string groupzeroonehot_out = "#.groupzeroonehot";

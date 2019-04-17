@@ -415,6 +415,7 @@ void impl_data::show_simple() {
   std::cout << "candidate_count:" << candidate_names.size() << std::endl;
   std::cout << "onehot_count:" << onehot_candidate_names.size() << std::endl;
   std::cout << "zeroonehot_count:" << zeroonehot_candidate_names.size() << std::endl;
+  std::cout << "groupzeroonehot_count:" << groupzeroonehot_candidate_names.size() << std::endl;
   std::cout << "max_candidate_count_for_each_x:" << std::to_string(max_candidate_count_x) << std::endl;
   std::cout << "group_count:" << group_count << std::endl;
   std::cout << "selection_signal_count:" << all_selection_signals.size() << std::endl;
@@ -426,6 +427,7 @@ void impl_data::show_detail() {
   std::cout << "candidate_count:" << candidate_names.size() << std::endl;
   std::cout << "onehot_count:" << onehot_candidate_names.size() << std::endl;
   std::cout << "zeroonehot_count:" << zeroonehot_candidate_names.size() << std::endl;
+  std::cout << "groupzeroonehot_count:" << groupzeroonehot_candidate_names.size() << std::endl;
   std::cout << "max_candidate_count_for_each_x:" << std::to_string(max_candidate_count_x) << std::endl;
   std::cout << "group_count:" << group_count << std::endl;
 

@@ -5,8 +5,8 @@ import time
 import os
 
 argv = sys.argv
-if len(argv) < 8:
-    print("matrix_row matrix_column window_row window_column cycle pad_row pad_col (option)")
+if len(argv) < 9:
+    print("matrix_row matrix_column window_row window_column cycle pad_row pad_col stride (option)")
     exit()
 
 mat_row = int(argv[1])
@@ -16,10 +16,15 @@ win_col = int(argv[4])
 min_cycle = int(argv[5])
 pad_row = int(argv[6])
 pad_col = int(argv[7])
+stride = int(argv[8])
+options = []
+if len(argv) > 9:
+    options = argv[9:]
+options.sort()
 
-file_name = "cnn_m" + str(mat_row) + "x" + str(mat_col) + "_w" + str(win_row) + "x" + str(win_col) + "_c" + str(min_cycle) + "_p" + str(pad_row) + "x" + str(pad_col);
-for i in range(8, len(argv)):
-    file_name += "_" + argv[i]
+file_name = "cnn_m" + str(mat_row) + "x" + str(mat_col) + "_w" + str(win_row) + "x" + str(win_col) + "_c" + str(min_cycle) + "_p" + str(pad_row) + "x" + str(pad_col) + "_s" + str(stride);
+for option in options:
+    file_name += "_" + option
 file_name += ".txt"
 print(file_name)
 f = open(file_name, "w")
@@ -48,20 +53,22 @@ for i in range(0, mat_row + pad_row):
         f.write("m[" + str(i - pad_row) + "][" + str(j - pad_col) + "]\n")
 
 f.write("\nfinal\n")
+out_row = -(-mat_row // stride)
+out_col = -(-mat_col // stride)
 for i in range(0, mat_row + pad_row):
     for j in range(0, mat_col + pad_col):
-        if i < pad_row or j < pad_col:
+        if i < pad_row + mat_row - out_row or j < pad_col + mat_col - out_col:
             f.write("\n")
             continue
         pos = f.tell()
         for k in range(0, win_row):
             for l in range(0, win_col):
-                if i + k < mat_row + pad_row and j + l < mat_col + pad_col:
-                    f.write("m[" + str(i + k - pad_row) + "][" + str(j + l - pad_col) + "] ")
+                if (i - pad_row - mat_row + out_row) * stride + k < mat_row and (j - pad_col - mat_col + out_col) * stride + l < mat_col:
+                    f.write("m[" + str((i - pad_row - mat_row + out_row) * stride + k) + "][" + str((j - pad_col - mat_col + out_col) * stride + l) + "] ")
                     pos = f.tell() - 1
         f.seek(pos)
         f.write("\n")
 
-for i in range(8, len(argv)):
-    f.write("\n" + argv[i] + "\n")
+for option in options:
+    f.write("\n" + option + "\n")
 
