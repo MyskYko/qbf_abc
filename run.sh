@@ -62,7 +62,7 @@ elif [ $1 = "SAT" -o $1 = "1" ]; then
 	rm $com_filename
     fi
 
-    unbuffer python3 ${path}/python_src/gen_cnf.py $filename | tee $log_filename
+    unbuffer ${path}/python_src/gen_cnf $filename | tee $log_filename
     unbuffer minisat $cnf_filename $out_filename | tee -a $log_filename
     r=`python3 ${path}/python_src/parse_result.py $filename $out_filename`
     if [ -n "$r" ]; then
