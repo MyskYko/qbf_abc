@@ -8,6 +8,12 @@
 #include <sstream>
 #include <algorithm>
 
+#include "utils/System.h"
+#include "utils/ParseUtils.h"
+#include "utils/Options.h"
+#include "core/Dimacs.h"
+#include "simp/SimpSolver.h"
+
 int read_setting(std::ifstream &file, int &num_cycle, int &num_node, std::vector<std::vector<int> > &num_spx, std::vector<std::vector<std::string> > &init_assign, std::vector<std::vector<std::string> > &fin_assign, std::vector<std::string> &options) {
   num_cycle = 0;
   num_node = 0;
@@ -156,7 +162,7 @@ void foreach_comb(int n, int k, std::function<void(int *)> f) {
 }
 
 
-void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, std::vector<std::vector<int> > init_assign, std::vector<std::vector<int> > num_spx, std::vector<std::vector<int> > fin_assign, std::vector<std::string> options, int &num_lit, int &num_cla) {
+void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cycle, std::vector<std::vector<int> > init_assign, std::vector<std::vector<int> > num_spx, std::vector<std::vector<int> > fin_assign, std::vector<std::string> options, int &num_lit, int &num_cla) {
   num_lit = 0;
   num_cla = 0;
   
@@ -176,15 +182,19 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
   int num_com = num_cycle * num_con * num_var;
   num_lit += num_com;
 
+  while(num_lit > S.nVars()) S.newVar(); 
+
   //initial assignment
   for(int j = 0; j < num_node; j++) {
     if(init_assign.size() <= (unsigned int)j) break;
     for(int i = 0; i < num_var; i++) {
+      Glucose::Lit l = Glucose::mkLit(i + j * num_var);
       if (std::find(init_assign[j].begin(), init_assign[j].end(), i) == init_assign[j].end()) {
-	f << "-";
+	S.addClause(~l);
       }
-      f << i + j * num_var + 1;
-      f << " 0\n";
+      else{
+	S.addClause(l);
+      }
     }
   }
   num_cla += num_node * num_var;
@@ -197,8 +207,9 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
       for(int j = 0; j< num_node; j++) {
 	if(num_spx[j][k] > 0) {
 	  for(int i = 0; i < num_var; i++) {
-	    f << "-"  << i + count * num_var + l * num_con * num_var + num_assign + 1 << " ";
-	    f << i + j * num_var + l * num_node * num_var + 1 <<" 0\n";
+	    Glucose::Lit l1 = Glucose::mkLit(i + count * num_var + l * num_con * num_var + num_assign, true);
+	    Glucose::Lit l2 = Glucose::mkLit(i + j * num_var + l * num_node * num_var);
+	    S.addClause(l1, l2);
 	  }
 	  count += 1;
 	}
@@ -214,16 +225,17 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
     for(int k = 0; k < num_node; k++) {
       int count_ = 0;
       for(int i = 0; i < num_var; i++) {
+	Glucose::vec<Glucose::Lit> ls;
 	count_ = 0;
-	f << i + k * num_var + l * num_node * num_var + 1 << " ";
-	f << "-" << i + k * num_var + (l + 1) * num_node * num_var + 1 << " ";
+	ls.push(Glucose::mkLit(i + k * num_var + l * num_node * num_var));
+	ls.push(Glucose::mkLit(i + k * num_var + (l + 1) * num_node * num_var, true));
 	for(int j = 0; j < num_node; j++) {
 	  if(num_spx[j][k] > 0) {
-	    f << i + (count + count_) * num_var + l * num_con * num_var + num_assign + 1 << " ";
+	    ls.push(Glucose::mkLit(i + (count + count_) * num_var + l * num_con * num_var + num_assign));
 	    count_ += 1;
 	  }
 	}
-	f << "0\n";
+	S.addClause(ls);
       }
       count += count_;
     }
@@ -235,18 +247,19 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
     for(int i = 0; i< num_var; i++) {
       if (std::find(fin_assign[j].begin(), fin_assign[j].end(), i) != fin_assign[j].end()) {
 	if(std::find(options.begin(), options.end(), "imp_reg") == options.end()) {
-	  f << i + j * num_var + num_cycle * num_node * num_var + 1 << " 0\n";
+	  S.addClause(Glucose::mkLit(i + j * num_var + num_cycle * num_node * num_var));
 	}
 	else {
+	  Glucose::vec<Glucose::Lit> ls;	  
 	  for(int k = 0; k < num_cycle + 1; k++) {
-	    f << i + j * num_var + k * num_node * num_var + 1 << " ";
+	    ls.push(Glucose::mkLit(i + j * num_var + k * num_node * num_var));
 	  }
-	  f << ("0\n");
+	  S.addClause(ls);
 	}
       }
       else {
 	if(std::find(options.begin(), options.end(), "imp_reg") == options.end()) {
-	  f << "-" << i + j * num_var + num_cycle * num_node * num_var + 1 << " 0\n";
+	  S.addClause(Glucose::mkLit(i + j * num_var + num_cycle * num_node * num_var, true));
 	}
       }
     }
@@ -269,10 +282,11 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
       for(int j = 0; j < num_node; j++) {
 	if(num_spx[j][k] > 0) {
 	  foreach_comb(num_var, num_spx[j][k] + 1, [&](int *indexes) {
+						     Glucose::vec<Glucose::Lit> ls;						     
 						     for(int i = 0; i <= num_spx[j][k]; i++) {
-						       f << "-" << indexes[i] + count * num_var + l * num_con * num_var + num_assign + 1 << " ";
+						       ls.push(Glucose::mkLit(indexes[i] + count * num_var + l * num_con * num_var + num_assign, true));
 						     }
-						     f << "0\n";
+						     S.addClause(ls);
 						     num_cla += 1;
 						   });
 	  count += 1;
@@ -296,9 +310,9 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
 	if(count_ == 0) continue;
 	for(int i0 = 0; i0 < count_ * num_var; i0++) {
 	  for(int i1 = i0 + 1; i1 < count_ * num_var; i1++) {
-	    f << "-" << i0 + count * num_var + l * num_con * num_var + num_assign + 1 << " ";
-	    f << "-" << i1 + count * num_var + l * num_con * num_var + num_assign + 1 << " ";
-	    f << "0\n";
+	    Glucose::Lit l0 = Glucose::mkLit(i0 + count * num_var + l * num_con * num_var + num_assign, true);
+	    Glucose::Lit l1 = Glucose::mkLit(i1 + count * num_var + l * num_con * num_var + num_assign, true);
+	    S.addClause(l0, l1);
 	    num_cla += 1;
 	  }
 	}
@@ -326,10 +340,10 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
     }
     for(auto onehot_group : onehot_groups) {
       for(int i0 = 0; i0 < (int)onehot_group.size(); i0++) {
-	for(int i1 = i0 + 1; i1 < (int)onehot_group.size(); i1++) {	
-	  f << "-" << onehot_group[i0] << " ";
-	  f << "-" << onehot_group[i1] << " ";
-	  f << "0\n";
+	for(int i1 = i0 + 1; i1 < (int)onehot_group.size(); i1++) {
+	  Glucose::Lit l0 = Glucose::mkLit(onehot_group[i0], true);
+	  Glucose::Lit l1 = Glucose::mkLit(onehot_group[i1], true);
+	  S.addClause(l0, l1);
 	  num_cla += 1;
 	}
       }
@@ -343,9 +357,9 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
       for(int j = 0; j < num_node; j++) {
 	for(int i0 = 0; i0 < num_var; i0++) {
 	  for(int i1 = i0 + 1; i1 < num_var; i1++) {
-	    f << "-" << i0 + j * num_var + k * num_node * num_var + 1 << " ";
-	    f << "-" << i1 + j * num_var + k * num_node * num_var + 1 << " ";
-	    f << "0\n";
+	    Glucose::Lit l0 = Glucose::mkLit(i0 + j * num_var + k * num_node * num_var, true);
+	    Glucose::Lit l1 = Glucose::mkLit(i1 + j * num_var + k * num_node * num_var, true);
+	    S.addClause(l0, l1);
 	    num_cla += 1;
 	  }
 	}
@@ -367,8 +381,9 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
 	    }
 	    int com_type = std::find(com_types.begin(), com_types.end(), k - j) - com_types.begin();
 	    for(int i = 0; i < num_var; i++) {
-	      f << "-" << i + count * num_var + l * num_con * num_var + num_assign + 1 <<  " ";
-	      f << com_type + l * (int)com_types.size() + num_com + num_assign + 1 << " 0\n";
+	      Glucose::Lit l0 = Glucose::mkLit(i + count * num_var + l * num_con * num_var + num_assign, true);
+	      Glucose::Lit l1 = Glucose::mkLit(com_type + l * (int)com_types.size() + num_com + num_assign);
+	      S.addClause(l0, l1);
 	    }
 	    count += 1;
 	  }
@@ -380,22 +395,18 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
     for(int i0 = 0; i0 < (int)com_types.size(); i0++) {
       for(int i1 = 0; i1 < (int)com_types.size(); i1++) {
 	for(int l = 0; l < num_cycle; l++) {
-	  f << "-" << i0 + l * (int)com_types.size() + num_com + num_assign + 1 << " ";
-	  f << "-" << i1 + l * (int)com_types.size() + num_com + num_assign + 1 << " ";
-	  f << "0\n";
+	  Glucose::Lit l0 = Glucose::mkLit(i0 + l * (int)com_types.size() + num_com + num_assign, true);
+	  Glucose::Lit l1 = Glucose::mkLit(i1 + l * (int)com_types.size() + num_com + num_assign, true);
+	  S.addClause(l0, l1);
 	  num_cla += 1;
 	}
       }
     }
   }
   
-  f << "p cnf " << num_lit << " " << num_cla << "\n";
+  //  f << "p cnf " << num_lit << " " << num_cla << "\n";
 }
   /*
-
-
-
-
     #symmetric
     #com i from j to k at l
     if "symmetric" in options:
@@ -423,7 +434,6 @@ void cnf_generate(std::ofstream &f, int num_var, int num_node, int num_cycle, st
                 num_cla += 1
         
     return num_lit, num_cla
-
 */
 
 std::string text_omit_int(std::vector<std::vector<int> > array) {
@@ -465,7 +475,7 @@ int main(int argc, char ** argv) {
   }
 
   std::string setting_file_name = std::string(argv[1]);
-  std::string sat_file_name = setting_file_name + ".sat.cnf";
+  std::string sat_file_name = setting_file_name + ".sat.out";
   std::ifstream setting_file(setting_file_name);
   if (!setting_file) {
     std::cerr << "setting file should be given as second command line parameter" << std::endl;
@@ -511,14 +521,33 @@ int main(int argc, char ** argv) {
 
   int num_lit, num_cla;
   clock_t start = clock();
-  cnf_generate(sat_file, num_var, num_node, num_cycle, init_assign_id, num_spx, fin_assign_id, options, num_lit, num_cla);
+  Glucose::SimpSolver S;
+  cnf_generate(S, num_var, num_node, num_cycle, init_assign_id, num_spx, fin_assign_id, options, num_lit, num_cla);
+  bool r = S.solve();
   clock_t end = clock();
   
-  std::cout << "SAT problem generation took " << (double)(end - start) / CLOCKS_PER_SEC << "s in CNF file" << std::endl;
-  std::cout << "There are " << num_lit << " literals, " << num_cla << " clauses" << std::endl;
-  std::cout << "The CNF file is " << (int)sat_file.tellp() / 1024 << "KB" << std::endl;
+  if(r) {
+    std::cout << "SAT" << std::endl;
+    sat_file << "SAT" << std::endl;
+    for(int i = 0; i < num_lit; i++) {
+      if(S.model[i] == l_True) {
+	sat_file << i + 1 << " ";
+      }
+      else {
+	sat_file << "-" << i + 1 << " ";
+      }
+    }
+  }
+  else {
+    std::cout << "UNSAT" << std::endl;
+    sat_file << "UNSAT" << std::endl;
+  }
   
-  sat_file.close();
+  std::cout << "SAT took " << (double)(end - start) / CLOCKS_PER_SEC << "s in CNF file" << std::endl;
+  std::cout << "There are " << num_lit << " literals, " << num_cla << " clauses" << std::endl;
+  //  std::cout << "The CNF file is " << (int)sat_file.tellp() / 1024 << "KB" << std::endl;
+  
+  //  sat_file.close();
 
   return 0;
 }
