@@ -182,7 +182,7 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
   int num_com = num_cycle * num_con * num_var;
   num_lit += num_com;
 
-  while(num_lit > S.nVars()) S.newVar(); 
+  while(num_lit >= S.nVars()) S.newVar(); 
 
   //initial assignment
   for(int j = 0; j < num_node; j++) {
@@ -241,7 +241,7 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
     }
   }
   num_cla += num_cycle * num_node * num_var;
-
+  
   //final assignment
   for(int j = 0; j < num_node; j++) {
     for(int i = 0; i< num_var; i++) {
@@ -276,25 +276,27 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
 
   //sinplex connection
   //com i from j to k at l
-  for(int l = 0; l < num_cycle; l++) {
-    int count = 0;
-    for(int k = 0; k < num_node; k++) {
-      for(int j = 0; j < num_node; j++) {
-	if(num_spx[j][k] > 0) {
-	  foreach_comb(num_var, num_spx[j][k] + 1, [&](int *indexes) {
-						     Glucose::vec<Glucose::Lit> ls;						     
-						     for(int i = 0; i <= num_spx[j][k]; i++) {
-						       ls.push(Glucose::mkLit(indexes[i] + count * num_var + l * num_con * num_var + num_assign, true));
-						     }
-						     S.addClause(ls);
-						     num_cla += 1;
-						   });
-	  count += 1;
+  if(std::find(options.begin(), options.end(), "onehot_spx_out") == options.end()) {
+    for(int l = 0; l < num_cycle; l++) {
+      int count = 0;
+      for(int k = 0; k < num_node; k++) {
+	for(int j = 0; j < num_node; j++) {
+	  if(num_spx[j][k] > 0) {
+	    foreach_comb(num_var, num_spx[j][k] + 1, [&](int *indexes) {
+						       Glucose::vec<Glucose::Lit> ls;						     
+						       for(int i = 0; i <= num_spx[j][k]; i++) {
+							 ls.push(Glucose::mkLit(indexes[i] + count * num_var + l * num_con * num_var + num_assign, true));
+						       }
+						       S.addClause(ls);
+						       num_cla += 1;
+						     });
+	    count += 1;
+	  }
 	}
       }
     }
   }
-
+  
   //onehot spx in
   //com i from j to k at l
   if(std::find(options.begin(), options.end(), "onehot_spx_in") != options.end()) {
