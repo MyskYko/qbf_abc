@@ -75,16 +75,20 @@ else:
     f.write("\nfinal\n")
     out_row = -(-mat_row // stride)
     out_col = -(-mat_col // stride)
+    start_row = pad_row + (mat_row - out_row) // 2
+    start_col = pad_col + (mat_col - out_col) // 2
+    end_row = start_row + out_row
+    end_col = start_col + out_col
     for i in range(0, mat_row + pad_row):
         for j in range(0, mat_col + pad_col):
-            if i < pad_row + mat_row - out_row or j < pad_col + mat_col - out_col:
+            if i < start_row or j < start_col or i >= end_row or j >= end_col:
                 f.write("\n")
                 continue
             pos = f.tell()
             for k in range(0, win_row):
                 for l in range(0, win_col):
-                    if (i - pad_row - mat_row + out_row) * stride + k < mat_row and (j - pad_col - mat_col + out_col) * stride + l < mat_col:
-                        f.write("m[" + str((i - pad_row - mat_row + out_row) * stride + k) + "][" + str((j - pad_col - mat_col + out_col) * stride + l) + "] ")
+                    if (i - start_row) * stride + k < mat_row and (j - start_col) * stride + l < mat_col:
+                        f.write("m[" + str((i - start_row) * stride + k) + "][" + str((j - start_col) * stride + l) + "] ")
                         pos = f.tell() - 1
             f.seek(pos)
             f.write("\n")
