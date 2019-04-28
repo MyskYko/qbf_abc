@@ -8,3 +8,5 @@ __*
 .DS_Store
 *.DS_Store
 tests
+log
+tests_old
