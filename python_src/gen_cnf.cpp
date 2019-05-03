@@ -1,3 +1,4 @@
+//g++ -o gen_cnf -I ~/glucose-syrup gen_cnf.cpp ~/glucose-syrup/simp/lib.a
 #include <iostream>
 #include <fstream>
 #include <string>
