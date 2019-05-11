@@ -334,7 +334,7 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
 	for(int j = 0; j < num_node; j++) {
 	  if(num_spx[j][k] > 0) {
 	    for(int i = 0; i < num_var; i++) {
-	      onehot_groups[j + l * num_node].push_back(i + count * num_var + l * num_con * num_var + num_assign + 1);
+	      onehot_groups[j + l * num_node].push_back(i + count * num_var + l * num_con * num_var + num_assign);
 	    }
 	    count += 1;
 	  }
@@ -374,14 +374,23 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
   //com i from j to k at l
   if(std::find(options.begin(), options.end(), "symmetric") != options.end()) {
     std::vector<int> com_types;
+    for(int k = 0; k < num_node; k++) {
+      for(int j = 0; j < num_node; j++) {
+	if(num_spx[j][k] > 0) {
+	  if(std::find(com_types.begin(), com_types.end(), k - j) == com_types.end()) {
+	    com_types.push_back(k - j);
+	  }
+	  int com_type = std::find(com_types.begin(), com_types.end(), k - j) - com_types.begin();
+	}
+      }
+    }
+    num_lit += num_cycle * (int)com_types.size();
+    while(num_lit >= S.nVars()) S.newVar(); 
     for(int l = 0; l < num_cycle; l++) {
       int count = 0;
       for(int k = 0; k < num_node; k++) {
 	for(int j = 0; j < num_node; j++) {
 	  if(num_spx[j][k] > 0) {
-	    if(std::find(com_types.begin(), com_types.end(), k - j) == com_types.end()) {
-	      com_types.push_back(k - j);
-	    }
 	    int com_type = std::find(com_types.begin(), com_types.end(), k - j) - com_types.begin();
 	    for(int i = 0; i < num_var; i++) {
 	      Glucose::Lit l0 = Glucose::mkLit(i + count * num_var + l * num_con * num_var + num_assign, true);
@@ -394,9 +403,8 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
       }
     }
     num_cla += num_cycle * num_con * num_var;
-    num_lit += num_cycle * (int)com_types.size();
     for(int i0 = 0; i0 < (int)com_types.size(); i0++) {
-      for(int i1 = 0; i1 < (int)com_types.size(); i1++) {
+      for(int i1 = i0 + 1; i1 < (int)com_types.size(); i1++) {
 	for(int l = 0; l < num_cycle; l++) {
 	  Glucose::Lit l0 = Glucose::mkLit(i0 + l * (int)com_types.size() + num_com + num_assign, true);
 	  Glucose::Lit l1 = Glucose::mkLit(i1 + l * (int)com_types.size() + num_com + num_assign, true);
@@ -405,8 +413,9 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
 	}
       }
     }
+    
   }
-  
+
   //  f << "p cnf " << num_lit << " " << num_cla << "\n";
 }
   /*
