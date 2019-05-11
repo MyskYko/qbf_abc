@@ -219,7 +219,7 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
   }
   num_cla += num_cycle * num_con * num_var;
 
-  //communication
+  //data appearance -> communication
   //com i from j to k at l
   for(int l = 0; l < num_cycle; l++) {
     int count = 0;
@@ -385,7 +385,8 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
       }
     }
     num_lit += num_cycle * (int)com_types.size();
-    while(num_lit >= S.nVars()) S.newVar(); 
+    while(num_lit >= S.nVars()) S.newVar();
+    //communicaion direction definition
     for(int l = 0; l < num_cycle; l++) {
       int count = 0;
       for(int k = 0; k < num_node; k++) {
@@ -402,6 +403,7 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
 	}
       }
     }
+    //direction must be onehot
     num_cla += num_cycle * num_con * num_var;
     for(int i0 = 0; i0 < (int)com_types.size(); i0++) {
       for(int i1 = i0 + 1; i1 < (int)com_types.size(); i1++) {
@@ -413,40 +415,63 @@ void cnf_generate(Glucose::SimpSolver &S, int num_var, int num_node, int num_cyc
 	}
       }
     }
-    
+    //send data if it has data
+    for(int l = 0; l < num_cycle; l++) {    
+      int count = 0;
+      for(int k = 0; k < num_node; k++) {
+	for(int j = 0; j < num_node; j++) {
+	  if(num_spx[j][k] > 0) {
+	    int com_type = std::find(com_types.begin(), com_types.end(), k - j) - com_types.begin();
+	    Glucose::vec<Glucose::Lit> ls;
+	    ls.push(Glucose::mkLit(com_type + l * (int)com_types.size() + num_com + num_assign, true));
+	    for(int i = 0; i < num_var; i++) {
+	      ls.push(Glucose::mkLit(i + count * num_var + l * num_con * num_var + num_assign));
+	    }
+	    for(int i = 0; i < num_var; i++) {
+	      ls.push(Glucose::mkLit(i + j * num_var + l * num_node * num_var, true));
+	      S.addClause(ls);
+	      ls.pop();
+	    }
+	    count += 1;
+	  }
+	}
+      }
+    }
+    num_cla += num_cycle * num_con * num_var;
+    //communication -> data appearance (no redundant communication in which received data is not stored)
+    for(int l = 0; l < num_cycle; l++) {
+      int count = 0;
+      for(int k = 0; k < num_node; k++) {
+	for(int j = 0; j < num_node; j++) {
+	  if(num_spx[j][k] > 0) {
+	    for(int i = 0; i < num_var; i++) {
+	      Glucose::Lit lcom = Glucose::mkLit(i + count * num_var + l * num_con * num_var + num_assign);
+	      Glucose::Lit ldprev = Glucose::mkLit(i + k * num_var + l * num_node * num_var);
+	      Glucose::Lit ldnext = Glucose::mkLit(i + k * num_var + (l + 1) * num_node * num_var);
+	      S.addClause(~lcom, ~ldprev);
+	      S.addClause(~lcom, ldnext);
+	    }
+	    count += 1;
+	  }
+	}
+      }
+    }
+    num_cla += num_cycle * num_con * num_var * 2;
+    //data cannot remain in the same node
+    for(int l = 0; l < num_cycle; l++) {
+      for(int k = 0; k < num_node; k++) {
+	for(int i = 0; i < num_var; i++) {
+	  Glucose::Lit l0 = Glucose::mkLit(i + k * num_var + l * num_node * num_var, true);
+	  Glucose::Lit l1 = Glucose::mkLit(i + k * num_var + (l + 1) * num_node * num_var, true);
+	  S.addClause(l0, l1);
+	}
+      }
+    }
+    num_cla += num_cycle * num_node * num_var;
   }
-
+  
   //  f << "p cnf " << num_lit << " " << num_cla << "\n";
 }
-  /*
-    #symmetric
-    #com i from j to k at l
-    if "symmetric" in options:
-        com_types = []
-        for l in range(0, num_cycle):
-            count = 0
-            for k in range(0, num_node):
-                for j in range(0, num_node):
-                    if num_spx[j][k] > 0:
-                        if k - j not in com_types:
-                            com_types.append(k - j)
-                        com_type = com_types.index(k - j)
-                        for i in range(0, num_var):
-                            f.write("-" + str(i + count * num_var + l * num_con * num_var + num_assign + 1) + " ")
-                            f.write(str(com_type + l * len(com_types) + num_com + num_assign + 1) + " 0\n")
-                        count += 1
-        num_cla += num_cycle * num_con * num_var
-        num_lit += num_cycle * len(com_types)
-        data = [i for i in range(0, len(com_types))]
-        for pattern in itertools.combinations(data, 2):
-            for l in range(0, num_cycle):
-                for com_type in pattern:
-                    f.write("-" + str(com_type + l * len(com_types) + num_com + num_assign + 1) + " ")
-                f.write("0\n")
-                num_cla += 1
-        
-    return num_lit, num_cla
-*/
 
 std::string text_omit_int(std::vector<std::vector<int> > array) {
   std::string str = "";

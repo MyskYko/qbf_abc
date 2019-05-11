@@ -10,3 +10,4 @@ __*
 tests
 log
 tests_old
+python_src/gen_cnf

@@ -46,8 +46,8 @@ def parse_com(f, mat_row, mat_col, num_cycle, assign):
         node_from = int(data[1])
         node_to = int(data[2])
         for i in range(3, len(data)):
-            if data[i] not in com[cycle][node_from][node_to]:
-                if data[i] not in assign[cycle][node_to] and data[i] in assign[cycle + 1][node_to]:
+            if data[i] not in com[cycle][node_from][node_to]: # removing duplicated communication of the same value
+                if data[i] not in assign[cycle][node_to] and data[i] in assign[cycle + 1][node_to]: # removing redundant communication
                     com[cycle][node_from][node_to].append(data[i])
         line = f.readline()
 
