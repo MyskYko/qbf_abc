@@ -1,17 +1,15 @@
-#include <impl_data.h>
 #include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
 #include <sstream>
 #include <algorithm>
 #include <cassert>
 
-void impl_data::read_file(char* file_name) {
-  
+#include "impl_data.hpp"
+
+bool impl_data::read_file(std::string file_name) {
   file.open(file_name, std::ios::in);
   if(!file) {
-    throw "cannot open impl file";
+    std::cout << "cannot open impl file" << std::endl;
+    return 1;
   }
   
   std::string str;
@@ -100,7 +98,8 @@ void impl_data::read_file(char* file_name) {
   }
   
   if(top_name == "__hoge") {
-    throw ".top not found in impl";
+    std::cout << "top not found in impl" << std::endl;
+    return 1;
   }
   
   max_candidate_count_x = 0;
@@ -131,6 +130,8 @@ void impl_data::read_file(char* file_name) {
       }
     }
   }
+  
+  return 0;
 }
 
 void impl_data::create_selection_signal() {
@@ -151,7 +152,7 @@ void impl_data::create_selection_signal() {
 	selection_signal = "__from_" + x_candidate_names[x_name][i] + "_to_" + x_name;
       }
       else {
-	selection_signal = "__from_" + x_candidate_names[group_symbol[x_group[x_name]]][i] + "_to_" + group_symbol[x_group[x_name]];	
+	selection_signal = "__from_" + x_candidate_names[group_symbol[x_group[x_name]]][i] + "_to_" + group_symbol[x_group[x_name]];
       }
       x_selection_signals[x_name].push_back(selection_signal);
       candidate_selection_signals[x_candidate_names[x_name][i]].push_back(selection_signal);
@@ -270,11 +271,12 @@ void impl_data::write_circuit(std::ofstream *write_file) {
   *write_file << selector;
 }
 
-void impl_data::read_result(std::string file_name) {
+int impl_data::read_result(std::string file_name) {
   std::ifstream result_file;
   result_file.open(file_name, std::ios::in);
   if(!result_file) {
-    throw "cannot open result file";
+    std::cout << "cannot open result file" << std::endl;
+    return -1;
   }
 
   std::string str;
@@ -306,7 +308,7 @@ void impl_data::read_result(std::string file_name) {
   }
   
   if(result == "hoge") {
-    throw "no solution";
+    return 0;
   }
   
   std::map<std::string, bool> selection_signal_result;
@@ -330,13 +332,16 @@ void impl_data::read_result(std::string file_name) {
     }
     assert(x_result[x_name] != "__error");
   }
+
+  return 1;
 }
 
-void impl_data::write_out(char* file_name) {
+bool impl_data::write_out(std::string file_name) {
   std::ofstream write_out;
   write_out.open(file_name, std::ios::out);
   if(!write_out) {
-    throw "cannot write out file";
+    std::cout << "cannot write out file" << std::endl;
+    return 1;
   }
   
   file.clear();
@@ -377,6 +382,8 @@ void impl_data::write_out(char* file_name) {
     }
     write_out << str << std::endl;
   }
+  
+  return 0;
 }
 
 void impl_data::show_simple() {

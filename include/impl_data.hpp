@@ -1,5 +1,4 @@
-#ifndef IMPL_DATA_H
-#define IMPL_DATA_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -41,15 +40,14 @@ class impl_data {
   std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals() { return candidate_selection_signals; }
   std::vector<std::string> copy_of_all_selection_signals() { return all_selection_signals; }
   double get_runtime() { return runtime; }
-  void read_file(char* file_name);
+  
+  bool read_file(std::string file_name);
   void create_selection_signal();
   void create_selector();
   void create_subckt();
   void write_circuit(std::ofstream *write_file);
-  void read_result(std::string file_name);
-  void write_out(char* file_name);
+  int read_result(std::string file_name);
+  bool write_out(std::string file_name);
   void show_simple();
   void show_detail();
 };
-
-#endif

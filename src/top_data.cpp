@@ -1,11 +1,8 @@
-#include <top_data.h>
 #include <iostream>
-#include <string>
-#include <vector>
-#include <map>
-#include <fstream>
 
-void top_data:: create_onehot_signal(std::vector<std::string> copy_of_onehot_candidate_names, std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals) {
+#include "top_data.hpp"
+
+bool top_data:: create_onehot_signal(std::vector<std::string> copy_of_onehot_candidate_names, std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_selection_signals) {
   onehot_candidate_names = copy_of_onehot_candidate_names;
   candidate_selection_signals = copy_of_candidate_selection_signals;
   x_names = copy_of_x_names;
@@ -14,7 +11,8 @@ void top_data:: create_onehot_signal(std::vector<std::string> copy_of_onehot_can
   max_signal_count_onehot = 0;
   for(auto candidate_name: onehot_candidate_names) {
     if(candidate_selection_signals[candidate_name].size() == 0) {
-      throw "There is no using \"" + candidate_name + "\" although it is in onehot";
+      std::cout << "There is no using \"" + candidate_name + "\" although it is in onehot" << std::endl;
+      return 1;
     }
     else {
       if(max_signal_count_onehot < candidate_selection_signals[candidate_name].size()) {
@@ -25,7 +23,8 @@ void top_data:: create_onehot_signal(std::vector<std::string> copy_of_onehot_can
 
   for(auto x_name: x_names) {
     if(x_selection_signals[x_name].size() == 0) {
-      throw x_name + " doesn't have candidates";
+      std::cout << x_name + " doesn't have candidates" << std::endl;
+      return 1;
     }
     else {
       if(max_signal_count_onehot < x_selection_signals[x_name].size()) {
@@ -47,6 +46,8 @@ void top_data:: create_onehot_signal(std::vector<std::string> copy_of_onehot_can
     constraint_signals.push_back(constraint_signal);
     onehot_x_name_to_constraint_signal[x_name] = constraint_signal;
   }
+  
+  return 0;
 }
 
 void top_data::create_output_constraint_signal(std::vector<std::string> copy_of_outputs) {

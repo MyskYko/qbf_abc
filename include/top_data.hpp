@@ -1,5 +1,4 @@
-#ifndef TOP_DATA_H
-#define TOP_DATA_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -34,7 +33,7 @@ class top_data {
 
  public:
   std::vector<std::string> copy_of_selection_signals() { return selection_signals; }
-  void create_onehot_signal(std::vector<std::string> copy_of_onehot_candidate_names, std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_candidates);
+  bool create_onehot_signal(std::vector<std::string> copy_of_onehot_candidate_names, std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_candidates);
   void create_output_constraint_signal(std::vector<std::string> copy_of_outputs);
   void create_onehot();
   void create_constraint_subckt();
@@ -42,5 +41,3 @@ class top_data {
   void write_circuit(std::ofstream *write_file);
   void show_detail();
 };
-
-#endif

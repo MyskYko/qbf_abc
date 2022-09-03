@@ -1,5 +1,4 @@
-#ifndef SPEC_DATA_H
-#define SPEC_DATA_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -16,9 +15,7 @@ class spec_data {
   std::string get_top_name() { return top_name; }
   std::vector<std::string> copy_of_inputs() { return inputs; }
   std::vector<std::string> copy_of_outputs() { return outputs; }
-  void read_file(char* file_name);
+  bool read_file(std::string file_name);
   void write_circuit(std::ofstream *write_file);
   void show_detail();
 };
-
-#endif

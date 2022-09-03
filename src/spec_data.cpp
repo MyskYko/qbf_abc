@@ -1,15 +1,13 @@
-#include <spec_data.h>
 #include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
 #include <sstream>
 
-void spec_data::read_file(char* file_name) {
-  
+#include "spec_data.hpp"
+
+bool spec_data::read_file(std::string file_name) {
   file.open(file_name, std::ios::in);
   if(!file) {
-    throw "cannot open spec file";
+    std::cout << "cannot open spec file" << std::endl;
+    return 1;
   }
   
   std::string str;
@@ -67,8 +65,11 @@ void spec_data::read_file(char* file_name) {
   }
 
   if(top_name == "__hoge") {
-    throw ".top not found in spec";
+    std::cout << ".top not found in spec" << std::endl;
+    return 1;
   }
+  
+  return 0;
 }
 
 void spec_data::write_circuit(std::ofstream *write_file) {
