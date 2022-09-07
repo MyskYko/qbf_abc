@@ -7,7 +7,10 @@
 
 #include "qbf_abc.hpp"
 
-int SolveQBF(std::string specname, std::string implname, std::string outname, bool fVerbose, bool fVerbose2) {
+int SolveQBF(std::string specname, std::string implname, std::string outname, std::string prefix, bool fVerbose, bool fVerbose2) {
+  std::string tmp_file_name = prefix + "tmp_top.blif";
+  std::string log_file_name = prefix + "log.txt";
+
   //read spec and store inputs, outputs, top
   spec_data spec;
   if(spec.read_file(specname)) {
@@ -37,7 +40,6 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, bo
   if(fVerbose2) { top.show_detail(); }
 
   // write tmp
-  std::string tmp_file_name = "__tmp_top.blif";
   std::ofstream tmp_file;
   tmp_file.open(tmp_file_name, std::ios::out);
   if(!tmp_file) {
@@ -51,7 +53,6 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, bo
   
   // solve
   if(fVerbose) { impl.show_simple(); }
-  std::string log_file_name = "__log.txt";
   std::string command = "abc -c \"read " + tmp_file_name + "; strash; qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + ";\" > " + log_file_name;
   system(command.c_str());
 

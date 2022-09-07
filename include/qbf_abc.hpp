@@ -2,4 +2,4 @@
 
 #include <string>
 
-int SolveQBF(std::string specname, std::string implname, std::string outname, bool fVerbose = false, bool fVerbose2 = false);
+int SolveQBF(std::string specname, std::string implname, std::string outname, std::string prefix = "_", bool fVerbose = false, bool fVerbose2 = false);

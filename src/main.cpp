@@ -22,12 +22,11 @@
 int main(int argc, char **argv) {
   // prepare to read file
   if(argc < 4) {
-    std::cout << "./a.out spec.blif impl.blif output.blif (flag_show_detail)" << std::endl;
+    std::cout << "./a.out spec.blif impl.blif output.blif" << std::endl;
     return 1;
   }
-  bool flag_show_detail = (argc > 4);
 
-  SolveQBF(argv[1], argv[2], argv[3], flag_show_detail);
+  SolveQBF(argv[1], argv[2], argv[3]);
 
   return 0;
 }
