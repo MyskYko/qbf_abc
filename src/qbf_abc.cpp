@@ -72,5 +72,5 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, bo
     return -1;
   }
   
-  return 0;
+  return 1;
 }
