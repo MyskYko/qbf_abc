@@ -7,7 +7,7 @@
 
 #include "qbf_abc.hpp"
 
-int SolveQBF(std::string specname, std::string implname, std::string outname, std::string prefix, bool fVerbose, bool fVerbose2) {
+int SolveQBF(std::string specname, std::string implname, std::string outname, int conflimit, std::string prefix, bool fVerbose, bool fVerbose2) {
   std::string tmp_file_name = prefix + "tmp_top.blif";
   std::string log_file_name = prefix + "log.txt";
 
@@ -58,7 +58,11 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, st
   
   // solve
   if(fVerbose) { impl.show_simple(); }
-  std::string command = "abc -c \"read " + tmp_file_name + "; &get; &qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + ";\" > " + log_file_name;
+  std::string command = "abc -c \"read " + tmp_file_name + "; &get; &qbf -v -P " + std::to_string(top.copy_of_selection_signals().size());
+  if(conflimit) {
+    command += " -C " + std::to_string(conflimit);
+  }
+  command +=  + ";\" > " + log_file_name;
   system(command.c_str());
 
   // get result
