@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  SolveQBF(argv[1], argv[2], argv[3]);
+  SolveQBF(argv[1], argv[2], argv[3], 0, "_", true);
 
   return 0;
 }
