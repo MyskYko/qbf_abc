@@ -281,6 +281,7 @@ int impl_data::read_result(std::string file_name) {
 
   std::string str;
   std::string result = "hoge";
+  bool flag_conflimit = false;
   while (getline(result_file, str)) {
     char delim = ' ';
     std::stringstream ss(str);
@@ -301,16 +302,22 @@ int impl_data::read_result(std::string file_name) {
       if(str2 == "Parameters:") {
 	flag_result = true;
       }
-      if(str2 == "runtime") {
+      if(str2 == "TOTAL") {
 	flag_runtime = true;
+      }
+      if(str2 == "aborted") {
+        flag_conflimit = true;
       }
     }
   }
   
   if(result == "hoge") {
+    if(flag_conflimit) {
+      return 2;
+    }
     return 0;
   }
-  
+
   std::map<std::string, bool> selection_signal_result;
   for(unsigned int i = 0; i < all_selection_signals.size(); i++) {
     if(result[i] == '1') {
@@ -469,7 +476,7 @@ void impl_data::show_detail() {
     std::cout << std::endl;
   }
 
-  if(runtime != 0) {
+  if(!x_result.empty()) {
     std::cout << "---result---" << std::endl;
     for(auto x_name : x_names) {
       std::cout << x_name  << ":" << x_result[x_name] << std::endl;

@@ -70,11 +70,16 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, in
   if(r < 0) {
     return -1;
   }
+  if(fVerbose) { std::cout << "runtime : " << impl.get_runtime() << std::endl; }
   if(r == 0) {
-    if(fVerbose) { std::cout << "UNSAT" << std::endl; }
+    if(fVerbose) { std::cout << "UNSAT" << std::endl << std::endl; }
     return 0;
   }
-  if(fVerbose) { std::cout << "SAT" << std::endl; }
+  if(r == 2) {
+    if(fVerbose) { std::cout << "UNDETERMINED" << std::endl << std::endl; }
+    return 0;
+  }
+  if(fVerbose) { std::cout << "SAT" << std::endl << std::endl; }
   if(fVerbose2) { impl.show_detail(); }
   
   // generate out file
