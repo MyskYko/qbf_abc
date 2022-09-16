@@ -60,6 +60,13 @@ void top_data::create_output_constraint_signal(std::vector<std::string> copy_of_
   }
 }
 
+void top_data::create_output_constraint_signal(std::vector<std::string> copy_of_spec_outputs, std::vector<std::string> copy_of_impl_outputs) {
+  spec_outputs = copy_of_spec_outputs;
+  impl_outputs = copy_of_impl_outputs;
+  relation_constraint_signal = "__relation_sat";
+  constraint_signals.push_back(relation_constraint_signal);
+}
+
 void top_data::create_onehot() {
   onehot += ".model __onehot\n";
   onehot += ".inputs";
@@ -87,6 +94,43 @@ void top_data::create_onehot() {
     onehot += " 1\n";
   }
   onehot += ".end\n";
+}
+
+void top_data::create_relation() {
+  relation += ".model __relation\n";
+  relation += ".inputs";
+  for(unsigned int i = 0; i < spec_outputs.size(); i++) {
+    relation += " spec" + std::to_string(i);
+  }
+  for(unsigned int i = 0; i < impl_outputs.size(); i++) {
+    relation += " impl" + std::to_string(i);
+  }
+  relation += "\n";
+  relation += ".outputs sat\n";
+  relation += ".names";
+  for(unsigned int i = 0; i < impl_outputs.size(); i++) {
+    relation += " impl" + std::to_string(i);
+  }
+  for(unsigned int i = 0; i < spec_outputs.size(); i++) {
+    relation += " spec" + std::to_string(i);
+  }
+  relation += " sat\n";
+  for(unsigned int i = 0; i < spec_outputs.size(); i++) {
+    unsigned int tmp = i;
+    for(unsigned int j = 0; j < impl_outputs.size(); j++) {
+      relation += std::to_string(tmp & 1);
+      tmp >>= 1;
+    }
+    for(unsigned int j = 0; j < spec_outputs.size(); j++) {
+      if(i == j) {
+        relation += "1";
+      } else {
+        relation += "-";
+      }
+    }
+    relation += " 1\n";
+  }
+  relation += ".end\n";
 }
 
 void top_data::create_constraint_subckt() {
@@ -126,7 +170,21 @@ void top_data::create_constraint_subckt() {
     subckt += "\n";
     constraint_subckts.push_back(subckt);
   }
-  
+
+  if(!relation_constraint_signal.empty()) {
+    std::string subckt;
+    subckt += ".subckt __relation";
+    for(unsigned int i = 0; i < spec_outputs.size(); i++) {
+      subckt += " spec" + std::to_string(i) + "=__spec" + std::to_string(i);
+    }
+    for(unsigned int i = 0; i < impl_outputs.size(); i++) {
+      subckt += " impl" + std::to_string(i) + "=__impl" + std::to_string(i);
+    }
+    subckt += " sat=" + relation_constraint_signal;
+    subckt += "\n";
+    constraint_subckts.push_back(subckt);
+  }
+
   std::string subckt;
   subckt += ".names";
   for(auto constraint_signal: constraint_signals) {
@@ -152,6 +210,9 @@ void top_data::create_circuit_subckt(std::string spec_top, std::string impl_top,
   for(auto output: outputs_to_be_compared) {
     spec_subckt += " " + output + "=" + output_to_spec_output[output]; 
   }
+  for(unsigned int i = 0; i < spec_outputs.size(); i++) {
+    spec_subckt += " " + spec_outputs[i] + "=__spec" + std::to_string(i);
+  }
   spec_subckt += '\n';
 
   circuit_subckts.push_back(spec_subckt);
@@ -166,6 +227,9 @@ void top_data::create_circuit_subckt(std::string spec_top, std::string impl_top,
   }
   for(auto output: outputs_to_be_compared) {
     impl_subckt += " " + output + "=" + output_to_impl_output[output]; 
+  }
+  for(unsigned int i = 0; i < impl_outputs.size(); i++) {
+    impl_subckt += " " + impl_outputs[i] + "=__impl" + std::to_string(i);
   }
   impl_subckt += '\n';
 
@@ -195,7 +259,11 @@ void top_data::write_circuit(std::ofstream *write_file) {
   *write_file << ".end" << std::endl << std::endl;
 
   *write_file << onehot << std::endl;
-  *write_file << eq << std::endl;
+  if(!relation.empty()) {
+    *write_file << relation << std::endl;
+  } else {
+    *write_file << eq << std::endl;
+  }
 }
 
 void top_data::show_detail() {

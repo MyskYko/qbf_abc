@@ -24,6 +24,7 @@ class top_data {
 
   std::string onehot = "";
   std::string eq = ".model __eq\n.inputs spec impl\n.outputs eq\n.names spec impl eq\n11 1\n00 1\n.end\n";
+  std::string relation = "";
   std::vector<std::string> constraint_subckts;
   
   std::vector<std::string> circuit_inputs;
@@ -31,11 +32,17 @@ class top_data {
   std::vector<std::string> selection_signals;
   std::string constraint_output = "__constraint";
 
+  std::string relation_constraint_signal;
+  std::vector<std::string> spec_outputs;
+  std::vector<std::string> impl_outputs;
+
  public:
   std::vector<std::string> copy_of_selection_signals() { return selection_signals; }
   bool create_onehot_signal(std::vector<std::string> copy_of_onehot_candidate_names, std::map<std::string, std::vector<std::string> > copy_of_candidate_selection_signals, std::vector<std::string> copy_of_x_names, std::map<std::string, std::vector<std::string> > copy_of_x_candidates);
   void create_output_constraint_signal(std::vector<std::string> copy_of_outputs);
+  void create_output_constraint_signal(std::vector<std::string> copy_of_spec_outputs, std::vector<std::string> copy_of_impl_outputs);
   void create_onehot();
+  void create_relation();
   void create_constraint_subckt();
   void create_circuit_subckt(std::string spec_top, std::string impl_top, std::vector<std::string> copy_of_inputs, std::vector<std::string> copy_of_selection_signals);
   void write_circuit(std::ofstream *write_file);
