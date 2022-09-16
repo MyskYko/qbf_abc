@@ -1,0 +1,12 @@
+#.top spec
+.model spec
+.inputs i0 i1 i2 i3
+.outputs o0 o1 o2 o3
+.names i3 o0
+0 1
+.names o1
+.names i0 i1 i2 i3 o2
+1111 0
+.names i0 i1 i2 i3 o3
+1111 1
+.end

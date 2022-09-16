@@ -1,0 +1,16 @@
+#.top impl
+.model impl
+.inputs i0 i1 i2 i3
+.outputs o0 o1
+.names zero
+.names one
+1
+.names a o0
+1 1
+.names one o1
+1 1
+.names i0 i1 i2 i3 a
+1111 1
+#.candidates zero one a x_o0
+#.candidates zero one a x_o1
+.end

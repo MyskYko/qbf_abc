@@ -1,0 +1,6 @@
+ABC command line: "read _tmp_top.blif; strash; qbf -v -P 6;".
+
+Hierarchy reader flattened 7 instances of logic boxes and left 0 black boxes.
+Iter  0 : AIG =     19  1011
+Parameters: 100100  Statistics: 0=4 1=6
+Solved after 0 iterations.  Total runtime =     0.01 sec

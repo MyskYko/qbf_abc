@@ -1,0 +1,73 @@
+.model __top
+.inputs __from_a_to_x_o0 __from_a_to_x_o1 __from_one_to_x_o0 __from_one_to_x_o1 __from_zero_to_x_o0 __from_zero_to_x_o1
+.inputs i0 i1 i2 i3
+.outputs __constraint
+.subckt spec i0=i0 i1=i1 i2=i2 i3=i3 o0=__spec0 o1=__spec1 o2=__spec2 o3=__spec3
+.subckt impl __from_a_to_x_o0=__from_a_to_x_o0 __from_a_to_x_o1=__from_a_to_x_o1 __from_one_to_x_o0=__from_one_to_x_o0 __from_one_to_x_o1=__from_one_to_x_o1 __from_zero_to_x_o0=__from_zero_to_x_o0 __from_zero_to_x_o1=__from_zero_to_x_o1 i0=i0 i1=i1 i2=i2 i3=i3 o0=__impl0 o1=__impl1
+.subckt __onehot in0=__from_zero_to_x_o0 in1=__from_one_to_x_o0 in2=__from_a_to_x_o0 out=__constraint_onehot_x_o0
+.subckt __onehot in0=__from_zero_to_x_o1 in1=__from_one_to_x_o1 in2=__from_a_to_x_o1 out=__constraint_onehot_x_o1
+.subckt __relation spec0=__spec0 spec1=__spec1 spec2=__spec2 spec3=__spec3 impl0=__impl0 impl1=__impl1 sat=__relation_sat
+.names __constraint_onehot_x_o0 __constraint_onehot_x_o1 __relation_sat __constraint
+111 1
+.end
+
+.model __onehot
+.inputs in0 in1 in2
+.outputs out
+.names in0 in1 in2 out
+100 1
+010 1
+001 1
+.end
+
+.model __relation
+.inputs spec0 spec1 spec2 spec3 impl0 impl1
+.outputs sat
+.names impl0 impl1 spec0 spec1 spec2 spec3 sat
+001--- 1
+10-1-- 1
+01--1- 1
+11---1 1
+.end
+
+#.top spec
+.model spec
+.inputs i0 i1 i2 i3
+.outputs o0 o1 o2 o3
+.names i3 o0
+0 1
+.names o1
+.names i0 i1 i2 i3 o2
+1111 0
+.names i0 i1 i2 i3 o3
+1111 1
+.end
+
+#.top impl
+.model impl
+.inputs __from_a_to_x_o0 __from_a_to_x_o1 __from_one_to_x_o0 __from_one_to_x_o1 __from_zero_to_x_o0 __from_zero_to_x_o1
+.subckt __selector in0=zero in1=one in2=a sel0=__from_zero_to_x_o0 sel1=__from_one_to_x_o0 sel2=__from_a_to_x_o0 out=x_o0
+.subckt __selector in0=zero in1=one in2=a sel0=__from_zero_to_x_o1 sel1=__from_one_to_x_o1 sel2=__from_a_to_x_o1 out=x_o1
+.inputs i0 i1 i2 i3
+.outputs o0 o1
+.names zero
+.names one
+1
+.names x_o0 o0
+1 1
+.names x_o1 o1
+1 1
+.names i0 i1 i2 i3 a
+1111 1
+#.candidates zero one a x_o0
+#.candidates zero one a x_o1
+.end
+
+.model __selector
+.inputs in0 in1 in2 sel0 sel1 sel2
+.outputs out
+.names in0 in1 in2 sel0 sel1 sel2 out
+1--100 1
+-1-010 1
+--1001 1
+.end
