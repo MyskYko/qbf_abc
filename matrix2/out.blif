@@ -6,23 +6,23 @@
 .names one
 1
 
-.names w21 reg_000
+.names Is2 reg_000
 1 1
-.names Is1 reg_001
+.names w21 reg_001
 1 1
 .names w22 reg_002
 1 1
-.names Is2 reg_010
+.names w11 reg_010
 1 1
-.names w12 reg_011
+.names Is1 reg_011
 1 1
-.names w11 reg_012
+.names w12 reg_012
 1 1
 .names zero operand_000
 1 1
 .names reg_000 operand_001
 1 1
-.names reg_001 operand_002
+.names reg_002 operand_002
 1 1
 .names zero operand_010
 1 1
@@ -46,16 +46,16 @@
 1 1
 .names reg_012 tmpreg_012
 1 1
-.names reg_001 con_0010
+.names reg_000 con_0010
 1 1
-.names reg_010 con_0100
+.names reg_011 con_0100
 1 1
 
 .names tmpreg_000 reg_100
 1 1
-.names con_0100 reg_101
+.names tmpreg_001 reg_101
 1 1
-.names tmpreg_002 reg_102
+.names con_0100 reg_102
 1 1
 .names con_0010 reg_110
 1 1
@@ -65,9 +65,9 @@
 1 1
 .names reg_100 operand_100
 1 1
-.names reg_102 operand_101
+.names reg_101 operand_101
 1 1
-.names reg_101 operand_102
+.names reg_102 operand_102
 1 1
 .names reg_111 operand_110
 1 1
@@ -75,14 +75,14 @@
 1 1
 .names reg_112 operand_112
 1 1
-.names ope_101 operesult_10
+.names ope_100 operesult_10
 1 1
 .names ope_110 operesult_11
 1 1
 
-.names operesult_10 reg_200
+.names reg_100 reg_200
 1 1
-.names reg_101 reg_201
+.names operesult_10 reg_201
 1 1
 .names reg_102 reg_202
 1 1
@@ -94,7 +94,7 @@
 1 1
 .names reg_210 Istim1
 1 1
-.names reg_200 Istim2
+.names reg_201 Istim2
 1 1
 
 #.candidates Is1 Is2 w11 w12 w21 w22 x_reg_000

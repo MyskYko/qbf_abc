@@ -1,6 +1,12 @@
-ABC command line: "read _tmp_top.blif; strash; qbf -v -P 6;".
+ABC command line: "read _tmp_top.blif; &get; &qbf -v -P 6;".
 
 Hierarchy reader flattened 7 instances of logic boxes and left 0 black boxes.
-Iter  0 : AIG =     19  1011
-Parameters: 100100  Statistics: 0=4 1=6
-Solved after 0 iterations.  Total runtime =     0.01 sec
+Solving QBF for "__top" with 6 parameters, 4 variables and 28 AIG nodes.
+    0 : 0000  Var =     10  Cla =      6  Conf =        0  Time =     0.00 sec
+    1 : 0001  Var =     14  Cla =      8  Conf =        0  Time =     0.00 sec
+    2 : 1111  Var =     18  Cla =      8  Conf =        0  Time =     0.00 sec
+Parameters: 100100  Statistics: 0=4 1=2
+The problem is SAT after 3 iterations.  
+SAT   =     0.00 sec
+Other =     0.00 sec
+TOTAL =     0.00 sec

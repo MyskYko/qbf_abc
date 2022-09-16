@@ -63,13 +63,32 @@
 .model __onehot
 .inputs in0 in1 in2 in3 in4 in5
 .outputs out
-.names in0 in1 in2 in3 in4 in5 out
-100000 1
-010000 1
-001000 1
-000100 1
-000010 1
-000001 1
+.names in0 in1 o0
+11 1
+.names in0 in1 int0
+00 0
+.names in2 in3 o1
+11 1
+.names in2 in3 int1
+00 0
+.names in4 in5 o2
+11 1
+.names in4 in5 int2
+00 0
+.names int0 int1 o3
+11 1
+.names int0 int1 intt0
+00 0
+.names int2 intt1
+1 1
+.names intt0 intt1 o4
+11 1
+.names intt0 intt1 inttt0
+00 0
+.names in0 in1 in2 in3 in4 in5 allzero
+000000 1
+.names o0 o1 o2 o3 o4 allzero out
+000000 1
 .end
 
 .model __eq
@@ -344,10 +363,10 @@
 .inputs in0 in1 in2 in3 in4 in5 sel0 sel1 sel2 sel3 sel4 sel5
 .outputs out
 .names in0 in1 in2 in3 in4 in5 sel0 sel1 sel2 sel3 sel4 sel5 out
-1-----100000 1
--1----010000 1
---1---001000 1
----1--000100 1
-----1-000010 1
------1000001 1
+1-----1----- 1
+-1-----1---- 1
+--1-----1--- 1
+---1-----1-- 1
+----1-----1- 1
+-----1-----1 1
 .end

@@ -1,18 +1,22 @@
-ABC command line: "read _tmp_top.blif; strash; qbf -v -P 146;".
+ABC command line: "read _tmp_top.blif; &get; &qbf -v -P 146;".
 
 Hierarchy reader flattened 112 instances of logic boxes and left 0 black boxes.
-Iter  0 : AIG =    857  101111
-Iter  1 : AIG =   1146  100000  Syn =     0.01 sec
-Iter  2 : AIG =   1447  001000  Syn =     0.00 sec
-Iter  3 : AIG =   1766  100010  Syn =     0.00 sec
-Iter  4 : AIG =   2055  000010  Syn =     0.01 sec
-Iter  5 : AIG =   2350  101000  Syn =     0.00 sec
-Iter  6 : AIG =   2645  010000  Syn =     0.01 sec
-Iter  7 : AIG =   2952  000100  Syn =     0.01 sec
-Iter  8 : AIG =   3271  010001  Syn =     0.01 sec
-Iter  9 : AIG =   3578  001010  Syn =     0.02 sec
-Iter 10 : AIG =   3873  000001  Syn =     0.02 sec
-Iter 11 : AIG =   4186  011100  Syn =     0.07 sec
-Iter 12 : AIG =   4505  111001  Syn =     0.04 sec
-Parameters: 01000000010010001010100110100010100100001001001100001101010001000001100000110101010010010011010000100000101011000001000010100000001000100100000000  Statistics: 0=102 1=50
-Solved after 12 iterations.  Total runtime =     0.52 sec
+Solving QBF for "__top" with 146 parameters, 6 variables and 693 AIG nodes.
+    0 : 000000  Var =    209  Cla =    280  Conf =        0  Time =     0.00 sec
+    1 : 010001  Var =    339  Cla =    882  Conf =        0  Time =     0.01 sec
+    2 : 010101  Var =    469  Cla =   1502  Conf =        0  Time =     0.01 sec
+    3 : 111001  Var =    600  Cla =   2124  Conf =      106  Time =     0.01 sec
+    4 : 011000  Var =    730  Cla =   2716  Conf =      355  Time =     0.02 sec
+    5 : 010100  Var =    860  Cla =   3320  Conf =      880  Time =     0.03 sec
+    6 : 111011  Var =    991  Cla =   3936  Conf =      895  Time =     0.03 sec
+    7 : 011111  Var =   1121  Cla =   4568  Conf =     1924  Time =     0.05 sec
+    8 : 110010  Var =   1252  Cla =   5172  Conf =     1961  Time =     0.05 sec
+    9 : 111110  Var =   1383  Cla =   5788  Conf =     2475  Time =     0.06 sec
+   10 : 111101  Var =   1514  Cla =   6404  Conf =     5856  Time =     0.15 sec
+   11 : 100110  Var =   1644  Cla =   7012  Conf =     7324  Time =     0.18 sec
+   12 : 100011  Var =   1774  Cla =   7620  Conf =     7327  Time =     0.19 sec
+Parameters: 00001010000010000110101010100010010100101000000100011001011001000001100101000011010010010011000100100000110011000100000001010000001000100100000000  Statistics: 0=102 1=44
+The problem is SAT after 13 iterations.  
+SAT   =     0.14 sec
+Other =     0.05 sec
+TOTAL =     0.19 sec
