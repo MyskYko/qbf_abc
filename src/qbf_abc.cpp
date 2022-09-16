@@ -33,7 +33,12 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, st
   if(top.create_onehot_signal(impl.copy_of_onehot_candidate_names(), impl.copy_of_candidate_selection_signals(), impl.copy_of_x_names(), impl.copy_of_x_selection_signals())) {
     return -1;
   }
-  top.create_output_constraint_signal(spec.copy_of_outputs());
+  if(spec.copy_of_outputs().size() != impl.copy_of_outputs().size()) {
+    top.create_output_constraint_signal(spec.copy_of_outputs(), impl.copy_of_outputs());
+    top.create_relation();
+  } else {
+    top.create_output_constraint_signal(spec.copy_of_outputs());
+  }
   top.create_onehot();
   top.create_constraint_subckt();
   top.create_circuit_subckt(spec.get_top_name(), impl.get_top_name(), spec.copy_of_inputs(), impl.copy_of_all_selection_signals());
@@ -53,7 +58,7 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, st
   
   // solve
   if(fVerbose) { impl.show_simple(); }
-  std::string command = "abc -c \"read " + tmp_file_name + "; strash; qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + ";\" > " + log_file_name;
+  std::string command = "abc -c \"read " + tmp_file_name + "; &get; &qbf -v -P " + std::to_string(top.copy_of_selection_signals().size()) + ";\" > " + log_file_name;
   system(command.c_str());
 
   // get result
