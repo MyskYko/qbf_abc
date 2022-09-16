@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <cerrno>
+#include <cstring>
 
 #include "spec_data.hpp"
 #include "impl_data.hpp"
@@ -63,7 +66,14 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, in
     command += " -C " + std::to_string(conflimit);
   }
   command +=  + ";\" > " + log_file_name;
-  system(command.c_str());
+  int status = system(command.c_str());
+  if(status < 0) {
+    std::cout << "Error running ABC: " << std::strerror(errno) << std::endl;
+    return -1;
+  } else if(!WIFEXITED(status)) {
+    std::cout << "ABC exited abnormaly" << std::endl;
+    return -1;
+  }
 
   // get result
   int r = impl.read_result(log_file_name);
@@ -78,7 +88,7 @@ int SolveQBF(std::string specname, std::string implname, std::string outname, in
     if(fVerbose) { std::cout << "UNDETERMINED " << impl.get_runtime() << std::endl << std::endl; }
     return 0;
   }
-  if(fVerbose) { std::cout << "SAT " << impl.get_runtime() << std::endl << std::endl; }
+  if(fVerbose) { std::cout << "SATISFIABLE " << impl.get_runtime() << std::endl << std::endl; }
   if(fVerbose2) { impl.show_detail(); }
   
   // generate out file
