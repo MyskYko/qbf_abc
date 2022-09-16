@@ -75,24 +75,78 @@ void top_data::create_onehot() {
   }
   onehot += "\n";
   onehot += ".outputs out\n";
-
+  unsigned int level = 0;
+  unsigned int nout = 0;
+  unsigned int t = max_signal_count_onehot;
+  while(t > 1) {
+    for(unsigned int i = 0; i < t/2; i++) {
+      onehot += ".names";
+      onehot += " in";
+      for(unsigned int j = 0; j < level; j++) {
+        onehot += "t";
+      }
+      onehot += std::to_string(i+i);
+      onehot += " in";
+      for(unsigned int j = 0; j < level; j++) {
+        onehot += "t";
+      }
+      onehot += std::to_string(i+i+1);
+      onehot += " o" + std::to_string(nout++);
+      onehot += "\n11 1\n";
+      onehot += ".names";
+      onehot += " in";
+      for(unsigned int j = 0; j < level; j++) {
+        onehot += "t";
+      }
+      onehot += std::to_string(i+i);
+      onehot += " in";
+      for(unsigned int j = 0; j < level; j++) {
+        onehot += "t";
+      }
+      onehot += std::to_string(i+i+1);
+      onehot += " in";
+      for(unsigned int j = 0; j < level + 1; j++) {
+        onehot += "t";
+      }
+      onehot += std::to_string(i);
+      onehot += "\n00 0\n";
+    }
+    if(t % 2) {
+      onehot += ".names";
+      onehot += " in";
+      for(unsigned int j = 0; j < level; j++) {
+        onehot += "t";
+      }
+      onehot += std::to_string(t-1);
+      onehot += " in";
+      for(unsigned int j = 0; j < level + 1; j++) {
+        onehot += "t";
+      }
+      onehot += std::to_string(t/2);
+      onehot += "\n1 1\n";
+    }
+    t = (t + 1) / 2;
+    level++;
+  }
   onehot += ".names";
   for(unsigned int i = 0; i < max_signal_count_onehot; i++) {
     onehot += " in" + std::to_string(i);
   }
-  onehot += " out\n";
-
+  onehot += " allzero\n";
   for(unsigned int i = 0; i < max_signal_count_onehot; i++) {
-    for(unsigned int j = 0; j < max_signal_count_onehot; j++) {
-      if(i == j) {
-	onehot += "1";
-      }
-      else {
-	onehot += "0";
-      }
-    }
-    onehot += " 1\n";
+    onehot += "0";
   }
+  onehot += " 1\n";
+
+  onehot += ".names";
+  for(unsigned int i = 0; i < nout; i++) {
+    onehot += " o" + std::to_string(i);
+  }
+  onehot += " allzero out\n";
+  for(unsigned int i = 0; i < nout + 1; i++) {
+    onehot += "0";
+  }
+  onehot += " 1\n";
   onehot += ".end\n";
 }
 

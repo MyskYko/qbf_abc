@@ -203,7 +203,7 @@ void impl_data::create_selector() {
 	selector += "1";
       }
       else {
-	selector += "0";
+	selector += "-";
       }
     }
     selector += " 1\n";
